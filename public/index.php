@@ -5,18 +5,32 @@ require_once __DIR__ . '/../app/config/db.php';
 // Capturamos la URL (ej: /alumnos, /clases)
 $route = $_GET['url'] ?? 'home';
 
-// Un ruteador básico para este commit inicial
+
 switch ($route) {
     case 'home':
         require_once __DIR__ . '/../app/controllers/HomeController.php';
-        $controller = new HomeController();
-        $controller->index();
+        (new HomeController())->index();
         break;
-        
-    case 'usuarios':
+
+    case 'login': // Vista del formulario
         require_once __DIR__ . '/../app/controllers/UsuarioController.php';
-        $controller = new UsuarioController();
-        $controller->index();
+        (new UsuarioController())->showLogin();
+        break;
+
+    case 'auth': // Proceso de validación (Fetch)
+        require_once __DIR__ . '/../app/controllers/UsuarioController.php';
+        (new UsuarioController())->auth();
+        break;
+
+    case 'register':
+        require_once __DIR__ . '/../app/controllers/UsuarioController.php';
+        (new UsuarioController())->register();
+        break;
+
+    case 'logout':
+        session_start();
+        session_destroy();
+        header('Location: ?url=login');
         break;
 
     default:
