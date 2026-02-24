@@ -1,45 +1,64 @@
-// public/js/services/ui.js
+/**
+ * Servicio de Interfaz de Usuario
+ * Centraliza el uso de SweetAlert2 para que los módulos no dependan 
+ * directamente de la librería y para estandarizar las respuestas del sistema.
+ */
 
 export const handleAlert = (status, message, redirectUrl = null) => {
-  switch (status) {
-    case "user_exists":
-          Swal.fire({
+    // Definimos la configuración base según el estado (status) que devuelve el servidor
+    switch (status) {
+        
+        case "user_exists":
+            /**
+             * Caso especial: El usuario ya tiene cuenta.
+             * Usamos allowOutsideClick: false para forzar al alumno a entender 
+             * que debe ir al login en lugar de intentar registrarse de nuevo.
+             */
+            Swal.fire({
                 icon: 'info',
-                title: 'Usuario registrado',
+                title: 'Usuario Registrado',
                 text: message,
-                confirmButtonText: 'Ir al Inicio',
+                confirmButtonText: 'Ir a Login',
                 confirmButtonColor: '#0d6efd',
-                allowOutsideClick: false // Obligamos a que interactúe con el botón
+                allowOutsideClick: false 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // SOLUCIÓN DEFINITIVA: 
-                    // Si redirectUrl es '?url=home', esto construye 'http://localhost/proyecto/?url=home'
+                    // Construcción de URL absoluta para evitar errores de navegación profunda
                     const destination = window.location.origin + window.location.pathname + (redirectUrl || '');
                     window.location.replace(destination);
                 }
             });
-            break; 
-    /*   alert("Intentando redirigir a: " + redirectUrl); // TEST DE FUERZA BRUTA
-      window.location.href =
-        window.location.origin + window.location.pathname + redirectUrl;
-      break; */
-    case "success":
-      Swal.fire({
-        icon: "success",
-        title: "¡Éxito!",
-        text: message,
-      }).then(() => {
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        }
-      });
-      break;
+            break;
 
-    case "error":
-      Swal.fire("Error", message, "error");
-      break;
+        case "success":
+            /**
+             * Operación exitosa. Si hay una URL de redirección, 
+             * esperamos a que el usuario cierre la alerta para navegar.
+             */
+            Swal.fire({
+                icon: "success",
+                title: "Success!",
+                text: message,
+            }).then(() => {
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            });
+            break;
 
-    default:
-      Swal.fire("Aviso", message, "info");
-  }
+        case "error":
+            // Errores críticos (ej: fallo en la base de datos o excepción)
+            Swal.fire("System Error", message, "error");
+            break;
+
+        case "warning":
+            // Validaciones de formulario (ej: campos vacíos, contraseñas cortas)
+            Swal.fire("Attention", message, "warning");
+            break;
+
+        default:
+            // Avisos generales
+            Swal.fire("Notice", message, "info");
+            break;
+    }
 };
