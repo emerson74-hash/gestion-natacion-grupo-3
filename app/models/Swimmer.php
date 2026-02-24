@@ -1,0 +1,42 @@
+<?php
+
+class Swimmer {
+    private $db;
+
+    public function __construct($pdo) {
+        $this->db = $pdo;
+    }
+
+    /**
+     * Obtiene todos los nadadores con sus correos electrónicos (INNER JOIN)
+     * la tabla de perfiles con la tabla de credenciales.
+     */
+    public function getAll() {
+        $sql = "SELECT s.*, u.email 
+                FROM swimmers s 
+                INNER JOIN users u ON s.user_id = u.id 
+                WHERE s.deleted_at IS NULL";
+        
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Inserta los datos personales vinculados a un user_id.
+     * Recibe un array asociativo para mayor flexibilidad y escalabilidad.
+     * @param array $data ['user_id', 'first_name', 'last_name', 'phone']
+     */
+    public function create(array $data) {
+        $sql = "INSERT INTO swimmers (user_id, first_name, last_name, phone) 
+                VALUES (?, ?, ?, ?)";
+        
+        $stmt = $this->db->prepare($sql);
+        
+        return $stmt->execute([
+            $data['user_id'],
+            $data['first_name'],
+            $data['last_name'],
+            $data['phone']
+        ]);
+    }
+}
