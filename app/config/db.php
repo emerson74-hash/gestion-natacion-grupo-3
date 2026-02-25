@@ -1,10 +1,16 @@
 <?php
 // app/config/db.php
-$host = 'localhost';
-$db   = 'escuela_natacion';
-$user = 'root';
-$pass = ''; // Password por defecto de Laragon
-$charset = 'utf8mb4';
+
+/**
+ * Usamos getenv para mayor seguridad y flexibilidad.
+ * Si no encuentra la variable de entorno, usamos un valor por defecto (fallback).
+ */
+
+$host    = getenv('DB_HOST')    ?: 'localhost';
+$db      = getenv('DB_NAME')    ?: ''; 
+$user    = getenv('DB_USER')    ?: 'root';
+$pass    = getenv('DB_PASS')    ?: '';
+$charset = getenv('DB_CHARSET') ?: 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
@@ -15,7 +21,8 @@ $options = [
 
 try {
      $pdo = new PDO($dsn, $user, $pass, $options);
-     // echo "Conexión exitosa"; // Solo para el testeo manual
 } catch (\PDOException $e) {
-     throw new \PDOException($e->getMessage(), (int)$e->getCode());
+     // En producción, es mejor loguear el error y mostrar un mensaje genérico
+     error_log($e->getMessage());
+     die("Error de conexión a la base de datos.");
 }
