@@ -8,8 +8,10 @@ try {
 
     // 'Punteamos' la variable del .env a una constante global de PHP
     // Esto asegura que BASE_URL NUNCA termine en barra, sin importar cómo esté en el .env
-    $envUrl = getenv( 'BASE_URL' ) ?: 'http://gestion-natacion.test/';
-    define( 'BASE_URL', rtrim( $envUrl, '/' ) );
+    $envUrl = Env::get( 'APP_URL' ) ?: 'http://localhost/gestion-natacion';
+
+    // Definimos la constante asegurando que no tenga barra al final
+    define( '_URL', rtrim( $envUrl, '/' ) );
 
 } catch ( Exception $e ) {
     die( 'Error crítico: ' . $e->getMessage() );
