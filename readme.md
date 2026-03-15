@@ -1,48 +1,62 @@
+# 🏊 Sistema de Gestión - Natación
+
+Este es un entorno de desarrollo profesional diseñado para la gestión de alumnos y entrenamientos. El proyecto utiliza una arquitectura MVC (Modelo-Vista-Controlador) y ruteo dinámico.
+
 ## 🚀 Requisitos Previos
 
 Para correr este proyecto localmente, necesitarás:
-* **Laragon** (Recomendado) o XAMPP con PHP 8.1+
-* **Git:** Necesario para el control de versiones. Podés descargarlo en [git-scm.com](https://git-scm.com/).
-* **Composer:** (Si utilizás XAMPP, debés instalarlo manualmente. Laragon lo incluye por defecto).
-* **MySQL/MariaDB**
+* **XAMPP** con PHP 8.1+: Servidor local para Apache y MySQL. [Descargar aquí](https://www.apachefriends.org/es/index.html).
+* **Git:** Para el control de versiones. [Descargar aquí](https://git-scm.com/).
+* **Composer:** Gestor de dependencias. [Descargar aquí](https://getcomposer.org/).
 
-## 🛠️ Configuración del Entorno
+## 🛠️ Configuración del Entorno (XAMPP)
 
-1. **Base de Datos:**
-   * Abrí el Dashboard de **Laragon** y hacé clic en el botón **Database**. Se abrirá **phpMyAdmin**.
-   * **Ayuda:** Si no tenés phpMyAdmin en tu Laragon, seguí este [tutorial de instalación](https://www.youtube.com/watch?v=0k1L655S3e8).
-   * Creá una nueva base de datos llamada `swimming_pool`.
-   * Entrá a la carpeta `database/` en la raíz del proyecto e importá el archivo `swimming_pool.sql`.
+1. **Ubicación del Proyecto (¡CRÍTICO!):**
+   * El proyecto debe clonarse directamente en `C:\xampp\htdocs\`.
+   * **Estructura correcta:** `C:\xampp\htdocs\gestion-natacion\`
+   * ⚠️ **Atención:** Si al entrar a la carpeta ves otra carpeta llamada igual (`gestion-natacion/gestion-natacion`), el ruteo **no funcionará**. Los archivos deben estar en el primer nivel de la carpeta del proyecto.
 
-2. **Variables de Entorno y Archivos:**
-   * Renombrá el archivo `.env.template` a `.env`.
-   * Editá las variables según tu configuración local. Es fundamental configurar correctamente la `BASE_URL` (ej: `http://localhost/gestion-natacion`) para que la carga de imágenes sea correcta.
-   * **Imágenes de Perfil:** El sistema gestiona las fotos en `public/img/uploads/profiles/swimmers/`. Asegurate de que el archivo `default-profile.png` esté presente en dicho directorio para evitar errores de carga.
+2. **Base de Datos:**
+   * Abrí el **XAMPP Control Panel** e iniciá Apache y MySQL.
+   * Entrá a **phpMyAdmin** (botón Admin de MySQL).
+   * Creá la base de datos `swimming_pool`.
+   * Importá el archivo ubicado en `database/swimming_pool.sql`.
+   * **Nota:** Verificá que la tabla `password_resets` incluya la columna `expires_at`.
+
+3. **Variables de Entorno (.env):**
+   * Renombrá `.env.template` a `.env`.
+   * Configurá `APP_URL="http://localhost/gestion-natacion"` (**sin barra final y sin /public**).
+   * Completá los datos de SMTP (Host, User, Password) para habilitar el recupero de contraseña.
+
+4. **Configuración de Apache:**
+   * En el Panel de XAMPP, clic en **Config** (Apache) -> **httpd.conf**.
+   * Buscá la sección `<Directory "C:/xampp/htdocs">`.
+   * Cambiá `AllowOverride None` por **`AllowOverride All`**.
+   * Guardá y **REINICIÁ Apache**.
+
+## 🔌 Herramientas de Testeo (Postman)
+
+Recomendamos usar **Postman** para testear las respuestas del servidor:
+* **Ejemplo de uso:** * Tipo de petición: **POST**
+  * URL: `http://localhost/gestion-natacion/?url=login`
+  * Body: Seleccioná `form-data` y agregá los campos `email` y `password`.
+  * Esto te permitirá ver la respuesta JSON pura antes de procesarla en el frontend.
 
 ## 📚 Documentación y Recursos Útiles
 
 | Tecnología | Recurso | Utilidad |
 | :--- | :--- | :--- |
-| **Git** | [Git Documentation](https://git-scm.com/doc) | Guía de comandos básicos y flujo de trabajo. |
-| **PHP** | [Manual Oficial](https://www.php.net/manual/es/) | Consulta de funciones y PDO. |
-| **JavaScript** | [MDN Web Docs](https://developer.mozilla.org/es/docs/Web/JavaScript) | Guía de JS y Fetch API. |
-| **Bootstrap 5** | [W3Schools BS5](https://www.w3schools.com/bootstrap5/) | Referencia de componentes y grilla. |
-| **Diseño** | [Coolors.co](https://coolors.co/) | Generación de paletas de colores. |
-
-## 🔌 Extensiones Recomendadas (VS Code)
-
-Para un entorno de desarrollo fluido y evitar errores comunes, se recomienda instalar:
-* **PHP Intelephense**: Autocompletado profesional y navegación de código.
-* **PHP Debug**: Para realizar debugging real junto con Xdebug (incluido en Laragon).
-* **Auto Rename Tag**: Mantiene etiquetas HTML sincronizadas automáticamente.
-* **Thunder Client**: Cliente ligero para testear peticiones API/Fetch desde el editor.
+| **Git** | [Git Documentation](https://git-scm.com/doc) | Guía de comandos y flujo. |
+| **PHP** | [Manual Oficial](https://www.php.net/manual/es/) | Funciones y manejo de PDO. |
+| **JavaScript** | [MDN Web Docs](https://developer.mozilla.org/es/docs/Web/JavaScript) | Fetch API y manipulación del DOM. |
+| **Bootstrap 5** | [W3Schools BS5](https://www.w3schools.com/bootstrap5/) | Grillas y componentes. |
 
 ## 🌟 Recursos "PRO" (Desafíos Sugeridos)
 
 Para quienes deseen profundizar, recomendamos explorar estas librerías profesionales:
 * **Alertas:** [SweetAlert2](https://sweetalert2.github.io/) (Ya implementado) y [Toastr](https://codeseven.github.io/toastr/).
-* **Imágenes:** [Cropper.js](https://fengyuanchen.github.io/cropperjs/) para recorte y ajuste de fotos de perfil.
-* **Tablas:** [DataTables](https://datatables.net/) para gestión avanzada de listados y búsquedas.
+* **Imágenes:** [Cropper.js](https://fengyuanchen.github.io/cropperjs/) para recorte de fotos de perfil.
+* **Tablas:** [DataTables](https://datatables.net/) para gestión avanzada de listados.
 
 ---
-*Este proyecto busca simular un entorno profesional de desarrollo. El uso de Git y la lectura de documentación técnica son parte integral de la formación.*
+*Este proyecto simula un entorno laboral real. La correcta configuración del entorno es el primer paso de todo desarrollador profesional.*

@@ -24,7 +24,7 @@ class MailService
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = Env::get( 'MAIL_PORT' );
 
-            $mail->setFrom( Env::get( 'MAIL_FROM_ADDRESS' ), 'Soporte Escuela de Natación' );
+            $mail->setFrom( Env::get( 'MAIL_FROM' ), 'Soporte Escuela de Natación' );
             //$mail->setFrom( 'lic.juanpablocesarini@gmail.com', 'Escuela de Natación' );
             $mail->addAddress( $toEmail );
 
@@ -32,7 +32,7 @@ class MailService
             $mail->CharSet = 'UTF-8';
             $mail->Subject = 'Recuperación de contraseña';
 
-            $baseUrl = Env::get( 'BASE_URL' );
+            $baseUrl = Env::get( 'APP_URL' );
             $resetLink = rtrim( $baseUrl, '/' ) . '/index.php?url=reset-password&token=' . $token;
 
             // Armamos el Body con un formato más robusto

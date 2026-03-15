@@ -84,6 +84,7 @@ class UserController extends BaseController {
         }
 
         // --- GESTIÓN DE IMAGEN DE PERFIL ---
+        $tempFile = null;
         if ( isset( $_FILES[ 'profile_image' ] ) && $_FILES[ 'profile_image' ][ 'error' ] === UPLOAD_ERR_OK ) {
             $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/swimmers/';
 
@@ -95,7 +96,6 @@ class UserController extends BaseController {
             $allowed = [ 'jpg', 'jpeg', 'png', 'gif' ];
 
             if ( in_array( $extension, $allowed ) ) {
-                // --- NUEVA LÓGICA DE NOMBRE DE ARCHIVO ---
 
                 // 1. Tomamos la inicial del nombre en minúscula
                 $initial = strtolower( substr( $fields[ 'first_name' ], 0, 1 ) );
@@ -108,15 +108,17 @@ class UserController extends BaseController {
 
                 // Resultado ej: jperez_4521.jpg
                 $newFileName = 'swimmer_' . $initial . $lastName . '_' . $randomNumber . '.' . $extension;
+                $absolutePath = $uploadDir . $newFileName;
 
-                if ( move_uploaded_file( $_FILES[ 'profile_image' ][ 'tmp_name' ], $uploadDir . $newFileName ) ) {
+                if ( move_uploaded_file( $_FILES[ 'profile_image' ][ 'tmp_name' ], $absolutePath ) ) {
                     $fields[ 'profile_image' ] = $newFileName;
+                    $tempFile = $absolutePath;
                 }
             }
         }
 
         // 3. Pasamos a la ejecución de la lógica
-        return $this->executeRegistration( $fields );
+        return $this->executeRegistration( $fields, $tempFile );
     }
 
     /**
@@ -124,12 +126,20 @@ class UserController extends BaseController {
     * Enseñamos que si algo falla en el medio, no debe quedar basura en la DB.
     */
 
-    private function executeRegistration( $f ) {
+    private function executeRegistration( $f, $tempFile = null ) {
 
         try {
             if ( $this->userModel->findByEmail( $f[ 'email' ] ) ) {
-                // Usamos la constante BASE_URL para la redirección
-                return $this->json( 'user_exists', 'Ya tienes una cuenta registrada.', BASE_URL . '/?url=login' );
+                // Si el usuario existe, borramos el archivo físico que acabamos de subir
+                if ( $tempFile && file_exists( $tempFile ) ) {
+                    unlink( $tempFile );
+
+                }
+                $baseUrl = rtrim( Env::get( 'APP_URL' ), '/' );
+
+                $loginUrl = $baseUrl . '/?url=login';
+
+                return $this->json( 'user_exists', 'Ya tienes una cuenta registrada.', Env::get( 'APP_URL' ) . '/?url=login' );
             }
 
             $this->pdo->beginTransaction();
@@ -148,10 +158,26 @@ class UserController extends BaseController {
 
             $this->pdo->commit();
 
-            return $this->json( 'success', '¡Registro completado!', BASE_URL . '/?url=login' );
+            // 1. Obtenemos la URL base del .env ( ej: http://localhost/gestion-natacion )
+            $baseUrl = rtrim( Env::get( 'APP_URL' ), '/' );
+
+            // 2. Si por algún error el .env está vacío, fallamos con una base segura
+            if ( empty( $baseUrl ) ) {
+                $baseUrl = 'http://localhost/gestion-natacion';
+            }
+
+            // 3. Construimos la URL final
+            $loginUrl = $baseUrl . '/?url=login';
+
+            return $this->json( 'success', '¡Registro completado!', $loginUrl );
 
         } catch ( Exception $e ) {
             if ( $this->pdo->inTransaction() ) $this->pdo->rollBack();
+            // Si algo falló en SQL, borramos la foto para no dejar basura
+            if ( $tempFile && file_exists( $tempFile ) ) {
+                unlink( $tempFile );
+            }
+            ;
             return $this->json( 'error', 'No se pudo completar: ' . $e->getMessage() );
         }
     }
@@ -179,7 +205,7 @@ class UserController extends BaseController {
 
             $_SESSION[ 'profile_image' ] = $user[ 'profile_image' ];
 
-            return $this->json( 'success', '¡Bienvenido ' . $user[ 'first_name' ] . '!', BASE_URL . '/?url=home' );
+            return $this->json( 'success', '¡Bienvenido ' . $user[ 'first_name' ] . '!', Env::get( 'APP_URL' ) . '/?url=home' );
         }
 
         return $this->json( 'error', 'Credenciales incorrectas.' );
@@ -212,7 +238,7 @@ class UserController extends BaseController {
             }
         }
 
-        return $this->json( 'success', 'Si el correo existe, recibirás un enlace de recuperación.', BASE_URL . '/?url=login' );
+        return $this->json( 'success', 'Si el correo existe, recibirás un enlace de recuperación.', Env::get( 'APP_URL' ) . '/?url=login' );
     }
 
     public function showResetForm() {
@@ -249,7 +275,7 @@ class UserController extends BaseController {
                 $this->userModel->deleteToken( $token );
 
                 $this->pdo->commit();
-                return $this->json( 'success', '¡Contraseña actualizada con éxito!', BASE_URL . '?url=login' );
+                return $this->json( 'success', '¡Contraseña actualizada con éxito!', Env::get( 'APP_URL' ) . '?url=login' );
 
             } catch ( Exception $e ) {
                 if ( $this->pdo->inTransaction() ) $this->pdo->rollBack();
