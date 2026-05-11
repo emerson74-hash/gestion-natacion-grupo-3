@@ -26,6 +26,11 @@
                                     <input type="password" name="password" class="form-control"
                                         placeholder="Mín. 6 caracteres" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Repita la contraseña</label>
+                                    <input type="password" name="passwordconfirm" class="form-control"
+                                        placeholder="Mín. 6 caracteres" required>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
