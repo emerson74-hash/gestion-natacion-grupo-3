@@ -94,7 +94,7 @@ class UserController extends BaseController
         if (strlen($fields['passwordconfirm']) < 6) {
             return $this->json('warning', 'La contraseña es muy corta (mín. 6 caracteres).');
         }
-
+        //pide que las contraseñas sean iguales
         if ($fields['password'] !== $fields['passwordconfirm']) {
             return $this->json('warning', 'Las contraseñas no coinciden.');
         }
@@ -133,6 +133,7 @@ class UserController extends BaseController
             }
         }
 
+        
         // 3. Pasamos a la ejecución de la lógica
         return $this->executeRegistration($fields, $tempFile);
     }
@@ -152,11 +153,15 @@ class UserController extends BaseController
                     unlink($tempFile);
 
                 }
-                $baseUrl = rtrim(Env::get('APP_URL'), '/');
+                //cambio esto lo dejo comentado porque creo que ya no hace nada
+               // $baseUrl = rtrim(Env::get('APP_URL'), '/');
 
-                $loginUrl = $baseUrl . '/?url=login';
-
-                return $this->json('user_exists', 'Ya tienes una cuenta registrada.', Env::get('APP_URL') . '/?url=login');
+               // $loginUrl = $baseUrl . '/?url=login';
+                //aca si hay error no cambia de pagina sigue en la msima
+                return $this->json(
+                    'warning',
+                    'Ya tienes una cuenta registrada.'
+                );
             }
 
             $this->pdo->beginTransaction();
