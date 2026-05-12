@@ -12,7 +12,7 @@ class SwimmerController extends BaseController {
     public function dashboard() {
         // Verificamos si el usuario está logueado antes de mostrar el panel
         $this->checkAuth();
-
+        $this->checkRole([3]);
         $data = [
             'title' => "Dashboard - Swimming School",
             'user'  => $_SESSION['email'] ?? 'Guest'
