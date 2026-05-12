@@ -133,7 +133,7 @@ class UserController extends BaseController
             }
         }
 
-        
+
         // 3. Pasamos a la ejecución de la lógica
         return $this->executeRegistration($fields, $tempFile);
     }
@@ -154,9 +154,9 @@ class UserController extends BaseController
 
                 }
                 //cambio esto lo dejo comentado porque creo que ya no hace nada
-               // $baseUrl = rtrim(Env::get('APP_URL'), '/');
+                // $baseUrl = rtrim(Env::get('APP_URL'), '/');
 
-               // $loginUrl = $baseUrl . '/?url=login';
+                // $loginUrl = $baseUrl . '/?url=login';
                 //aca si hay error no cambia de pagina sigue en la msima
                 return $this->json(
                     'warning',
@@ -230,7 +230,34 @@ class UserController extends BaseController
 
             $_SESSION['profile_image'] = $user['profile_image'];
 
-            return $this->json('success', '¡Bienvenido ' . $user['first_name'] . '!', Env::get('APP_URL') . '/?url=home');
+            // cambio agrego esto para que rediriga al dashboard adecuado
+            switch ($user['role_id']) {
+
+                case 1:
+                    $redirect = Env::get('APP_URL') . '/?url=admin/dashboard';
+                    break;
+
+                case 2:
+                    $redirect = Env::get('APP_URL') . '/?url=coach/dashboard';
+                    break;
+
+                case 3:
+                    $redirect = Env::get('APP_URL') . '/?url=swimmer/dashboard';
+                    break;
+
+                default:
+                    $redirect = Env::get('APP_URL') . '/?url=login';
+                    break;
+            }
+
+
+
+
+            return $this->json(
+                'success',
+                '¡Bienvenido ' . $user['first_name'] . '!',
+                $redirect
+            );
         }
 
         return $this->json('error', 'Credenciales incorrectas.');
