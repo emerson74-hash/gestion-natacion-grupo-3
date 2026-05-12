@@ -46,7 +46,7 @@
                         <?php endif; ?>
 
                     <?php endif; ?>
-//holaaa
+//holaaaa
 
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item d-flex align-items-center">
