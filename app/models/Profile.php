@@ -39,8 +39,8 @@ class Profile {
             $data['phone'],
             // Si no viene imagen, podemos pasar un null o el nombre por defecto
             $data['profile_image'] ?? 'default-profile.png', 
-            $data['birth_date'],
-            $data['specialty'],
+            $data['birth_date'] ?? null,
+            $data['specialty'] ?? null,
         ]);
     }
 }

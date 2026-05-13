@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bookings` (
   `id` int(11) NOT NULL,
-  `swimmer_id` int(11) DEFAULT NULL,
+  `profile_id` int(11) DEFAULT NULL,
   `lesson_id` int(11) DEFAULT NULL,
   `status` enum('Confirmed','Cancelled') DEFAULT 'Confirmed',
   `created_at` timestamp NULL DEFAULT current_timestamp()
@@ -73,6 +73,8 @@ CREATE TABLE `profiles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
+INSERT INTO `profiles` (`id`, `user_id`, `first_name`, `last_name`, `birth_date`, `phone`, `profile_image`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(4, 4, 'Juan Pablo', 'Pompin', NULL, '1111111', 'swimmer_jpompin_5590.jpeg', '2026-03-15 13:17:04', '2026-03-15 13:17:04', NULL);
 
 
 
@@ -84,7 +86,7 @@ CREATE TABLE `profiles` (
 
 CREATE TABLE `lessons` (
   `id` int(11) NOT NULL,
-  `coach_id` int(11) DEFAULT NULL,
+  `profile_id` int(11) DEFAULT NULL,
   `level` varchar(50) DEFAULT NULL,
   `day_of_week` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday') DEFAULT NULL,
   `start_time` time DEFAULT NULL,
@@ -145,14 +147,14 @@ CREATE TABLE `swimmers` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-*/
+
 --
 -- Dumping data for table `swimmers`
 --
 
 INSERT INTO `swimmers` (`id`, `user_id`, `first_name`, `last_name`, `birth_date`, `phone`, `profile_image`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (4, 4, 'Juan Pablo', 'Pompin', NULL, '1111111', 'swimmer_jpompin_5590.jpeg', '2026-03-15 13:17:04', '2026-03-15 13:17:04', NULL);
-
+*/
 -- --------------------------------------------------------
 
 --
@@ -185,7 +187,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `role_id`, `created_at`, `update
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_booking` (`swimmer_id`,`lesson_id`),
+  ADD UNIQUE KEY `unique_booking` (`profile_id`,`lesson_id`),
   ADD KEY `fk_booking_lesson` (`lesson_id`);
 
 --
@@ -194,7 +196,7 @@ ALTER TABLE `bookings`
 
 ALTER TABLE `profiles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_coach_user` (`user_id`);
+  ADD KEY `fk_profile_user` (`user_id`);
 
 --
 -- Indexes for table `coaches`
@@ -209,7 +211,7 @@ ALTER TABLE `profiles`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_lesson_coach` (`coach_id`);
+  ADD KEY `fk_lesson_coach` (`profile_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -305,16 +307,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bookings`
   ADD CONSTRAINT `fk_booking_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`),
-  ADD CONSTRAINT `fk_booking_swimmer` FOREIGN KEY (`swimmer_id`) REFERENCES `swimmers` (`id`);
+  ADD CONSTRAINT `fk_booking_profile` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`);
 
 --
 -- Constraints for table `profiles`
 --
 ALTER TABLE `profiles`
-  ADD CONSTRAINT `fk_coach_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_profile_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
-/**
+/*
 --
 -- Constraints for table `coaches`
 --
@@ -325,7 +327,7 @@ ALTER TABLE `coaches`
 -- Constraints for table `lessons`
 --
 ALTER TABLE `lessons`
-  ADD CONSTRAINT `fk_lesson_coach` FOREIGN KEY (`coach_id`) REFERENCES `coaches` (`id`);
+  ADD CONSTRAINT `fk_lesson_profile` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`);
 /*
 --
 -- Constraints for table `swimmers`
