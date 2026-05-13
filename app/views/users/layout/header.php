@@ -20,15 +20,20 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="?url=home">SwimManager 🚩</a>
-                <?php
-                            $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
-                            $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/swimmers/" . $foto;
-                            ?>
-                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
 
-                            <span class="nav-link text-info p-0">
-                                Hola, <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
-                            </span>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <?php
+                $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
+                $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/swimmers/" . $foto;
+                ?>
+                <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
+
+                <span class="nav-link text-info p-0">
+                    Hola,
+                    <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                </span>
+            <?php endif; ?>
+
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto align-items-center">
 
@@ -37,7 +42,7 @@
                         <?php $role = $_SESSION['role_id']; ?>
 
                         <?php if ($role == 2): ?>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link disabled" aria-disabled="true">Coach</a>
                             </li>
                             <li class="nav-item">
@@ -46,12 +51,12 @@
                         <?php endif; ?>
 
                     <?php endif; ?>
-//holaaa
+                    //holaaa
 
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item d-flex align-items-center">
 
-                            
+
 
                         </li>
                         <li class="nav-item">
@@ -67,4 +72,3 @@
         </div>
     </nav>
     <main class="container mt-4">
-        

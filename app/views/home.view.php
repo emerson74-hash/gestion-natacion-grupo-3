@@ -9,7 +9,7 @@ include __DIR__ . '/users/layout/header.php'; ?>
 
 
    
-        <h1>Bienvenido, Profe</h1>
+        <h1>Bienvenido</h1>
         <p class="lead">Este es el panel administrativo de la escuela.</p>
         <hr>
         <div class="row">
