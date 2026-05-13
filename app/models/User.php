@@ -112,4 +112,48 @@ class User {
         $stmt = $this->db->prepare( 'DELETE FROM password_resets WHERE token = ?' );
         return $stmt->execute( [ $token ] );
     }
+
+
+    //Admin
+    //Creamos 1er metodo publico para traer al usuario 
+
+    //Select: Trae TODAS las columnas del user y del profile.
+    public function getCoaches() {
+
+     $sql = "
+        SELECT .
+            u.id, 
+            u.email,
+            u.role_id,
+
+            p.first_name, 
+            p.last_name,
+            p.phone,
+            p.profile_image
+
+        FROM users u
+
+        INNER JOIN profiles p
+            ON u.id = p.user_id 
+
+        WHERE u.role_id = 2 
+        AND u.deleted_at IS NULL
+    ";
+
+    /**  ON u.id = p.user_id //Une el usuario con su perfil.
+     *   WHERE u.role_id = 2 // rol en la posicion 2, que es el coach.
+     *   AND u.deleted_at IS NULL // a usuario que NO estan eliminados.
+ */
+
+    //prepara la consulta a SQL por seguridad.
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute(); //ejecuta la consulta SQL.
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el resultado del metodo.
+    //fetchAll devuelve la cantidad de coaches.
+    //FETCH_ASSOC muestra su tipo de dato: id, mail, etc.
+}
+
+
 }
