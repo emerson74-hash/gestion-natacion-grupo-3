@@ -2,11 +2,13 @@
 require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/Swimmer.php';
+require_once __DIR__ . '/../models/Profile.php';
 
 class UserController extends BaseController
 {
     private $userModel;
-    private $swimmerModel;
+    //private $swimmerModel;
+    private $profileModel;
     private $pdo;
 
     public function __construct()
@@ -20,7 +22,7 @@ class UserController extends BaseController
 
         // Inicializamos los modelos pasándoles la conexión única
         $this->userModel = new User($pdo);
-        $this->swimmerModel = new Swimmer($pdo);
+        $this->profileModel = new Profile($pdo);
     }
 
     // --- SECCIÓN: VISTAS Y LISTADOS ---
@@ -35,8 +37,8 @@ class UserController extends BaseController
         $this->checkAuth();
         // Seguridad: si no hay sesión, al login.
 
-        $swimmers = $this->swimmerModel->getAll();
-        $this->render('users/index', ['swimmers' => $swimmers]);
+        $profiles = $this->profileModel->getAll();
+        $this->render('users/index', ['profiles' => $profiles]);
     }
 
     public function showLogin()
@@ -177,7 +179,7 @@ class UserController extends BaseController
                 throw new Exception('Error al crear credenciales.');
 
             $f['user_id'] = $userId;
-            $this->swimmerModel->create($f);
+            $this->profileModel->create($f);
 
             $this->pdo->commit();
 
