@@ -1,22 +1,15 @@
-<?php include __DIR__ . '/users/layout/header.php'; ?>
+<?php 
+
+//creo que este home no hace nada porque el sistema redirige siempre
+
+
+include __DIR__ . '/users/layout/header.php'; ?>
 
 <div class="bg-white p-5 rounded shadow-sm">
 
 
-    <?php if ($_SESSION['role_id'] == 1): ?>
-                                                <!-- VISTA PARA ROL ADMINISTRADOR -->
-
-        <h1>Bienvenido, Admin</h1>
-
-    <?php endif; ?>
-
-
-
-
-    <?php if ($_SESSION['role_id'] == 2): ?>
-                                                <!-- VISTA PARA ROL COACH -->
-
-        <h1>Bienvenido, Profe</h1>
+   
+        <h1>Bienvenido</h1>
         <p class="lead">Este es el panel administrativo de la escuela.</p>
         <hr>
         <div class="row">
@@ -30,18 +23,9 @@
             </div>
         </div>
     </div>
-<?php endif; ?>
 
 
 
-
-
-<?php if ($_SESSION['role_id'] == 3): ?>
-                                                <!-- VISTA PARA ROL SWIMMER -->
-
-    <h1>Bienvenido, Swimmer</h1>
-
-<?php endif; ?>
 
 
 
