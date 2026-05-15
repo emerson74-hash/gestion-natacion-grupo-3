@@ -229,7 +229,7 @@ class UserController extends BaseController
             $_SESSION['email'] = $user['email'];
             // Datos para el saludo y la foto que pide el nuevo layout
             $_SESSION['first_name'] = $user['first_name'];
-            $_SESSION['last_name'] = $user['last_name'];
+            
 
             $_SESSION['profile_image'] = $user['profile_image'];
 

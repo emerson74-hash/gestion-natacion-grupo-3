@@ -15,10 +15,7 @@
                 . ' ' .
                 ($_SESSION['last_name'] ?? 'xd')
             ) ?>
-            <span class="nav-link text-info p-0">
-                                Hola,
-                                <?= htmlspecialchars($_SESSION['last_name'] ?? 'Usuario') ?>
-                            </span>
+            
 
             <p class="fs-2">Este es el panel de perfil</p>
 
