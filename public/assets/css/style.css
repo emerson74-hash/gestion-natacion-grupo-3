@@ -1,0 +1,8 @@
+/* para que la foto de perfil tenga un tamaño determinado */
+.profile-img-size {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+
+    object-fit: cover;
+}

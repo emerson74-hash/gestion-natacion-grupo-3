@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -21,43 +22,20 @@
         <div class="container">
             <a class="navbar-brand" href="?url=home">SwimManager 🚩</a>
 
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <?php
-                $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
-                $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/swimmers/" . $foto;
-                ?>
-                <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
-
-                <span class="nav-link text-info p-0">
-                    Hola,
-                    <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
-                </span>
-            <?php endif; ?>
-
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto align-items-center">
-
-                    <?php if (isset($_SESSION['user_id'])): ?>
-
-                        <?php $role = $_SESSION['role_id']; ?>
-
-                        <?php if ($role == 2): ?>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Coach</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="?url=coach/profile">Perfil</a>
-                            </li>
-                        <?php endif; ?>
-
-                    <?php endif; ?>
-                    //holaaa
-
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item d-flex align-items-center">
+                            <?php
+                            $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
+                            $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/swimmers/" . $foto;
+                            ?>
+                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
 
-
-
+                            <span class="nav-link text-info p-0">
+                                Hola,
+                                <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                            </span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-danger btn-sm ms-3" href="?url=logout">Salir</a>
@@ -72,3 +50,11 @@
         </div>
     </nav>
     <main class="container mt-4">
+
+    </main>
+
+
+</body>
+<!-- preguntar si esto tiene qu estar cerrado body y html -->
+
+</html>

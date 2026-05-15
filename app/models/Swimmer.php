@@ -1,5 +1,5 @@
 <?php
-
+//ESTA CLASE STA OBSOLETA PERO LA DEJAMOS POR LAS DUDAS, DESPUES LIMPIAMOS
 class Swimmer {
     private $db;
 
