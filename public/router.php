@@ -66,12 +66,17 @@ switch ($route) {
 
     // --- MÓDULO COACH ---
     case 'coach/dashboard':
+    case 'coach/profile':
 
         require_once __DIR__ . '/../app/controllers/CoachController.php';
 
         $controller = new CoachController();
 
-        $controller->dashboard();
+        if ($route === 'coach/profile')
+            $controller->profile();
+        if ($route === 'coach/dashboard')
+            $controller->dashboard();
+
 
         break;
 
