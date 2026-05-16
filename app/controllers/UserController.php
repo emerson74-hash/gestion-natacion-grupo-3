@@ -1,195 +1,235 @@
 <?php
 require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php';
-require_once __DIR__ . '/../models/Swimmer.php';
+require_once __DIR__ . '/../models/Profile.php';
 
+/**
+ * Controlador encargado del manejo de usuarios. se gestionan:
+ * - login
+ * - registro
+ * - recuperación de contraseña
+ * - listado de swimmers
+ */
 class UserController extends BaseController
 {
     private $userModel;
-    private $swimmerModel;
+    private $profileModel;
     private $pdo;
 
     public function __construct()
     {
-        /** * Usamos 'global $pdo' porque la conexión se crea en otro archivo ( ej. index o database ).
-         * Sin esto, el controlador no tendría acceso al objeto de conexión PDO para pasárselo a los modelos.
-         * Es una forma de 'inyectar' la base de datos sin volver a conectarse en cada clase.
-         */
+        // Traemos la conexión global a la base de datos
         global $pdo;
+
         $this->pdo = $pdo;
 
-        // Inicializamos los modelos pasándoles la conexión única
-        $this->userModel = new User($pdo);
-        $this->swimmerModel = new Swimmer($pdo);
+        // Inicializamos los modelos
+        $this->userModel    = new User($pdo);
+        $this->profileModel = new Profile($pdo);
     }
 
     // --- SECCIÓN: VISTAS Y LISTADOS ---
 
     /**
-     * Lista todos los nadadores registrados.
-     * Ideal para mostrar cómo se consumen datos con JOINs desde el modelo.
+     * Muestra todos los swimmers registrados.
      */
-
     public function index()
     {
+        // Verificamos que el usuario tenga sesión iniciada
         $this->checkAuth();
-        // Seguridad: si no hay sesión, al login.
 
-        $swimmers = $this->swimmerModel->getAll();
-        $this->render('users/index', ['swimmers' => $swimmers]);
+        // Traemos solo perfiles de swimmers
+        $profiles = $this->profileModel->getAllSwimmers();
+
+        // Mostramos la vista
+        $this->render('users/index', ['profiles' => $profiles]);
     }
 
+    /**
+     * Muestra la vista de login.
+     */
     public function showLogin()
     {
         $this->render('users/login.view');
     }
 
+    /**
+     * Muestra el formulario de registro.
+     */
     public function showRegister()
     {
-        $this->render('users/register.view', ['title' => 'Inscripción de Alumnos']);
+        $this->render('users/register.view', [
+            'title' => 'Inscripción de Alumnos'
+        ]);
     }
-
-    public function forgotPassword()
-    {
-        $this->render('users/forgot-password.view', ['title' => 'Recuperar Contraseña']);
-    }
-
-    // --- SECCIÓN: PROCESAMIENTO DE DATOS ( POST ) ---
 
     /**
-     * Punto de entrada para el registro de nuevos alumnos.
-     * Aquí separamos la validación de la lógica de negocio.
+     * Muestra la vista para recuperar contraseña.
      */
+    public function forgotPassword()
+    {
+        $this->render('users/forgot-password.view', [
+            'title' => 'Recuperar Contraseña'
+        ]);
+    }
 
+    // --- SECCIÓN: REGISTRO DE USUARIOS ---
+
+    /**
+     * Procesa el registro de nuevos swimmers.
+     */
     public function register()
     {
+        // Solo permitimos peticiones POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return $this->showRegister();
         }
 
-        // 1. Recolección y Sanitización ( Evitamos espacios vacíos y basura )
+        // Guardamos y limpiamos los datos enviados desde el formulario
         $fields = [
-            'first_name' => trim($_POST['nombre'] ?? ''),
-            'last_name' => trim($_POST['apellido'] ?? ''),
-            'email' => trim($_POST['email'] ?? ''),
-            'password' => $_POST['password'] ?? '',
+            'first_name'      => trim($_POST['nombre'] ?? ''),
+            'last_name'       => trim($_POST['apellido'] ?? ''),
+            'email'           => trim($_POST['email'] ?? ''),
+            'password'        => $_POST['password'] ?? '',
             'passwordconfirm' => $_POST['passwordconfirm'] ?? '',
-            'phone' => trim($_POST['telefono'] ?? ''),
-            'profile_image' => 'default-profile.png' // Valor por defecto
+            'phone'           => trim($_POST['telefono'] ?? ''),
+            'birth_date'      => trim($_POST['birth_date'] ?? ''),
+
+            // Imagen por defecto
+            'profile_image'   => 'default-profile.png'
         ];
 
-        // 2. Validaciones Críticas ( Uso de 'Early Returns' para evitar anidación de IFs )
+        // Validamos campos obligatorios
         if ($this->hasEmptyFields($fields)) {
             return $this->json('warning', 'Faltan datos obligatorios.');
         }
 
+        // Validamos formato del email
         if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
             return $this->json('error', 'El email ingresado no es válido.');
         }
 
+        // Validamos longitud mínima de contraseña
         if (strlen($fields['password']) < 6) {
-            return $this->json('warning', 'La contraseña es muy corta (mín. 6 caracteres).');
+            return $this->json('warning', 'La contraseña es muy corta.');
         }
 
         if (strlen($fields['passwordconfirm']) < 6) {
-            return $this->json('warning', 'La contraseña es muy corta (mín. 6 caracteres).');
+            return $this->json('warning', 'La contraseña es muy corta.');
         }
-        //pide que las contraseñas sean iguales
+
+        // Verificamos que ambas contraseñas coincidan
         if ($fields['password'] !== $fields['passwordconfirm']) {
             return $this->json('warning', 'Las contraseñas no coinciden.');
         }
 
-        // --- GESTIÓN DE IMAGEN DE PERFIL ---
-        $tempFile = null;
-        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/swimmers/';
+        // --- SUBIDA DE IMAGEN DE PERFIL ---
 
+        $tempFile = null;
+
+        // Verificamos si se subió una imagen
+        if (isset($_FILES['profile_image']) &&
+            $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+
+            $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/';
+
+            // Creamos la carpeta si no existe
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
 
-            $extension = strtolower(pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION));
+            // Obtenemos extensión del archivo
+            $extension = strtolower(
+                pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION)
+            );
+
+            // Extensiones permitidas
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
             if (in_array($extension, $allowed)) {
 
-                // 1. Tomamos la inicial del nombre en minúscula
+                // Generamos nombre único para la imagen
                 $initial = strtolower(substr($fields['first_name'], 0, 1));
 
-                // 2. Limpiamos el apellido ( quitamos espacios y pasamos a minúscula )
-                $lastName = strtolower(str_replace(' ', '', $fields['last_name']));
+                $lastName = strtolower(
+                    str_replace(' ', '', $fields['last_name'])
+                );
 
-                // 3. Generamos un número aleatorio de 4 dígitos para evitar colisiones ( Juan Perez vs Jorge Perez )
                 $randomNumber = rand(1000, 9999);
 
-                // Resultado ej: jperez_4521.jpg
-                $newFileName = 'swimmer_' . $initial . $lastName . '_' . $randomNumber . '.' . $extension;
+                $newFileName =
+                    'swimmer_' .
+                    $initial .
+                    $lastName .
+                    '_' .
+                    $randomNumber .
+                    '.' .
+                    $extension;
+
                 $absolutePath = $uploadDir . $newFileName;
 
-                if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $absolutePath)) {
+                // Movemos la imagen a la carpeta final
+                if (move_uploaded_file(
+                    $_FILES['profile_image']['tmp_name'],
+                    $absolutePath
+                )) {
+
                     $fields['profile_image'] = $newFileName;
                     $tempFile = $absolutePath;
                 }
             }
         }
 
-
-        // 3. Pasamos a la ejecución de la lógica
+        // Ejecutamos el registro
         return $this->executeRegistration($fields, $tempFile);
     }
 
     /**
      * Lógica de inscripción con Transacción SQL.
-     * Enseñamos que si algo falla en el medio, no debe quedar basura en la DB.
+     * Si algo falla en el medio, se hace rollback para no dejar datos a medias.
      */
-
     private function executeRegistration($f, $tempFile = null)
     {
-
         try {
+            // Verificamos si el email ya está registrado
             if ($this->userModel->findByEmail($f['email'])) {
-                // Si el usuario existe, borramos el archivo físico que acabamos de subir
+
+                // Si ya existe, borramos la foto que subimos para no dejar basura
                 if ($tempFile && file_exists($tempFile)) {
                     unlink($tempFile);
-
                 }
-                //cambio esto lo dejo comentado porque creo que ya no hace nada
-                // $baseUrl = rtrim(Env::get('APP_URL'), '/');
 
-                // $loginUrl = $baseUrl . '/?url=login';
-                //aca si hay error no cambia de pagina sigue en la msima
-                return $this->json(
-                    'warning',
-                    'Ya tienes una cuenta registrada.'
-                );
+                return $this->json('warning', 'Ya tienes una cuenta registrada.');
             }
 
             $this->pdo->beginTransaction();
 
-            // Tabla: users
+            // Paso 1: creamos el usuario en la tabla users ( solo credenciales )
             $userId = $this->userModel->create([
-                'email' => $f['email'],
+                'email'    => $f['email'],
                 'password' => $f['password'],
-                'role_id' => 3 // Rol Swimmer
+                'role_id'  => 3 // Rol Swimmer
             ]);
 
             if (!$userId)
                 throw new Exception('Error al crear credenciales.');
 
-            $f['user_id'] = $userId;
-            $this->swimmerModel->create($f);
+            // Paso 2: creamos el perfil en la tabla profiles ( datos personales )
+            // specialty = null indica que es un Swimmer ( los Coaches tienen specialty con valor )
+            $f['user_id']   = $userId;
+            $f['specialty'] = null;
+            $this->profileModel->create($f);
 
             $this->pdo->commit();
 
-            // 1. Obtenemos la URL base del .env ( ej: http://localhost/gestion-natacion )
+            // Obtenemos la URL base del .env para redirigir al login
             $baseUrl = rtrim(Env::get('APP_URL'), '/');
 
-            // 2. Si por algún error el .env está vacío, fallamos con una base segura
+            // Si por algún error el .env está vacío, usamos una base segura
             if (empty($baseUrl)) {
                 $baseUrl = 'http://localhost/gestion-natacion';
             }
 
-            // 3. Construimos la URL final
             $loginUrl = $baseUrl . '/?url=login';
 
             return $this->json('success', '¡Registro completado!', $loginUrl);
@@ -197,40 +237,45 @@ class UserController extends BaseController
         } catch (Exception $e) {
             if ($this->pdo->inTransaction())
                 $this->pdo->rollBack();
+
             // Si algo falló en SQL, borramos la foto para no dejar basura
             if ($tempFile && file_exists($tempFile)) {
                 unlink($tempFile);
             }
-            ;
+
             return $this->json('error', 'No se pudo completar: ' . $e->getMessage());
         }
     }
 
-    /**
-     * Procesa la autenticación de usuarios.
-     */
+    // --- SECCIÓN: AUTENTICACIÓN ---
 
+    /**
+     * Procesa el inicio de sesión.
+     */
     public function authenticate()
     {
+        // Solo permitimos peticiones POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return $this->json('error', 'Acceso no permitido.');
         }
 
         $email = trim($_POST['email'] ?? '');
-        $pass = $_POST['password'] ?? '';
+        $pass  = $_POST['password']   ?? '';
 
+        // Verificamos las credenciales contra la base de datos
         $user = $this->userModel->login($email, $pass);
 
         if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role_id'] = $user['role_id'];
-            $_SESSION['email'] = $user['email'];
-            // Datos para el saludo y la foto que pide el nuevo layout
-            $_SESSION['first_name'] = $user['first_name'];
 
+            // Guardamos los datos del usuario en la sesión
+            $_SESSION['user_id']       = $user['id'];
+            $_SESSION['role_id']       = $user['role_id'];
+            $_SESSION['email']         = $user['email'];
+            // Datos para el saludo y la foto que pide el layout
+            $_SESSION['first_name']    = $user['first_name'];
             $_SESSION['profile_image'] = $user['profile_image'];
 
-            // cambio agrego esto para que rediriga al dashboard adecuado
+            // Redirigimos al dashboard que corresponde según el rol del usuario
             switch ($user['role_id']) {
 
                 case 1:
@@ -250,9 +295,6 @@ class UserController extends BaseController
                     break;
             }
 
-
-
-
             return $this->json(
                 'success',
                 '¡Bienvenido ' . $user['first_name'] . '!',
@@ -265,6 +307,9 @@ class UserController extends BaseController
 
     // --- SECCIÓN: RECUPERACIÓN DE CONTRASEÑA ---
 
+    /**
+     * Envía el email con el enlace de recuperación de contraseña.
+     */
     public function sendReset()
     {
         $email = $_POST['email'] ?? '';
@@ -276,7 +321,8 @@ class UserController extends BaseController
         $user = $this->userModel->findByEmail($email);
 
         if ($user) {
-            $token = bin2hex(random_bytes(32));
+            // Generamos un token único y seguro con expiración de 1 hora
+            $token   = bin2hex(random_bytes(32));
             $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
             $this->userModel->savePasswordToken($email, $token, $expires);
@@ -291,9 +337,17 @@ class UserController extends BaseController
             }
         }
 
-        return $this->json('success', 'Si el correo existe, recibirás un enlace de recuperación.', Env::get('APP_URL') . '/?url=login');
+        // Siempre respondemos igual para no revelar si el email existe o no ( seguridad )
+        return $this->json(
+            'success',
+            'Si el correo existe, recibirás un enlace de recuperación.',
+            Env::get('APP_URL') . '/?url=login'
+        );
     }
 
+    /**
+     * Muestra el formulario para ingresar la nueva contraseña.
+     */
     public function showResetForm()
     {
         $token = $_GET['token'] ?? '';
@@ -308,29 +362,39 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * Procesa el cambio de contraseña con el token de recuperación.
+     */
     public function updatePassword()
     {
-        $token = $_POST['token'] ?? '';
+        $token    = $_POST['token']    ?? '';
         $password = $_POST['password'] ?? '';
 
         if (empty($token) || strlen($password) < 6) {
             return $this->json('warning', 'La contraseña debe tener al menos 6 caracteres.');
         }
 
+        // Verificamos que el token exista y no haya expirado
         $resetRequest = $this->userModel->validateToken($token);
 
         if ($resetRequest) {
-            $email = $resetRequest['email'];
+            $email          = $resetRequest['email'];
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             try {
                 $this->pdo->beginTransaction();
 
+                // Actualizamos la contraseña y eliminamos el token usado
                 $this->userModel->updatePasswordByEmail($email, $hashedPassword);
                 $this->userModel->deleteToken($token);
 
                 $this->pdo->commit();
-                return $this->json('success', '¡Contraseña actualizada con éxito!', Env::get('APP_URL') . '?url=login');
+
+                return $this->json(
+                    'success',
+                    '¡Contraseña actualizada con éxito!',
+                    Env::get('APP_URL') . '?url=login'
+                );
 
             } catch (Exception $e) {
                 if ($this->pdo->inTransaction())
@@ -342,8 +406,14 @@ class UserController extends BaseController
         return $this->json('error', 'El enlace es inválido o ha expirado.');
     }
 
+    /**
+     * Verifica que los campos obligatorios no estén vacíos.
+     */
     private function hasEmptyFields($f)
     {
-        return empty($f['first_name']) || empty($f['last_name']) || empty($f['email']) || empty($f['password']);
+        return empty($f['first_name']) ||
+               empty($f['last_name'])  ||
+               empty($f['email'])      ||
+               empty($f['password']);
     }
 }
