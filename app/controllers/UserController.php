@@ -266,6 +266,7 @@ class UserController extends BaseController
         $user = $this->userModel->login($email, $pass);
 
         if ($user) {
+
             // Guardamos los datos del usuario en la sesión
             $_SESSION['user_id']       = $user['id'];
             $_SESSION['role_id']       = $user['role_id'];
