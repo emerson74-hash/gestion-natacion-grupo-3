@@ -1,50 +1,56 @@
 <?php
 
-class User
-{
-    private $db;
 
-    public function __construct($pdo)
-    {
+ 
+class User {
+    private $db;
+ 
+    public function __construct( $pdo ) {
+
         $this->db = $pdo;
     }
-
+ 
     // --- SECCIÓN: BÚSQUEDA E IDENTIFICACIÓN ---
-
+ 
     /**
-     * Busca un usuario por email.
-     * @return array|bool Retorna los datos del usuario o false si no existe.
-     */
 
-    public function findByEmail($email)
-    {
-        $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ? AND deleted_at IS NULL LIMIT 1');
-        $stmt->execute([$email]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    * Busca un usuario por email.
+    * @return array|bool Retorna los datos del usuario o false si no existe.
+    */
+ 
+    public function findByEmail( $email ) {
+        $stmt = $this->db->prepare( 'SELECT * FROM users WHERE email = ? AND deleted_at IS NULL LIMIT 1' );
+        $stmt->execute( [ $email ] );
+        return $stmt->fetch( PDO::FETCH_ASSOC );
+
     }
-
+ 
     // --- SECCIÓN: GESTIÓN DE CUENTA ---
-
+ 
     /**
-     * Crea las credenciales de acceso para un nuevo usuario.
-     * @param array $data [ 'email' => string, 'password' => string, 'role_id' => int ]
-     */
 
-    public function create(array $data)
-    {
-        $hash = password_hash($data['password'], PASSWORD_BCRYPT);
+
+    * Crea las credenciales de acceso para un nuevo usuario.
+    * @param array $data [ 'email' => string, 'password' => string, 'role_id' => int ]
+    */
+ 
+    public function create( array $data ) {
+        $hash = password_hash( $data[ 'password' ], PASSWORD_BCRYPT );
         // Usamos el role_id del array, o 3 ( Swimmer ) por defecto si no viene
-        $roleId = $data['role_id'] ?? 3;
+        $roleId = $data[ 'role_id' ] ?? 3;
+ 
+        $stmt = $this->db->prepare( 'INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)' );
+ 
+        if ( $stmt->execute( [ $data[ 'email' ], $hash, $roleId ] ) ) {
 
-        $stmt = $this->db->prepare('INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)');
-
-        if ($stmt->execute([$data['email'], $hash, $roleId])) {
             return $this->db->lastInsertId();
         }
         return false;
     }
-
+ 
     /**
+
      * Valida las credenciales en el inicio de sesión.
      */
 
@@ -52,10 +58,12 @@ class User
     {
         // Traemos los datos de users y los datos de perfil de perfiles
         $sql = "SELECT u.*, p.first_name, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+
             FROM users u
-            LEFT JOIN profiles p ON u.id = p.user_id 
+            LEFT JOIN profiles p ON u.id = p.user_id AND p.deleted_at IS NULL
             WHERE u.email = ? AND u.deleted_at IS NULL 
             LIMIT 1";
+
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$email]);
@@ -63,62 +71,70 @@ class User
 
         if ($user && password_verify($password, $user['password'])) {
             return $user;
+
             // Retorna el array con email, role_id, first_name y profile_image
+            return $user;
         }
         return false;
     }
-
+ 
     /**
-     * Actualiza la contraseña de un usuario mediante su email.
-     */
 
-    public function updatePasswordByEmail($email, $hashedPassword)
-    {
-        $stmt = $this->db->prepare('UPDATE users SET password = ? WHERE email = ?');
-        return $stmt->execute([$hashedPassword, $email]);
+
+    * Actualiza la contraseña de un usuario mediante su email.
+    */
+ 
+    public function updatePasswordByEmail( $email, $hashedPassword ) {
+        $stmt = $this->db->prepare( 'UPDATE users SET password = ? WHERE email = ?' );
+        return $stmt->execute( [ $hashedPassword, $email ] );
+
     }
-
+ 
     // --- SECCIÓN: RECUPERACIÓN DE CONTRASEÑA ( TOKENS ) ---
-
+ 
     /**
-     * Guarda un token de recuperación, eliminando cualquier token previo del mismo email.
-     */
 
-    public function savePasswordToken($email, $token, $expires)
-    {
+
+    * Guarda un token de recuperación, eliminando cualquier token previo del mismo email.
+    */
+ 
+    public function savePasswordToken( $email, $token, $expires ) {
         try {
             // 1. Limpiamos registros de recuperación antiguos para este usuario
-            $stmtDel = $this->db->prepare('DELETE FROM password_resets WHERE email = ?');
-            $stmtDel->execute([$email]);
-
+            $stmtDel = $this->db->prepare( 'DELETE FROM password_resets WHERE email = ?' );
+            $stmtDel->execute( [ $email ] );
+ 
             // 2. Insertamos el nuevo token de seguridad
-            $stmtIns = $this->db->prepare('INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)');
-            return $stmtIns->execute([$email, $token, $expires]);
+            $stmtIns = $this->db->prepare( 'INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)' );
+            return $stmtIns->execute( [ $email, $token, $expires ] );
+ 
+        } catch ( PDOException $e ) {
+            error_log( 'Error en savePasswordToken: ' . $e->getMessage() );
 
-        } catch (PDOException $e) {
-            error_log('Error en savePasswordToken: ' . $e->getMessage());
             return false;
         }
     }
-
+ 
     /**
-     * Valida si un token existe y no ha expirado.
-     */
 
-    public function validateToken($token)
-    {
-        $stmt = $this->db->prepare('SELECT email FROM password_resets WHERE token = ? AND expires_at > NOW() LIMIT 1');
-        $stmt->execute([$token]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    * Valida si un token existe y no ha expirado.
+    */
+ 
+    public function validateToken( $token ) {
+        $stmt = $this->db->prepare( 'SELECT email FROM password_resets WHERE token = ? AND expires_at > NOW() LIMIT 1' );
+        $stmt->execute( [ $token ] );
+        return $stmt->fetch( PDO::FETCH_ASSOC );
+
     }
-
+ 
     /**
-     * Elimina el token una vez que ya ha sido utilizado.
-     */
 
-    public function deleteToken($token)
-    {
-        $stmt = $this->db->prepare('DELETE FROM password_resets WHERE token = ?');
-        return $stmt->execute([$token]);
+    * Elimina el token una vez que ya ha sido utilizado.
+    */
+ 
+    public function deleteToken( $token ) {
+        $stmt = $this->db->prepare( 'DELETE FROM password_resets WHERE token = ?' );
+        return $stmt->execute( [ $token ] );
     }
 }

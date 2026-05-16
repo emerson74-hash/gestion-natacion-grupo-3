@@ -8,5 +8,5 @@
     # Si piden cualquier otra cosa que no sea un archivo real, ir a public/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ public/index.php [QSA,L]
+    RewriteRule ^(.*)$ public/index.php?url=$1 [QSA,L]
 </IfModule>
