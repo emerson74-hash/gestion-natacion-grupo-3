@@ -48,7 +48,7 @@ class User {
         }
         return false;
     }
- 
+ //a
     /**
 
      * Valida las credenciales en el inicio de sesión.
