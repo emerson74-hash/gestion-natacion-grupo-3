@@ -17,7 +17,7 @@ require_once __DIR__ . '/../app/core/BaseController.php';
  * Usamos el parámetro 'url' definido en el .htaccess o pasado por GET.
  * Si no hay ruta ( página de inicio ), por defecto vamos a 'home'.
  */
-$route = $_GET['url'] ?? 'home';
+$route = $_GET['url'] ?? 'landing';
 
 /**
  * 2. DESPACHO DE RUTAS ( DISPATCHER )
@@ -32,7 +32,11 @@ switch ($route) {
         require_once __DIR__ . '/../app/controllers/HomeController.php';
         (new HomeController())->index();
         break;
-
+    // --- LANDING PAGE PÚBLICA ---
+    case 'landing':
+    require_once __DIR__ . '/../app/controllers/LandingController.php';
+    (new LandingController())->index();
+    break;
     // --- MÓDULO DE USUARIOS Y AUTENTICACIÓN ---
     // Agrupamos rutas relacionadas para evitar repetir el require_once
     case 'login':

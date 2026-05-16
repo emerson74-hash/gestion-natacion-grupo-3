@@ -10,7 +10,7 @@ export const handleAlert = (status, message, redirectUrl = null) => {
     case "user_exists":
       /**
        * Caso especial: El usuario ya tiene cuenta.
-       * Usamos allowOutsideClick: false para forzar al usuario a entender
+       * Usamos allowOutsideClick: false para forzar al usuario a entender000000
        * que debe ir al login en lugar de intentar registrarse de nuevo.
        */
       Swal.fire({
