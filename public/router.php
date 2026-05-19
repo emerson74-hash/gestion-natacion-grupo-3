@@ -2,7 +2,7 @@
 
 /**
  * EL ENRUTADOR ( ROUTER ) - Front Controller Pattern
- * * Este archivo es el único punto de entrada a la lógica del servidor.
+ * Este archivo es el único punto de entrada a la lógica del servidor.
  * Su función es leer la intención del usuario ( vía URL ) y delegar el
  * trabajo al controlador correspondiente.
  */
@@ -22,12 +22,13 @@ $route = $_GET['url'] ?? 'home';
 /**
  * 2. DESPACHO DE RUTAS ( DISPATCHER )
  * El switch actúa como una tabla de decisiones.
+ * Cada case representa una URL posible del sistema.
  */
 switch ($route) {
 
     // --- VISTA PRINCIPAL ---
     case 'home':
-        // Aquí mostramos el panel principal ( dashboard ) con la lista de nadadores
+        // Mostramos la página de inicio
         require_once __DIR__ . '/../app/controllers/HomeController.php';
         (new HomeController())->index();
         break;
@@ -65,48 +66,51 @@ switch ($route) {
         break;
 
     // --- MÓDULO COACH ---
+    // Agrupa todas las rutas del rol Coach ( role_id = 2 )
     case 'coach/dashboard':
     case 'coach/profile':
-
         require_once __DIR__ . '/../app/controllers/CoachController.php';
-
         $controller = new CoachController();
 
-        if ($route === 'coach/profile')
-            $controller->profile();
+        // Ejecutamos el método que corresponde a la ruta pedida
         if ($route === 'coach/dashboard')
             $controller->dashboard();
-
-
+        if ($route === 'coach/profile')
+            $controller->profile();
         break;
 
     // --- MÓDULO ADMIN ---
+    // Agrupa todas las rutas del rol Administrador ( role_id = 1 )
     case 'admin/dashboard':
-
         require_once __DIR__ . '/../app/controllers/AdminController.php';
-
-        $controller = new AdminController();
-
-        $controller->dashboard();
-
+        (new AdminController())->dashboard();
         break;
-
 
     // --- MÓDULO SWIMMER ---
+    // Agrupa todas las rutas del rol Swimmer ( role_id = 3 )
     case 'swimmer/dashboard':
-
+    case 'swimmer/profile':
+    case 'swimmer/update-profile':
+    case 'swimmer/lessons':
+    case 'swimmer/book':
+    case 'swimmer/cancel-booking':
         require_once __DIR__ . '/../app/controllers/SwimmerController.php';
-
         $controller = new SwimmerController();
 
-        $controller->dashboard();
-
+        // Ejecutamos el método que corresponde a la ruta pedida
+        if ($route === 'swimmer/dashboard')
+            $controller->dashboard();
+        if ($route === 'swimmer/profile')
+            $controller->profile();
+        if ($route === 'swimmer/update-profile')
+            $controller->updateProfile();
+        if ($route === 'swimmer/lessons')
+            $controller->lessons();
+        if ($route === 'swimmer/book')
+            $controller->book();
+        if ($route === 'swimmer/cancel-booking')
+            $controller->cancelBooking();
         break;
-
-
-
-
-
 
     // --- SEGURIDAD: CIERRE DE SESIÓN ---
     case 'logout':
@@ -114,15 +118,13 @@ switch ($route) {
          * Para destruir una sesión, primero debemos estar seguros de que
          * el sistema sabe de su existencia ( iniciada previamente en index.php ).
          */
-        $_SESSION = [];
         // Vaciamos el array de sesión por seguridad
-        session_destroy();
+        $_SESSION = [];
         // Eliminamos el archivo de sesión en el servidor
-
+        session_destroy();
         // Redirigimos al Login para forzar una nueva autenticación
         header('Location: ?url=login');
         exit;
-    // Detenemos el script para asegurar la redirección
 
     // --- MANEJO DE ERRORES ---
     default:
