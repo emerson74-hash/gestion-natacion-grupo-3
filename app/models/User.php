@@ -146,19 +146,20 @@ class User {
     public function getCoaches() {
 
      $sql = "
-        SELECT .
+        SELECT 
             u.id, 
             u.email,
             u.role_id,
 
-            p.first_name, 
-            p.last_name,
-            p.phone,
-            p.profile_image
+           p.first_name, 
+           p.last_name,
+           p.phone,
+           p.specialty,
+           p.profile_image
 
         FROM users u
 
-        INNER JOIN profiles p
+        LEFT JOIN profiles p
             ON u.id = p.user_id 
 
         WHERE u.role_id = 2 
@@ -173,9 +174,15 @@ class User {
     //prepara la consulta a SQL por seguridad.
     $stmt = $this->db->prepare($sql);
 
-    $stmt->execute(); //ejecuta la consulta SQL.
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el resultado del metodo.
+    if (!$stmt->execute()) {
+    var_dump($stmt->errorInfo());
+    exit;
+}
+
+    //$stmt->execute(); //ejecuta la consulta SQL.
+
+   return $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el resultado del metodo.
     //fetchAll devuelve la cantidad de coaches.
     //FETCH_ASSOC muestra su tipo de dato: id, mail, etc.
 }

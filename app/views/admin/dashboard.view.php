@@ -1,29 +1,47 @@
-<?php include __DIR__ . '/../users/layout/header.php'; ?>
+<?php include __DIR__ . '/header.php'; ?>
 
-<div class="bg-white p-5 rounded shadow-sm">
+<div class="container mt-4">
 
+    <h1 class="mb-4">Bienvenido, Admin </h1>
+    <p>Selecciona una opción para gestionar el sistema:</p>
 
-   
-        <h1>Bienvenido, Admin</h1>
-        <p class="lead">Este es el panel administrativo de la escuela.</p>
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Alumnos activos</h5>
-                        <p class="card-text fs-2">24</p>
-                    </div>
-                </div>
+    <div class="row mt-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 text-center">
+                <h4>Coaches</h4>
+                <p>Gestión de entrenadores</p>
+
+                <a href="?url=admin&section=coaches" class="btn btn-primary">
+                    Entrar
+                </a>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 text-center">
+                <h4>Swimmers</h4>
+                <p>Gestión de alumnos</p>
+
+                <a href="?url=admin&section=swimmers" class="btn btn-success">
+                    Entrar
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3 text-center">
+                <h4>Clases</h4>
+                <p>Gestión de clases</p>
+
+                <a href="?url=admin&section=classes" class="btn btn-warning">
+                    Entrar
+                </a>
+            </div>
+        </div>
+
     </div>
 
+</div>
 
-
-
-
-
-
-
-<?php include __DIR__ . '/../users/layout/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

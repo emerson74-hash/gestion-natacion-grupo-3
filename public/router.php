@@ -79,12 +79,35 @@ switch ($route) {
             $controller->profile();
         break;
 
-    // --- MÓDULO ADMIN ---
-    // Agrupa todas las rutas del rol Administrador ( role_id = 1 )
-    case 'admin/dashboard':
-        require_once __DIR__ . '/../app/controllers/AdminController.php';
-        (new AdminController())->dashboard();
-        break;
+
+    //--- MÓDULO ADMIN ---
+
+          case 'admin':
+
+    require_once __DIR__ . '/../app/controllers/AdminController.php';
+    $controller = new AdminController();
+
+    $section = $_GET['section'] ?? 'dashboard';
+
+    switch($section){
+
+        case 'coaches':
+            $controller->coaches();
+            break;
+
+
+        case 'swimmers':
+            $controller->swimmers();
+            break;
+
+        case 'dashboard':
+        default:
+            $controller->dashboard();
+            break;
+    }
+
+    break;
+
 
     // --- MÓDULO SWIMMER ---
     // Agrupa todas las rutas del rol Swimmer ( role_id = 3 )

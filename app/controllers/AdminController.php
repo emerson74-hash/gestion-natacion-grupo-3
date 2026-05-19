@@ -15,8 +15,13 @@ class AdminController extends BaseController {
     
     public function __construct() //Definimos un constructor para la clase.
    {
-    global $pdo; //Conexion global a la base de datos
+    parent::__construct();
 
+    global $pdo; //conexion global a la base de datos 
+
+    if (!$pdo) {
+        die("ERROR: PDO no está conectado");
+    }
     $this->userModel = new User($pdo); //Creamos el modelo user 
     //para poder utilizarlo posteriormente 
    } 
@@ -49,16 +54,38 @@ class AdminController extends BaseController {
         $coaches = $this->userModel->getCoaches(); //"Pedimos" coaches al modelo.
 
         $data = [
-            'title' => 'Coach Management',
+          //  'title' => 'Coach Management',
             'coaches' => $coaches //Envia coaches a la vista.
         ];
 
         $this->render('admin/coaches.view', $data); //Carga las carpetas.
+
     }
 
 
+    //ADMIN: Conexion al menu en view/layout
+   /* public function panel(){
+    //Busca por defecto la URL dashboard
+    $section = $_GET['section'] ?? 'dashboard';
 
+    switch($section){
 
+    case 'coaches':
+        $view = "View/admin/coaches.view.php";  //Si la URL coincide, va a buscar la vista para mostrar a coaches
+        break;
+
+    case 'swimmers':
+        $view = "View/admin/swimmers.view.php";
+        break;
+
+    default:
+        $view = "View/admin/dashboard.view.php";
+        break;
+    }
+
+include "View/layout/admin.layout.php"; //carga del layout principal de admin
+
+    }**/
 
 
 
