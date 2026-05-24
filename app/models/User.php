@@ -187,5 +187,122 @@ class User {
     //FETCH_ASSOC muestra su tipo de dato: id, mail, etc.
 }
 
+public function createCoach($data)
+{
+    // INSERT USER
+    $sqlUser = "INSERT INTO users
+    (email, password, role_id)
+    VALUES (?, ?, ?)";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    $stmtUser->execute([
+        $data['email'],
+        $data['password'],
+        $data['role_id']
+    ]);
+
+    // Obtener ID del user creado (Coach)
+    $userId = $this->db->lastInsertId();
+
+    // INSERT PROFILE (Datos de la tabla profile de DB)
+    $sqlProfile = "INSERT INTO profiles
+    (user_id, first_name, last_name, specialty)
+    VALUES (?, ?, ?, ?)";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    return $stmtProfile->execute([
+        $userId,
+        $data['first_name'],
+        $data['last_name'],
+        $data['specialty']
+    ]);
+}
+
+// Metodo que muestra mensaje en caso de tener el mismo mail dos coaches
+
+public function emailExists($email)
+{
+    $sql = "SELECT id FROM users WHERE email = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([$email]);
+
+    return $stmt->fetch();
+}
+
+//Metodo para editar al coach en la tabla
+public function getCoachById($id)
+{
+    $sql = "SELECT
+                users.id,
+                users.email,
+                profiles.first_name,
+                profiles.last_name,
+                profiles.specialty
+            FROM users
+            INNER JOIN profiles
+                ON users.id = profiles.user_id
+            WHERE users.id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function updateCoach($data)
+{
+    // UPDATE USERS (Tabla Users)
+    $sqlUser = "UPDATE users
+                SET email = ?
+                WHERE id = ?";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    $stmtUser->execute([
+        $data['email'],
+        $data['id']
+    ]);
+
+    // UPDATE PROFILE (Tabla Profile)
+    $sqlProfile = "UPDATE profiles
+                   SET first_name = ?,
+                       last_name = ?,
+                       specialty = ?
+                   WHERE user_id = ?";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    return $stmtProfile->execute([
+        $data['first_name'],
+        $data['last_name'],
+        $data['specialty'],
+        $data['id']
+    ]);
+}
+
+//Metodo para borrar el coach
+public function deleteCoach($id)
+{
+    //Primero borrar profile
+    $sqlProfile = "DELETE FROM profiles
+                   WHERE user_id = ?";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    $stmtProfile->execute([$id]);
+
+    //Después borrar user
+    $sqlUser = "DELETE FROM users
+                WHERE id = ?";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    return $stmtUser->execute([$id]);
+}
 
 }

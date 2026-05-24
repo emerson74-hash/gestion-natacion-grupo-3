@@ -81,6 +81,7 @@ switch ($route) {
 
 
     //--- MÓDULO ADMIN ---
+    // Agrego las rutas de acceso segun el perfil al que entre el admin.
 
           case 'admin':
 
@@ -95,6 +96,25 @@ switch ($route) {
             $controller->coaches();
             break;
 
+        case 'create-coach':
+            $controller->createCoach();
+            break;
+
+        case 'store-coach':
+            $controller->storeCoach();
+            break;    
+
+            case 'edit-coach':
+            $controller->editCoach();
+            break;
+
+        case 'update-coach':
+            $controller->updateCoach();
+            break;
+
+        case 'delete-coach':
+            $controller->deleteCoach();
+            break;
 
         case 'swimmers':
             $controller->swimmers();

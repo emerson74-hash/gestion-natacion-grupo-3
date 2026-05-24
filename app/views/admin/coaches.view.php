@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Gestion de Entrenadores</h1>
 
-        <a href="?url=admin/create-coach" class="btn btn-primary">
+        <a href="?url=admin&section=create-coach" class="btn btn-primary">
             + Agregar entrenador
         </a>
     </div>
@@ -51,14 +51,14 @@
                             <td>
 
                                 <a 
-                                    href="?url=admin/edit-coach&id=<?= $coach['id'] ?>" 
+                                    href="?url=admin&section=edit-coach&id=<?= $coach['id'] ?>"  
                                     class="btn btn-warning btn-sm"
                                 >
                                     Editar
                                 </a>
 
                                 <a 
-                                    href="?url=admin/delete-coach&id=<?= $coach['id'] ?>" 
+                                     href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
                                     class="btn btn-danger btn-sm"
                                 >
                                     Eliminar

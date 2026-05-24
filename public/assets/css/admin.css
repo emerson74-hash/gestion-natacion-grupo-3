@@ -1,0 +1,33 @@
+body{
+    background-color:#D9E1F1;
+}
+
+.navbar{
+    background-color:#192338;
+}
+
+.card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:0.2s;
+}
+
+.table{
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.btn-primary{
+    background-color:#31487A;
+    border:none;
+}
+
+.btn-primary:hover{
+    background-color:#1E2E4F;
+}
+
