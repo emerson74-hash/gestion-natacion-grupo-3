@@ -80,6 +80,8 @@ class AdminController extends BaseController {
 
         'first_name' => $_POST['first_name'],
         'last_name'  => $_POST['last_name'],
+        'phone' => $_POST['phone'],
+        'birth_date' => $_POST['birth_date'],
         'email'      => $_POST['email'],
         'specialty'  => $_POST['specialty'],
 

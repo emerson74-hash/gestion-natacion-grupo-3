@@ -155,6 +155,8 @@ class User {
            p.last_name,
            p.phone,
            p.specialty,
+           p.profile_image,
+           p.birth_date,
            p.profile_image
 
         FROM users u
@@ -189,7 +191,7 @@ class User {
 
 public function createCoach($data)
 {
-    // INSERT USER
+    //INSERT USER
     $sqlUser = "INSERT INTO users
     (email, password, role_id)
     VALUES (?, ?, ?)";
@@ -202,13 +204,13 @@ public function createCoach($data)
         $data['role_id']
     ]);
 
-    // Obtener ID del user creado (Coach)
+    //Obtener ID del user creado (Coach)
     $userId = $this->db->lastInsertId();
 
-    // INSERT PROFILE (Datos de la tabla profile de DB)
+    //INSERT PROFILE (Datos de la tabla profile de DB)
     $sqlProfile = "INSERT INTO profiles
-    (user_id, first_name, last_name, specialty)
-    VALUES (?, ?, ?, ?)";
+    (user_id, first_name, last_name, specialty, phone, birth_date, profile_image)
+    VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmtProfile = $this->db->prepare($sqlProfile);
 
@@ -216,7 +218,10 @@ public function createCoach($data)
         $userId,
         $data['first_name'],
         $data['last_name'],
-        $data['specialty']
+        $data['specialty'],
+        $data['phone'],
+        $data['birth_date'],
+        $data['profile_image']
     ]);
 }
 
@@ -241,7 +246,10 @@ public function getCoachById($id)
                 users.email,
                 profiles.first_name,
                 profiles.last_name,
-                profiles.specialty
+                profiles.specialty,
+                profiles.phone,
+                profiles.birth_date,
+                profiles.profile_image
             FROM users
             INNER JOIN profiles
                 ON users.id = profiles.user_id

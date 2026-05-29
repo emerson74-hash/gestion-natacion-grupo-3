@@ -6,7 +6,7 @@
         <h1>Gestion de Entrenadores</h1>
 
         <a href="?url=admin&section=create-coach" class="btn btn-primary">
-            + Agregar entrenador
+            Agregar entrenador
         </a>
     </div>
 
@@ -19,6 +19,8 @@
                     <tr>
                         <th>Foto</th>
                         <th>Nombre</th>
+                        <th>Nacimiento</th>
+                        <th>Telefono</th>
                         <th>Email</th>
                         <th>Especialidad</th>
                         <th>Accion</th>
@@ -39,6 +41,15 @@
                             <td>
                                 <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
                             </td>
+
+
+                            <td>
+                                <?= $coach['birth_date'] ?>
+                            </td>
+
+
+                            <td>
+                                <?= $coach['phone'] ?></td>
 
                             <td>
                                 <?= $coach['email'] ?>
