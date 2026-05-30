@@ -69,10 +69,10 @@
                                 </a>
 
                                 <a 
-                                    href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
-                                    class="btn btn-danger btn-sm"
+                                  href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
+                                  class="btn btn-danger btn-sm btn-delete"
                                 >
-                                    Eliminar
+                                  Eliminar
                                 </a>
 
                             </td>
@@ -89,5 +89,38 @@
     </div>
 
 </div>
+
+<script>
+document.querySelectorAll('.btn-delete').forEach(button => {
+
+    button.addEventListener('click', function(e) {
+
+        e.preventDefault();
+
+        const url = this.href;
+
+        Swal.fire({
+            title: '¿Eliminar entrenador?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+
+        });
+
+    });
+
+});
+</script>
+
+
 
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

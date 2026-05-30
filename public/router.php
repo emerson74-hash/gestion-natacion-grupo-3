@@ -116,6 +116,10 @@ switch ($route) {
             $controller->deleteCoach();
             break;
 
+        case 'lessons':
+            $controller->lessons();
+            break;
+            
         case 'swimmers':
             $controller->swimmers();
             break;
