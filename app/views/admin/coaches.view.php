@@ -1,4 +1,6 @@
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
 <div class="container mt-4">
 
@@ -29,7 +31,6 @@
 
                 <tbody>
 
-                
                     <?php foreach(($coaches ?? []) as $coach): ?>
 
                         <tr>
@@ -42,14 +43,13 @@
                                 <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
                             </td>
 
-
                             <td>
                                 <?= $coach['birth_date'] ?>
                             </td>
 
-
                             <td>
-                                <?= $coach['phone'] ?></td>
+                                <?= $coach['phone'] ?>
+                            </td>
 
                             <td>
                                 <?= $coach['email'] ?>
@@ -69,7 +69,7 @@
                                 </a>
 
                                 <a 
-                                     href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
+                                    href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
                                     class="btn btn-danger btn-sm"
                                 >
                                     Eliminar
@@ -90,4 +90,4 @@
 
 </div>
 
-<?php include __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/../users/layout/footer.php'; ?>
