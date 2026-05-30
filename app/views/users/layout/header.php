@@ -22,55 +22,55 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
 
-        <a class="navbar-brand"
-   href="<?= ($_SESSION['role_id'] ?? 0) == 2
-        ? '?url=coach/dashboard'
-        : '?url=landing' ?>">
-    SwimManager 🚩
-</a>
+            <a class="navbar-brand" href="<?= ($_SESSION['role_id'] ?? 0) == 2
+                ? '?url=coach/dashboard'
+                : '?url=landing' ?>">
+                SwimManager 🚩
+            </a>
 
-        <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse">
 
-            <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center">
 
-                <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
 
-                    <li class="nav-item d-flex align-items-center">
+                        <li class="nav-item d-flex align-items-center">
 
-                        <?php
-                        $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
+                            <?php
+                            $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
 
-                        $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/swimmers/" . $foto;
-                        ?>
+                            $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
+                            ?>
 
-                        <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
+                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
 
-                        <span class="nav-link text-info p-0">
-                            Hola,
-                            <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
-                        </span>
+                            <span class="nav-link text-info p-0">
+                                Hola,
+                                <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                            </span>
 
-                    </li>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-danger btn-sm ms-3" href="?url=logout">
-                            Salir
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-danger btn-sm ms-3" href="?url=logout">
+                                Salir
+                            </a>
+                        </li>
 
-                <?php else: ?>
+                    <?php else: ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="?url=login">Ingresar</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?url=login">Ingresar</a>
+                        </li>
 
-                <?php endif; ?>
+                    <?php endif; ?>
 
-            </ul>
+                </ul>
 
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+    <main>

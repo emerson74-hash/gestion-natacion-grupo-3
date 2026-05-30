@@ -1,6 +1,10 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
-<div class="container">
+
+<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/assets/css/style.css">
+
+
+<div class="container  ">
     <div class="row justify-content-center">
 
         <div class="col-md-12">
@@ -13,30 +17,35 @@
                 <hr>
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-body">
+                    <div class="col-md-6 ">
+                        <a href="?url=coach/lessons"
+                            class="card text-white colorsitoPiola mb-3 text-decoration-none d-block">
+                            <div class="card-body text-center">
                                 <h5 class="card-title">Ver calendario de clases</h5>
-                                <a href="?url=coach/lessons" class="btn btn-primary">
-                                    acceder
-                                </a>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-6">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Editar perfil</h5>
-                                <a href="?url=coach/profile" class="btn btn-primary">
-                                    acceder
-                                </a>
+                        <a href="?url=coach/profile"
+                            class="card text-white colorsitoPiola mb-3 text-decoration-none d-block">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Editar datos personales</h5>
                             </div>
-                        </div>
+                        </a>
+
+
+
+
                     </div>
-                    
+
                 </div>
-                
-                
+                <hr>
+                <div class="row">
+
+
+                </div>
+
+
 
             </div>
 

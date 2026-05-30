@@ -1,5 +1,7 @@
 </main>
+
 <footer class="text-center mt-5 py-3 border-top">
+    <hr>
     <p>&copy; <?= date('Y') ?> - Aplicaciones WEB - Profesor lic. Juan Pablo Cesarini</p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

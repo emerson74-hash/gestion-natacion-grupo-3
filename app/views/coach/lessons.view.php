@@ -1,4 +1,5 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
+<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/assets/css/style.css">
 
 <div class="container">
     <div class="row justify-content-center">

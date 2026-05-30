@@ -1,8 +1,30 @@
 /* para que la foto de perfil tenga un tamaño determinado */
 .profile-img-size {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
 
-    object-fit: cover;
+  object-fit: cover;
+}
+
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #dfe7f4;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.colorsitoPiola {
+  background-color: #1d3557 !important;
 }
