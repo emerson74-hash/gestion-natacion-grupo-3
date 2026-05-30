@@ -44,7 +44,7 @@
 <section class="hero">
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar"> <!--MENU HAMBURGUESA QUE SE ADAPTA AL CELU!!!!!-->
 
         <div class="container">
 
@@ -58,7 +58,7 @@
 
 
 
-            <!-- boton -->
+            <!-- boton ACA CONTROLA EL MENU EN EL CELU-->
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -70,30 +70,30 @@
 
 
 
-            <!-- aca links para acceder del menu -->
+            <!-- aca links para acceder del menu/ cuando aprete el botón abre el bloque” -->
             <div class="collapse navbar-collapse" id="menu">
 
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-4">
 
-                    <li class="nav-item">
+                    <li class="nav-item"> <!--lista opciones del menu-->
                         <a class="nav-link" href="#nosotros">
                             Acerca de Nosotros
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"><!--lista opciones del menu-->
                         <a class="nav-link" href="#niveles">
                             Niveles
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"> <!--lista opciones del menu-->
                         <a class="nav-link" href="#contacto">
                             Contacto
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"> <!--BOTON INICIA SESION-->
                         <a class="btn login-btn" href="?url=login">
                             Iniciar sesión
                         </a>
@@ -112,10 +112,10 @@
     <!-- contenido del hero, lineas y titulo de la pagina-->
     <div class="hero-content">
 
-        <!-- Línea superior -->
+        <!-- Linea superior -->
         <div class="hero-top-line"></div>
 
-        <!-- Título -->
+        <!-- Titulo -->
         <h1 class="hero-title">
             SWIM LEARN
         </h1>
@@ -125,10 +125,10 @@
             ESCUELA DE NATACIÓN
         </p>
 
-        <!-- Línea inferior -->
+        <!-- Linea inferior -->
         <div class="hero-bottom-line"></div>
 
-        <!-- Botón -->
+        <!-- BotOn -->
         <a href="?url=login" class="hero-button">
             Inscribite ya
         </a>

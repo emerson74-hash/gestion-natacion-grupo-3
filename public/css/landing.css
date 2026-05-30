@@ -18,14 +18,14 @@ body{
 
 .hero{
 
-    min-height:100vh;
+    min-height:100vh; /*ocupa toda la pantalla*/
 
     background-image:
         linear-gradient(
             rgba(0, 30, 45, 0.45),
             rgba(0, 30, 45, 0.45)
         ),
-        url('/Gestion-Natacion-Grupo-3/public/imglanding/swim-bg.jpg');
+        url('/Gestion-Natacion-Grupo-3/public/imglanding/swim-bg.jpg'); /*FOTO QUE ELEGIMOS*/
 
     background-size:cover;
     background-position:center;
@@ -45,7 +45,7 @@ body{
 
 .logo-text{
 
-    color:white !important;
+    color:white !important; /*cambio el estilo de boobstrap*/
 
     font-size:2rem;
     font-weight:700;
@@ -67,7 +67,7 @@ body{
 }
 
 .nav-link:hover{
-    color:#7BE7FF !important;
+    color:#7BE7FF !important;  /*DETALLE AL PASAR EL MOUSE*/
 }
 
 
@@ -102,7 +102,7 @@ body{
 /*contenido del hero*/
 .hero-content{
 
-    position:absolute;
+    position:absolute; /*lo centramos al texto */
 
     top:50%;
     left:18%;
@@ -237,9 +237,9 @@ body{
 
     justify-content:center;
 
-    gap:30px;
+    gap:30px; /*ESPACIO ENTRE LAS CARDS*/
 
-    flex-wrap:wrap;
+    flex-wrap:wrap; /*PONEMOS LAS TARKJETAS EN FILA*/
 }
 
 
@@ -284,7 +284,7 @@ body{
 
     padding: 230px 20px;
 
-    background:linear-gradient(
+    background:linear-gradient( /*DECO DEGRADE DEL FONDO*/
         135deg,
         #0A3A52,
         #125D79
@@ -334,7 +334,7 @@ body{
 
 
 
-
+/*aca se hicimos que se redusca el tamaño del titulo para adaptarlo al celular*/
 
 @media(max-width:992px){
 
