@@ -1,4 +1,6 @@
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
 <div class="container py-5">
 
@@ -13,12 +15,9 @@
                 </h1>
 
                 <form 
-                method="POST" 
-                action="?url=admin&section=store-coach"
-                enctype="multipart/form-data"
-
-
-                
+                  method="POST" 
+                  action="?url=admin&section=store-coach"
+                  enctype="multipart/form-data"
                 >
                     <div class="mb-3">
 
@@ -139,6 +138,8 @@
                         Guardar entrenador
                     </button>
 
+                    </div>
+
                 </form>
 
             </div>
@@ -149,4 +150,4 @@
 
 </div>
 
-<?php include __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/../users/layout/footer.php'; ?>

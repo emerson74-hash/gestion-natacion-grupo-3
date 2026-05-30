@@ -1,8 +1,10 @@
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
 <div class="container mt-4">
 
-    <h1 class="mb-4">Bienvenido, Admin Nerea </h1>
+    <h1 class="mb-4">Bienvenido, Admin Nerea</h1>
     <p>Selecciona una opción para gestionar el sistema:</p>
 
     <div class="row mt-4">
@@ -13,7 +15,7 @@
                 <p>Gestión de entrenadores</p>
 
                 <a href="?url=admin&section=coaches" class="btn btn-coach">
-                Entrar
+                    Entrar
                 </a>
             </div>
         </div>
@@ -24,7 +26,7 @@
                 <p>Gestión de alumnos</p>
 
                 <a href="?url=admin&section=swimmers" class="btn btn-swimmer">
-                Entrar
+                    Entrar
                 </a>
             </div>
         </div>
@@ -35,7 +37,7 @@
                 <p>Gestión de clases</p>
 
                 <a href="?url=admin&section=classes" class="btn btn-classes">
-                Entrar
+                    Entrar
                 </a>
             </div>
         </div>
@@ -44,4 +46,4 @@
 
 </div>
 
-<?php include __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/../users/layout/footer.php'; ?>
