@@ -1,15 +1,20 @@
 <?php
+
+
  
 class User {
     private $db;
  
     public function __construct( $pdo ) {
+
         $this->db = $pdo;
     }
  
     // --- SECCIÓN: BÚSQUEDA E IDENTIFICACIÓN ---
  
     /**
+
+
     * Busca un usuario por email.
     * @return array|bool Retorna los datos del usuario o false si no existe.
     */
@@ -18,11 +23,14 @@ class User {
         $stmt = $this->db->prepare( 'SELECT * FROM users WHERE email = ? AND deleted_at IS NULL LIMIT 1' );
         $stmt->execute( [ $email ] );
         return $stmt->fetch( PDO::FETCH_ASSOC );
+
     }
  
     // --- SECCIÓN: GESTIÓN DE CUENTA ---
  
     /**
+
+
     * Crea las credenciales de acceso para un nuevo usuario.
     * @param array $data [ 'email' => string, 'password' => string, 'role_id' => int ]
     */
@@ -35,30 +43,35 @@ class User {
         $stmt = $this->db->prepare( 'INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)' );
  
         if ( $stmt->execute( [ $data[ 'email' ], $hash, $roleId ] ) ) {
+
             return $this->db->lastInsertId();
         }
         return false;
     }
- 
+ //a
     /**
-    * Valida las credenciales en el inicio de sesión.
-    * Traemos first_name y profile_image desde la tabla unificada profiles.
-    * Agregamos AND p.deleted_at IS NULL para ignorar perfiles eliminados.
-    */
- 
-    public function login( $email, $password ) {
-        // Traemos los datos de users y los datos de perfil de profiles
-        $sql = "SELECT u.*, p.first_name, p.profile_image 
+
+     * Valida las credenciales en el inicio de sesión.
+     */
+
+    public function login($email, $password)
+    {
+        // Traemos los datos de users y los datos de perfil de perfiles
+        $sql = "SELECT u.*, p.first_name, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+
             FROM users u
             LEFT JOIN profiles p ON u.id = p.user_id AND p.deleted_at IS NULL
             WHERE u.email = ? AND u.deleted_at IS NULL 
             LIMIT 1";
- 
-        $stmt = $this->db->prepare( $sql );
-        $stmt->execute( [ $email ] );
-        $user = $stmt->fetch( PDO::FETCH_ASSOC );
- 
-        if ( $user && password_verify( $password, $user[ 'password' ] ) ) {
+
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            return $user;
+
             // Retorna el array con email, role_id, first_name y profile_image
             return $user;
         }
@@ -66,17 +79,22 @@ class User {
     }
  
     /**
+
+
     * Actualiza la contraseña de un usuario mediante su email.
     */
  
     public function updatePasswordByEmail( $email, $hashedPassword ) {
         $stmt = $this->db->prepare( 'UPDATE users SET password = ? WHERE email = ?' );
         return $stmt->execute( [ $hashedPassword, $email ] );
+
     }
  
     // --- SECCIÓN: RECUPERACIÓN DE CONTRASEÑA ( TOKENS ) ---
  
     /**
+
+
     * Guarda un token de recuperación, eliminando cualquier token previo del mismo email.
     */
  
@@ -92,11 +110,14 @@ class User {
  
         } catch ( PDOException $e ) {
             error_log( 'Error en savePasswordToken: ' . $e->getMessage() );
+
             return false;
         }
     }
  
     /**
+
+
     * Valida si un token existe y no ha expirado.
     */
  
@@ -104,9 +125,11 @@ class User {
         $stmt = $this->db->prepare( 'SELECT email FROM password_resets WHERE token = ? AND expires_at > NOW() LIMIT 1' );
         $stmt->execute( [ $token ] );
         return $stmt->fetch( PDO::FETCH_ASSOC );
+
     }
  
     /**
+
     * Elimina el token una vez que ya ha sido utilizado.
     */
  
@@ -114,4 +137,180 @@ class User {
         $stmt = $this->db->prepare( 'DELETE FROM password_resets WHERE token = ?' );
         return $stmt->execute( [ $token ] );
     }
+
+
+    //Admin
+    //Creamos 1er metodo publico para traer al usuario 
+
+    //Select: Trae TODAS las columnas del user y del profile.
+    public function getCoaches() {
+
+     $sql = "
+        SELECT 
+            u.id, 
+            u.email,
+            u.role_id,
+
+           p.first_name, 
+           p.last_name,
+           p.phone,
+           p.specialty,
+           p.profile_image,
+           p.birth_date,
+           p.profile_image
+
+        FROM users u
+
+        LEFT JOIN profiles p
+            ON u.id = p.user_id 
+
+        WHERE u.role_id = 2 
+        AND u.deleted_at IS NULL
+    ";
+
+    /**  ON u.id = p.user_id //Une el usuario con su perfil.
+     *   WHERE u.role_id = 2 // rol en la posicion 2, que es el coach.
+     *   AND u.deleted_at IS NULL // a usuario que NO estan eliminados.
+ */
+
+    //prepara la consulta a SQL por seguridad.
+    $stmt = $this->db->prepare($sql);
+
+
+    if (!$stmt->execute()) {
+    var_dump($stmt->errorInfo());
+    exit;
+}
+
+    //$stmt->execute(); //ejecuta la consulta SQL.
+
+   return $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el resultado del metodo.
+    //fetchAll devuelve la cantidad de coaches.
+    //FETCH_ASSOC muestra su tipo de dato: id, mail, etc.
+}
+
+public function createCoach($data)
+{
+    //INSERT USER
+    $sqlUser = "INSERT INTO users
+    (email, password, role_id)
+    VALUES (?, ?, ?)";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    $stmtUser->execute([
+        $data['email'],
+        $data['password'],
+        $data['role_id']
+    ]);
+
+    //Obtener ID del user creado (Coach)
+    $userId = $this->db->lastInsertId();
+
+    //INSERT PROFILE (Datos de la tabla profile de DB)
+    $sqlProfile = "INSERT INTO profiles
+    (user_id, first_name, last_name, specialty, phone, birth_date, profile_image)
+    VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    return $stmtProfile->execute([
+        $userId,
+        $data['first_name'],
+        $data['last_name'],
+        $data['specialty'],
+        $data['phone'],
+        $data['birth_date'],
+        $data['profile_image']
+    ]);
+}
+
+// Metodo que muestra mensaje en caso de tener el mismo mail dos coaches
+
+public function emailExists($email)
+{
+    $sql = "SELECT id FROM users WHERE email = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([$email]);
+
+    return $stmt->fetch();
+}
+
+//Metodo para editar al coach en la tabla
+public function getCoachById($id)
+{
+    $sql = "SELECT
+                users.id,
+                users.email,
+                profiles.first_name,
+                profiles.last_name,
+                profiles.specialty,
+                profiles.phone,
+                profiles.birth_date,
+                profiles.profile_image
+            FROM users
+            INNER JOIN profiles
+                ON users.id = profiles.user_id
+            WHERE users.id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function updateCoach($data)
+{
+    // UPDATE USERS (Tabla Users)
+    $sqlUser = "UPDATE users
+                SET email = ?
+                WHERE id = ?";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    $stmtUser->execute([
+        $data['email'],
+        $data['id']
+    ]);
+
+    // UPDATE PROFILE (Tabla Profile)
+    $sqlProfile = "UPDATE profiles
+                   SET first_name = ?,
+                       last_name = ?,
+                       specialty = ?
+                   WHERE user_id = ?";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    return $stmtProfile->execute([
+        $data['first_name'],
+        $data['last_name'],
+        $data['specialty'],
+        $data['id']
+    ]);
+}
+
+//Metodo para borrar el coach
+public function deleteCoach($id)
+{
+    //Primero borrar profile
+    $sqlProfile = "DELETE FROM profiles
+                   WHERE user_id = ?";
+
+    $stmtProfile = $this->db->prepare($sqlProfile);
+
+    $stmtProfile->execute([$id]);
+
+    //Después borrar user
+    $sqlUser = "DELETE FROM users
+                WHERE id = ?";
+
+    $stmtUser = $this->db->prepare($sqlUser);
+
+    return $stmtUser->execute([$id]);
+}
+
 }

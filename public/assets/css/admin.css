@@ -1,0 +1,113 @@
+body{
+    background-color:#D9E1F1;
+}
+
+.navbar{
+    background-color:#192338;
+}
+
+.card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:0.2s;
+}
+
+.table{
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.btn-primary{
+    background-color:#31487A;
+    border:none;
+}
+
+.btn-primary:hover{
+    background-color:#1E2E4F;
+}
+
+.btn-coach{
+    background-color:#31487A;
+    color:white;
+    border:none;
+}
+
+.btn-coach:hover{
+    background-color:#1E2E4F;
+    color:white;
+}
+
+.btn-swimmer{
+    background-color:#8FB3E2;
+    color:#192338;
+    border:none;
+}
+
+.btn-swimmer:hover{
+    background-color:#6b9ddb;
+    color:white;
+}
+
+.btn-classes{
+    background-color:#192338;
+    color:white;
+    border:none;
+}
+
+.btn-classes:hover{
+    background-color:#31487A;
+    color:white;
+}
+
+.form-control{
+    border-radius:10px;
+    padding:12px;
+}
+
+.form-control:focus{
+    border-color:#31487A;
+    box-shadow:0 0 0 0.2rem rgba(49,72,122,0.25);
+}
+
+.form-label{
+    font-weight:600;
+    color:#192338;
+}
+
+h1,h2,h3,h4{
+    color:#192338;
+}
+
+/*Entrada: Animacion para entrar a agregar y editar coach.*/
+.container{
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    .card{
+        padding:20px !important;
+    }
+
+    h1{
+        font-size:1.7rem;
+    }
+
+}

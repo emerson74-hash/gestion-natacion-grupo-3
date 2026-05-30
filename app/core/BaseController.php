@@ -10,6 +10,12 @@ class BaseController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        //Al cerrar sesion, ya no muestra datos viejos. Borra el cache.
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
     }
 
     protected function checkAuth()
@@ -39,19 +45,41 @@ class BaseController
      * @param string $view  Nombre del archivo ( ej: 'usuarios/register' )
      * @param array  $data  Diccionario de datos para la vista
      */
-    protected function render($view, $data = [])
-    {
-        // Extraemos el array: [ 'alerta' => '...' ] se vuelve la variable $alerta
-        extract($data);
 
-        $path = __DIR__ . '/../views/' . $view . '.php';
 
-        if (file_exists($path)) {
-            require_once $path;
-        } else {
-            die("Error: La vista '{$view}' no existe. Verificá la carpeta views.");
-        }
+protected function render($view, $data = [], $layout = null)
+{
+    extract($data);
+
+    $viewPath = __DIR__ . '/../views/' . $view . '.php';
+
+    if (!file_exists($viewPath)) {
+        die("Error: La vista '{$view}' no existe.");
     }
+
+    // si no hay layout = vista normal
+    if ($layout === null) {
+        require $viewPath;
+        return;
+    }
+
+    // si hay layout = usamos wrapper
+    $content = $viewPath;
+
+    $layoutPath = __DIR__ . '/../views/layout/' . $layout . '.php';
+
+    if (!file_exists($layoutPath)) {
+        die("Error: Layout no existe.");
+    }
+
+    require $layoutPath;
+}
+
+
+
+
+
+    
 
     protected function json($status, $message, $redirect = null)
     {
@@ -65,3 +93,5 @@ class BaseController
         // Importante para cortar la ejecución aquí
     }
 }
+
+

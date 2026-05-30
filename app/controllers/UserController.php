@@ -266,6 +266,7 @@ class UserController extends BaseController
         $user = $this->userModel->login($email, $pass);
 
         if ($user) {
+
             // Guardamos los datos del usuario en la sesión
             $_SESSION['user_id']       = $user['id'];
             $_SESSION['role_id']       = $user['role_id'];
@@ -278,7 +279,7 @@ class UserController extends BaseController
             switch ($user['role_id']) {
 
                 case 1:
-                    $redirect = Env::get('APP_URL') . '/?url=admin/dashboard';
+                    $redirect = Env::get('APP_URL') . '/?url=admin&section=dashboard';
                     break;
 
                 case 2:
