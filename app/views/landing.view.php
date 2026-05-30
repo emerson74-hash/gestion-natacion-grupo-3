@@ -129,7 +129,7 @@
         <div class="hero-bottom-line"></div>
 
         <!-- BotOn -->
-        <a href="?url=login" class="hero-button">
+        <a href="?url=register" class="hero-button">
             Inscribite ya
         </a>
 
@@ -302,42 +302,57 @@
 
     <div class="container">
 
-        <h2 class="section-title">
-            Contacto
-        </h2>
+        <div class="contact-header">
+            <h2 class="section-title">Contacto</h2>
+        </div>
 
-        <div class="contact-info">
+        <div class="contact-container">
 
-            <p>
-                
-                <a
-                    href="https://maps.google.com/?q=Calle+149+1881+Berazategui"
-                    target="_blank"
-                >
-                    Calle 149 N° 1881 - Berazategui
-                </a>
-            </p>
+            <div class="contact-data">
+                <h3>Escuela Swim Learn</h3>
 
-            <p>
-                
-                <a href="tel:1153170256">
-                    11 5317-0256
-                </a>
-            </p>
+                <p>📍 Calle 149 N° 1881 - Berazategui</p>
 
-            <p>
-                
-                <a href="mailto:escueladenatacion@swimlearn.com">
-                    escueladenatacion@swimlearn.com
-                </a>
-            </p>
+                <p>📞 11 5317-0256</p>
+
+                <p>✉️ escueladenatacion@swimlearn.com</p>
+
+                <p class="contact-text">
+                    ¿Tenes dudas sobre horarios, niveles o inscripciones?
+                    Completa el formulario y nos pondremos en contacto.
+                </p>
+            </div>
+
+            <div class="contact-form">
+
+                <form>
+                    <input type="text" placeholder="Nombre completo" required>
+
+                    <input type="email" placeholder="Correo electrónico" required>
+
+                    <select required>
+                        <option>Motivo de consulta</option>
+                        <option>Precios</option>
+                        <option>Horarios</option>
+                        <option>Inscripciones</option>
+                        <option>Otro</option>
+                    </select>
+
+                    <textarea rows="5" placeholder="Escriba su consulta..."></textarea>
+
+                    <button type="submit">
+                        Enviar consulta
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
 
 </section>
-
 
 
 
