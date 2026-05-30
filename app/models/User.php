@@ -314,4 +314,52 @@ public function deleteCoach($id)
     return $stmtUser->execute([$id]);
 }
 
+//Admin: Parte Clases
+
+public function update($data)
+{
+    $sql = "UPDATE lessons
+            SET level = ?,
+                day_of_week = ?,
+                start_time = ?,
+                end_time = ?,
+                capacity = ?,
+                profile_id = ?
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([
+        $data['level'],
+        $data['day_of_week'],
+        $data['start_time'],
+        $data['end_time'],
+        $data['capacity'],
+        $data['profile_id'],
+        $data['id']
+    ]);
+}
+
+public function getById($id)
+{
+    $sql = "SELECT *
+            FROM lessons
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function delete($id)
+{
+    $sql = "DELETE FROM lessons WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([$id]);
+}
+
+
 }

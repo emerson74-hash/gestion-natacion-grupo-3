@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php'; //importamos la carpeta que vamos a utilizar
+require_once __DIR__ . '/../models/Lesson.php';
 
 class AdminController extends BaseController {
     /**
@@ -11,6 +12,8 @@ class AdminController extends BaseController {
      * para mantener la coherencia en todo el proyecto.
      */
 
+    private $userModel;
+    private $lessonModel;
 
     
     public function __construct() //Definimos un constructor para la clase.
@@ -24,6 +27,7 @@ class AdminController extends BaseController {
     }
     $this->userModel = new User($pdo); //Creamos el modelo user 
     //para poder utilizarlo posteriormente 
+    $this->lessonModel = new Lesson($pdo);
    } 
 
 
@@ -159,30 +163,22 @@ public function deleteCoach()
     exit;
 }
 
+//Admin: Parte Clases 
 
-    //ADMIN: Conexion al menu en view/layout
-   /* public function panel(){
-    //Busca por defecto la URL dashboard
-    $section = $_GET['section'] ?? 'dashboard';
+public function lessons()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-    switch($section){
+    $lessons = $this->lessonModel->getAll();
 
-    case 'coaches':
-        $view = "View/admin/coaches.view.php";  //Si la URL coincide, va a buscar la vista para mostrar a coaches
-        break;
+    $data = [
+        'lessons' => $lessons
+    ];
 
-    case 'swimmers':
-        $view = "View/admin/swimmers.view.php";
-        break;
+    $this->render('admin/lessons.view', $data);
+}
 
-    default:
-        $view = "View/admin/dashboard.view.php";
-        break;
-    }
-
-include "View/layout/admin.layout.php"; //carga del layout principal de admin
-
-    }**/
 
 
 
