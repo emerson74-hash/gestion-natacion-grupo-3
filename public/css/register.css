@@ -1,0 +1,143 @@
+/* =========================================================
+   FONDO GENERAL
+========================================================= */
+body{
+
+    background: #dfe7f4;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+.card{
+
+    border: none;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+
+/* =========================================================
+   CABECERA
+========================================================= */
+.card-header{
+
+    background: #1d3557 !important;
+
+    border: none;
+
+    padding: 22px;
+}
+
+
+.card-header h4{
+
+    color: white;
+
+    font-weight: 700;
+
+    font-size: 2rem;
+}
+
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+.form-label{
+
+    color: #1d3557;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+.form-control{
+
+    border-radius: 12px;
+
+    border: 1px solid #cfd8e3;
+
+    padding: 12px;
+}
+
+
+.form-control:focus{
+
+    border-color: #457b9d;
+
+    box-shadow: 0 0 0 .2rem rgba(69,123,157,.15);
+}
+
+
+/* =========================================================
+   BOTÓN
+========================================================= */
+.register-btn{
+
+    background: #1d3557;
+
+    border: none;
+
+    color: white;
+
+    padding: 12px 40px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    transition: .3s;
+}
+
+
+.register-btn:hover{
+
+    background: #274c77;
+
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.card-footer{
+
+    background: #f8f9fc;
+}
+
+
+.card-footer a{
+
+    color: #457b9d;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+.container{
+
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.navbar{
+    display:none;
+}
+

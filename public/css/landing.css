@@ -385,5 +385,94 @@ body{
     .about-text{
         font-size:1rem;
     }
-
 }
+
+/*FORMULARIO DE CONTACTOOO*/
+/* =========================================================
+   CONTACTO
+========================================================= */
+
+.contact-container{
+
+    display:grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap:50px;
+
+    margin-top:40px;
+
+    align-items:start;
+}
+
+.contact-data{
+
+    text-align:left;
+
+    padding:40px;
+}
+
+.contact-data h3{
+
+    color:#7BE7FF;
+
+    margin-bottom:25px;
+}
+
+.contact-data p{
+
+    margin-bottom:20px;
+
+    line-height:1.8;
+}
+
+.contact-form{
+
+    padding:40px;
+
+    background:rgba(255,255,255,0.05);
+
+    border-radius:20px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-bottom:15px;
+
+    border:none;
+
+    border-radius:12px;
+}
+
+.contact-form button{
+
+    background:#49D9FF;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:50px;
+
+    font-weight:700;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .contact-container{
+
+        grid-template-columns:1fr;
+    }
+}
+
+

@@ -1,10 +1,11 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
+<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/register.css">
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h4 class="mb-0 text-center"><?php echo $title ?? 'Registro de Swimmer'; ?></h4>
                 </div>
                 <div class="card-body">
@@ -52,7 +53,7 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary px-5">Crear Cuenta</button>
+                                <button type="submit" class="btn register-btn">Crear Cuenta</button>
                             </div>
                         </div>
                     </form>
