@@ -1,4 +1,6 @@
-<?php include __DIR__ . '/header.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
 <div class="container py-5">
 
@@ -138,4 +140,4 @@
 
 </div>
 
-<?php include __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/../users/layout/footer.php'; ?>
