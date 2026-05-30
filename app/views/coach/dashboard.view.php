@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../layout/headers/header_coach.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -13,15 +13,30 @@
                 <hr>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card text-white bg-primary mb-3">
                             <div class="card-body">
-                                <h5 class="card-title">Alumnos activos</h5>
-                                <p class="card-text fs-2">24</p>
+                                <h5 class="card-title">Ver calendario de clases</h5>
+                                <a href="?url=coach/lessons" class="btn btn-primary">
+                                    acceder
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Editar perfil</h5>
+                                <a href="?url=coach/profile" class="btn btn-primary">
+                                    acceder
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
+                
+                
 
             </div>
 

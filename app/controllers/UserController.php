@@ -279,7 +279,7 @@ class UserController extends BaseController
             switch ($user['role_id']) {
 
                 case 1:
-                    $redirect = Env::get('APP_URL') . '/?url=admin&section=dashboard';
+                    $redirect = Env::get('APP_URL') . '/public/?url=admin&section=dashboard';
                     break;
 
                 case 2:

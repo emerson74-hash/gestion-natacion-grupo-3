@@ -105,6 +105,25 @@ class Lesson
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getStudentsByLesson(int $lessonId): array
+{
+    $sql = "
+        SELECT
+            p.first_name,
+            p.last_name
+        FROM bookings b
+        INNER JOIN profiles p
+            ON b.profile_id = p.id
+        WHERE b.lesson_id = ?
+        AND b.status = 'Confirmed'
+    ";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$lessonId]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
      /**
      * obtiene todas las clases registradas en el sistema
      * junto con el instructor correspondiente y la cantidad

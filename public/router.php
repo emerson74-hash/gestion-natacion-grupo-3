@@ -73,6 +73,7 @@ switch ($route) {
     // Agrupa todas las rutas del rol Coach ( role_id = 2 )
     case 'coach/dashboard':
     case 'coach/profile':
+    case 'coach/lessons':
         require_once __DIR__ . '/../app/controllers/CoachController.php';
         $controller = new CoachController();
 
@@ -81,6 +82,8 @@ switch ($route) {
             $controller->dashboard();
         if ($route === 'coach/profile')
             $controller->profile();
+        if ($route === 'coach/lessons')
+            $controller->lessons();
         break;
 
 

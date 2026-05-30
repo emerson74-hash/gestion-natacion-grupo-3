@@ -70,9 +70,9 @@ class MailService
     </div>
 </div>
 ";
-           // $mail->SMTPDebug = 3;
+            $mail->SMTPDebug = 3;
             // Nivel 3 es más detallado
-         //   $mail->Debugoutput = 'html';
+            $mail->Debugoutput = 'html';
             // Para que se vea bien en el navegador
             $mail->send();
             return true;

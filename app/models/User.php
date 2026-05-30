@@ -57,7 +57,8 @@ class User {
     public function login($email, $password)
     {
         // Traemos los datos de users y los datos de perfil de perfiles
-        $sql = "SELECT u.*, p.first_name, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+        $sql = "SELECT u.*, p.first_name, p.id AS profile_id, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+
 
             FROM users u
             LEFT JOIN profiles p ON u.id = p.user_id AND p.deleted_at IS NULL

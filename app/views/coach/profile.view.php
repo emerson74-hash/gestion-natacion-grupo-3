@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../layout/headers/header_coach.php'; ?>
+<?php include __DIR__ . '/../users/layout/header.php'; ?>
 
 <!-- AYUDIN container->row->col -->
 

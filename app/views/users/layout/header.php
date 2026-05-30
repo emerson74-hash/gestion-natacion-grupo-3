@@ -25,7 +25,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
-        <a class="navbar-brand" href="?url=home">SwimManager 🚩</a>
+        <a class="navbar-brand"
+   href="<?= ($_SESSION['role_id'] ?? 0) == 2
+        ? '?url=coach/dashboard'
+        : '?url=landing' ?>">
+    SwimManager 🚩
+</a>
 
         <div class="collapse navbar-collapse">
 
