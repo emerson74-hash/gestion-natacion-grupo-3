@@ -224,4 +224,73 @@ class Lesson
         );
         return $stmt->execute([$swimmerProfileId, $lessonId]);
     }
+
+
+    //Admin: Validacion de horarios de profesores y clases
+    public function hasScheduleConflict($profileId, $day, $startTime, $endTime): bool
+{
+    $sql = "
+        SELECT id
+        FROM lessons
+        WHERE profile_id = ?
+        AND day_of_week = ?
+        AND (
+            (start_time < ? AND end_time > ?) 
+            OR
+            (start_time < ? AND end_time > ?)
+            OR
+            (start_time >= ? AND end_time <= ?)
+        )
+        LIMIT 1
+    ";
+
+    $stmt = $this->db->prepare($sql);
+
+    $stmt->execute([
+        $profileId,
+        $day,
+        $endTime, $startTime,
+        $endTime, $startTime,
+        $startTime, $endTime
+    ]);
+
+    return (bool) $stmt->fetch();
+}
+
+//Clase por ID
+   public function getById($id)
+{
+    $sql = "SELECT * FROM lessons WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+//Editar clase 
+   public function update($data)
+{
+    $sql = "UPDATE lessons
+            SET level = ?,
+                day_of_week = ?,
+                start_time = ?,
+                end_time = ?,
+                capacity = ?,
+                profile_id = ?
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([
+        $data['level'],
+        $data['day_of_week'],
+        $data['start_time'],
+        $data['end_time'],
+        $data['capacity'],
+        $data['profile_id'],
+        $data['id']
+    ]);
+}
+
 }

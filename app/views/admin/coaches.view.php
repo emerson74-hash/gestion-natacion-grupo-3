@@ -62,14 +62,14 @@
                             <td>
 
                                 <a 
-                                    href="?url=admin&section=edit-coach&id=<?= $coach['id'] ?>"  
+                                    href="?url=admin&section=edit-coach&id=<?= $coach['user_id'] ?>"  
                                     class="btn btn-warning btn-sm"
                                 >
                                     Editar
                                 </a>
 
                                 <a 
-                                  href="?url=admin&section=delete-coach&id=<?= $coach['id'] ?>" 
+                                  href="?url=admin&section=delete-coach&id=<?= $coach['user_id'] ?>" 
                                   class="btn btn-danger btn-sm btn-delete"
                                 >
                                   Eliminar

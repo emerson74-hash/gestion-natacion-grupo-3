@@ -129,10 +129,22 @@ switch ($route) {
         case 'lessons':
             $controller->lessons();
             break;
-            
-        case 'swimmers':
-            $controller->swimmers();
+
+        case 'create-lesson':
+            $controller->createLesson();
             break;
+
+        case 'store-lesson':
+           $controller->storeLesson();
+            break;
+            
+        case 'edit-lesson':
+           $controller->editLesson();
+           break;
+
+        case 'update-lesson':
+           $controller->updateLesson();
+           break;
 
         case 'dashboard':
         default:

@@ -147,26 +147,19 @@ class User {
     public function getCoaches() {
 
      $sql = "
-        SELECT 
-            u.id, 
-            u.email,
-            u.role_id,
-
-           p.first_name, 
-           p.last_name,
-           p.phone,
-           p.specialty,
-           p.profile_image,
-           p.birth_date,
-           p.profile_image
-
+        SELECT
+          u.id AS user_id,
+          p.id AS profile_id,
+          u.email,
+          u.role_id,
+          p.first_name,
+          p.last_name,
+          p.phone,
+          p.specialty,
+          p.birth_date
         FROM users u
-
-        LEFT JOIN profiles p
-            ON u.id = p.user_id 
-
-        WHERE u.role_id = 2 
-        AND u.deleted_at IS NULL
+        INNER JOIN profiles p ON u.id = p.user_id
+        WHERE u.role_id = 2
     ";
 
     /**  ON u.id = p.user_id //Une el usuario con su perfil.

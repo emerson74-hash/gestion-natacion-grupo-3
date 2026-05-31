@@ -128,7 +128,7 @@ class AdminController extends BaseController {
     $this->render('admin/edit-coach.view', $data);
 }    
 
-public function updateCoach()
+  public function updateCoach()
 {
     $this->checkAuth();
     $this->checkRole([1]);
@@ -149,8 +149,8 @@ public function updateCoach()
     exit;
 }
 
-//Metodo para permitir al admin usar el boton eliminar en la tabla
-public function deleteCoach()
+   //Metodo para permitir al admin usar el boton eliminar en la tabla
+  public function deleteCoach()
 {
     $this->checkAuth();
     $this->checkRole([1]);
@@ -163,9 +163,9 @@ public function deleteCoach()
     exit;
 }
 
-//Admin: Parte Clases 
+  //Admin: Parte Clases 
 
-public function lessons()
+  public function lessons()
 {
     $this->checkAuth();
     $this->checkRole([1]);
@@ -179,9 +179,96 @@ public function lessons()
     $this->render('admin/lessons.view', $data);
 }
 
+//crear clase
+   public function createLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
+    $coaches = $this->userModel->getCoaches();
 
+    $data = [
+        'coaches' => $coaches
+    ];
 
+    $this->render('admin/create-lessons.view', $data);
+}
 
+//Datos
+ public function storeLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
+
+    $data = [
+        'level' => $_POST['level'],
+        'day_of_week' => $_POST['day_of_week'],
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time'],
+        'capacity' => $_POST['capacity'],
+        'profile_id' => $_POST['profile_id']
+    ];
+
+    $this->lessonModel->create($data);
+
+    header("Location: ?url=admin&section=lessons");
+    exit;
+
+    if (
+    $this->lessonModel->hasScheduleConflict(
+        $_POST['profile_id'],
+        $_POST['day_of_week'],
+        $_POST['start_time'],
+        $_POST['end_time']
+    )
+) {
+   $_SESSION['error'] = "El horario ya está ocupado";
+    header("Location: ?url=admin&section=create-lesson");
+    exit;
+}
+}
+
+//Boton de editar clases
+  public function editLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
+
+    $id = $_GET['id'];
+
+    $lesson = $this->lessonModel->getById($id);
+
+    $coaches = $this->userModel->getCoaches();
+
+    $data = [
+        'lesson' => $lesson,
+        'coaches' => $coaches
+    ];
+
+    $this->render('admin/edit-lessons.view', $data);
+}
+
+//Boton de eliminar clases
+  public function updateLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
+
+    $data = [
+
+        'id' => $_POST['id'],
+        'level' => $_POST['level'],
+        'day_of_week' => $_POST['day_of_week'],
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time'],
+        'capacity' => $_POST['capacity'],
+        'profile_id' => $_POST['profile_id']
+    ];
+
+    $this->lessonModel->update($data);
+
+    header("Location: ?url=admin&section=lessons");
+    exit;
+}
 
 }
