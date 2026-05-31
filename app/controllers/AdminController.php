@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php'; //importamos la carpeta que vamos a utilizar
+require_once __DIR__ . '/../models/Lesson.php';
 
 class AdminController extends BaseController {
     /**
@@ -11,6 +12,8 @@ class AdminController extends BaseController {
      * para mantener la coherencia en todo el proyecto.
      */
 
+    private $userModel;
+    private $lessonModel;
 
     
     public function __construct() //Definimos un constructor para la clase.
@@ -24,6 +27,7 @@ class AdminController extends BaseController {
     }
     $this->userModel = new User($pdo); //Creamos el modelo user 
     //para poder utilizarlo posteriormente 
+    $this->lessonModel = new Lesson($pdo);
    } 
 
 
@@ -124,7 +128,7 @@ class AdminController extends BaseController {
     $this->render('admin/edit-coach.view', $data);
 }    
 
-public function updateCoach()
+  public function updateCoach()
 {
     $this->checkAuth();
     $this->checkRole([1]);
@@ -145,8 +149,8 @@ public function updateCoach()
     exit;
 }
 
-//Metodo para permitir al admin usar el boton eliminar en la tabla
-public function deleteCoach()
+   //Metodo para permitir al admin usar el boton eliminar en la tabla
+  public function deleteCoach()
 {
     $this->checkAuth();
     $this->checkRole([1]);
@@ -159,33 +163,112 @@ public function deleteCoach()
     exit;
 }
 
+  //Admin: Parte Clases 
 
-    //ADMIN: Conexion al menu en view/layout
-   /* public function panel(){
-    //Busca por defecto la URL dashboard
-    $section = $_GET['section'] ?? 'dashboard';
+  public function lessons()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-    switch($section){
+    $lessons = $this->lessonModel->getAll();
 
-    case 'coaches':
-        $view = "View/admin/coaches.view.php";  //Si la URL coincide, va a buscar la vista para mostrar a coaches
-        break;
+    $data = [
+        'lessons' => $lessons
+    ];
 
-    case 'swimmers':
-        $view = "View/admin/swimmers.view.php";
-        break;
+    $this->render('admin/lessons.view', $data);
+}
 
-    default:
-        $view = "View/admin/dashboard.view.php";
-        break;
-    }
+//crear clase
+   public function createLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-include "View/layout/admin.layout.php"; //carga del layout principal de admin
+    $coaches = $this->userModel->getCoaches();
 
-    }**/
+    $data = [
+        'coaches' => $coaches
+    ];
 
+    $this->render('admin/create-lessons.view', $data);
+}
 
+//Datos
+ public function storeLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
+    $data = [
+        'level' => $_POST['level'],
+        'day_of_week' => $_POST['day_of_week'],
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time'],
+        'capacity' => $_POST['capacity'],
+        'profile_id' => $_POST['profile_id']
+    ];
 
+    $this->lessonModel->create($data);
+
+    header("Location: ?url=admin&section=lessons");
+    exit;
+
+    if (
+    $this->lessonModel->hasScheduleConflict(
+        $_POST['profile_id'],
+        $_POST['day_of_week'],
+        $_POST['start_time'],
+        $_POST['end_time']
+    )
+) {
+   $_SESSION['error'] = "El horario ya está ocupado";
+    header("Location: ?url=admin&section=create-lesson");
+    exit;
+}
+}
+
+//Boton de editar clases
+  public function editLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
+
+    $id = $_GET['id'];
+
+    $lesson = $this->lessonModel->getById($id);
+
+    $coaches = $this->userModel->getCoaches();
+
+    $data = [
+        'lesson' => $lesson,
+        'coaches' => $coaches
+    ];
+
+    $this->render('admin/edit-lessons.view', $data);
+}
+
+//Boton de eliminar clases
+  public function updateLesson()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
+
+    $data = [
+
+        'id' => $_POST['id'],
+        'level' => $_POST['level'],
+        'day_of_week' => $_POST['day_of_week'],
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time'],
+        'capacity' => $_POST['capacity'],
+        'profile_id' => $_POST['profile_id']
+    ];
+
+    $this->lessonModel->update($data);
+
+    header("Location: ?url=admin&section=lessons");
+    exit;
+}
 
 }

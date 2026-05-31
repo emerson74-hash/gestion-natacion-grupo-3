@@ -29,12 +29,13 @@ export function initForgotPassword() {
 
             // Convertimos la respuesta cruda del servidor a un objeto JSON
             const data = await response.json();
+            console.log("data en sendReset: ", data);
 
             // Delegamos la respuesta visual al servicio central de alertas
             handleAlert(data.status, data.message, data.redirect);
 
         } catch (error) {
-            console.error("Recovery Error:", error);
+           // console.error("Recovery Error:", error);
             handleAlert("error", "No se pudo procesar la solicitud de recuperación.");
         }
     });

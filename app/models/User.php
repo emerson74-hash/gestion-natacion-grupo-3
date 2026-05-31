@@ -57,7 +57,8 @@ class User {
     public function login($email, $password)
     {
         // Traemos los datos de users y los datos de perfil de perfiles
-        $sql = "SELECT u.*, p.first_name, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+        $sql = "SELECT u.*, p.first_name, p.id AS profile_id, p.last_name, p.birth_date, p.phone, p.specialty, p.profile_image
+
 
             FROM users u
             LEFT JOIN profiles p ON u.id = p.user_id AND p.deleted_at IS NULL
@@ -146,26 +147,19 @@ class User {
     public function getCoaches() {
 
      $sql = "
-        SELECT 
-            u.id, 
-            u.email,
-            u.role_id,
-
-           p.first_name, 
-           p.last_name,
-           p.phone,
-           p.specialty,
-           p.profile_image,
-           p.birth_date,
-           p.profile_image
-
+        SELECT
+          u.id AS user_id,
+          p.id AS profile_id,
+          u.email,
+          u.role_id,
+          p.first_name,
+          p.last_name,
+          p.phone,
+          p.specialty,
+          p.birth_date
         FROM users u
-
-        LEFT JOIN profiles p
-            ON u.id = p.user_id 
-
-        WHERE u.role_id = 2 
-        AND u.deleted_at IS NULL
+        INNER JOIN profiles p ON u.id = p.user_id
+        WHERE u.role_id = 2
     ";
 
     /**  ON u.id = p.user_id //Une el usuario con su perfil.
@@ -312,5 +306,53 @@ public function deleteCoach($id)
 
     return $stmtUser->execute([$id]);
 }
+
+//Admin: Parte Clases
+
+public function update($data)
+{
+    $sql = "UPDATE lessons
+            SET level = ?,
+                day_of_week = ?,
+                start_time = ?,
+                end_time = ?,
+                capacity = ?,
+                profile_id = ?
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([
+        $data['level'],
+        $data['day_of_week'],
+        $data['start_time'],
+        $data['end_time'],
+        $data['capacity'],
+        $data['profile_id'],
+        $data['id']
+    ]);
+}
+
+public function getById($id)
+{
+    $sql = "SELECT *
+            FROM lessons
+            WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function delete($id)
+{
+    $sql = "DELETE FROM lessons WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([$id]);
+}
+
 
 }

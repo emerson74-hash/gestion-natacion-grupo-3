@@ -271,15 +271,19 @@ class UserController extends BaseController
             $_SESSION['user_id']       = $user['id'];
             $_SESSION['role_id']       = $user['role_id'];
             $_SESSION['email']         = $user['email'];
+            $_SESSION['specialty']         = $user['specialty'];
+           
             // Datos para el saludo y la foto que pide el layout
             $_SESSION['first_name']    = $user['first_name'];
+            $_SESSION['last_name']    = $user['last_name'];
+
             $_SESSION['profile_image'] = $user['profile_image'];
 
             // Redirigimos al dashboard que corresponde según el rol del usuario
             switch ($user['role_id']) {
 
                 case 1:
-                    $redirect = Env::get('APP_URL') . '/?url=admin&section=dashboard';
+                    $redirect = Env::get('APP_URL') . '/public/?url=admin&section=dashboard';
                     break;
 
                 case 2:
