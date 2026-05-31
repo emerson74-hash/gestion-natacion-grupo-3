@@ -1,10 +1,16 @@
 /* =========================================================
+   VARIABLES
+========================================================= */
+:root{
+    --turquesa: #4FD1E8;
+}
+
+
+/* =========================================================
    FONDO GENERAL
 ========================================================= */
 body{
-
-    background: #dfe7f4;
-
+    background: #ffffff;
     min-height: 100vh;
 }
 
@@ -13,16 +19,11 @@ body{
    CARD PRINCIPAL
 ========================================================= */
 .card{
-
-    border: none;
-
+    border: 2px solid var(--turquesa);
     border-radius: 20px;
-
     overflow: hidden;
-
     background: white;
-
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 30px rgba(79,209,232,0.15);
 }
 
 
@@ -30,33 +31,22 @@ body{
    CABECERA
 ========================================================= */
 .card-header{
-
-    background: #1d3557 !important;
-
-    border: none;
-
+    background: var(--turquesa) !important;
+    border-bottom: 2px solid var(--turquesa);
     padding: 22px;
 }
 
-
 .card-header h4{
-
     color: white;
-
     font-weight: 700;
-
-    font-size: 2rem;
 }
-
 
 
 /* =========================================================
    LABELS
 ========================================================= */
 .form-label{
-
-    color: #1d3557;
-
+    color: var(--turquesa);
     font-weight: 600;
 }
 
@@ -65,49 +55,39 @@ body{
    INPUTS
 ========================================================= */
 .form-control{
-
+    border: 2px solid var(--turquesa);
     border-radius: 12px;
-
-    border: 1px solid #cfd8e3;
-
     padding: 12px;
+    transition: 0.3s;
 }
 
-
+/* foco */
 .form-control:focus{
-
-    border-color: #457b9d;
-
-    box-shadow: 0 0 0 .2rem rgba(69,123,157,.15);
+    border-color: var(--turquesa);
+    box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25);
 }
 
 
 /* =========================================================
-   BOTÓN
+   BOTÓN PRINCIPAL
 ========================================================= */
 .register-btn{
-
-    background: #1d3557;
-
-    border: none;
-
+    background: var(--turquesa);
+    border: 2px solid var(--turquesa);
     color: white;
-
     padding: 12px 40px;
-
     border-radius: 10px;
-
     font-weight: 600;
-
-    transition: .3s;
+    transition: 0.3s;
 }
 
-
+/* hover invertido */
 .register-btn:hover{
-
-    background: #274c77;
-
-    color: white;
+    background: white;
+    color: var(--turquesa);
+    border: 2px solid var(--turquesa);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79,209,232,0.25);
 }
 
 
@@ -115,16 +95,17 @@ body{
    FOOTER
 ========================================================= */
 .card-footer{
-
-    background: #f8f9fc;
+    background: #f8ffff;
+    border-top: 2px solid var(--turquesa);
 }
 
-
 .card-footer a{
-
-    color: #457b9d;
-
+    color: var(--turquesa);
     font-weight: 600;
+}
+
+.card-footer a:hover{
+    text-decoration: underline;
 }
 
 
@@ -132,12 +113,14 @@ body{
    CONTENEDOR
 ========================================================= */
 .container{
-
     padding-top: 40px;
     padding-bottom: 40px;
 }
 
-.navbar{
-    display:none;
-}
 
+/* =========================================================
+   NAVBAR OCULTA (LOGIN/REGISTER)
+========================================================= */
+.navbar{
+    display: none !important;
+}
