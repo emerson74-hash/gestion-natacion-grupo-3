@@ -4,46 +4,61 @@
  */
 import { handleAlert } from "../../services/ui.js";
 
+
 export function initLogin() {
     const form = document.getElementById("formLogin");
-
-    // "Early return" para evitar errores si el script se carga en otra página
     if (!form) return;
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        const email = form.querySelector("input[name='email']");
+        const password = form.querySelector("input[name='password']");
+
+        // RESET estilos
+        email.classList.remove("is-invalid");
+        password.classList.remove("is-invalid");
+
+        // VALIDACIONES FRONT
+        if (!email.value.trim()) {
+            email.classList.add("is-invalid");
+            return handleAlert("warning", "Ingrese su correo electrónico.");
+        }
+
+        if (!validarEmail(email.value)) {
+            email.classList.add("is-invalid");
+            return handleAlert("warning", "Ingrese un correo válido.");
+        }
+
+        if (!password.value.trim()) {
+            password.classList.add("is-invalid");
+            return handleAlert("warning", "Ingrese su contraseña.");
+        }
+
+        if (password.value.length < 6) {
+            password.classList.add("is-invalid");
+            return handleAlert("warning", "La contraseña debe tener al menos 6 caracteres.");
+        }
+
         const formData = new FormData(form);
 
         try {
-            // Apuntamos a 'authenticate', que es el nombre que definimos en el Router
             const response = await fetch("?url=authenticate", {
                 method: "POST",
                 body: formData,
             });
 
-            /**
-             * Obtenemos la respuesta como texto plano primero.
-             * Esto es una red de seguridad: si PHP envía un error de sistema (HTML),
-             * el JSON.parse fallaría, pero aquí podremos ver qué pasó exactamente.
-             */
             const text = await response.text();
+            const data = JSON.parse(text);
 
-            try {
-                const data = JSON.parse(text);
-                
-                // Si las credenciales son válidas, handleAlert procesará la redirección
-                handleAlert(data.status, data.message, data.redirect);
-
-            } catch (err) {
-                // Si llegamos aquí, PHP devolvió algo que NO es JSON (posible error de sintaxis)
-                console.error("Server response was not JSON:", text);
-                handleAlert("error", "The server returned an invalid response. Check the console.");
-            }
+            handleAlert(data.status, data.message, data.redirect);
 
         } catch (error) {
-            console.error("Connection Error:", error);
-            handleAlert("error", "Could not connect to the authentication server.");
+            handleAlert("error", "Error de conexión con el servidor.");
         }
     });
+}
+
+function validarEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

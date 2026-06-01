@@ -3,8 +3,8 @@
 ========================================================= */
 :root{
     --turquesa: #4FD1E8;
+    --turquesa-oscuro: #2fbfd6;
 }
-
 
 /* =========================================================
    FONDO GENERAL
@@ -13,7 +13,6 @@ body{
     background: #ffffff;
     min-height: 100vh;
 }
-
 
 /* =========================================================
    CARD PRINCIPAL
@@ -25,7 +24,6 @@ body{
     background: white;
     box-shadow: 0 10px 30px rgba(79,209,232,0.15);
 }
-
 
 /* =========================================================
    CABECERA
@@ -41,7 +39,6 @@ body{
     font-weight: 700;
 }
 
-
 /* =========================================================
    LABELS
 ========================================================= */
@@ -49,7 +46,6 @@ body{
     color: var(--turquesa);
     font-weight: 600;
 }
-
 
 /* =========================================================
    INPUTS
@@ -63,10 +59,9 @@ body{
 
 /* foco */
 .form-control:focus{
-    border-color: var(--turquesa);
+    border-color: var(--turquesa-oscuro);
     box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25);
 }
-
 
 /* =========================================================
    BOTÓN PRINCIPAL
@@ -81,7 +76,7 @@ body{
     transition: 0.3s;
 }
 
-/* hover invertido */
+/* hover */
 .register-btn:hover{
     background: white;
     color: var(--turquesa);
@@ -89,7 +84,6 @@ body{
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(79,209,232,0.25);
 }
-
 
 /* =========================================================
    FOOTER
@@ -108,7 +102,6 @@ body{
     text-decoration: underline;
 }
 
-
 /* =========================================================
    CONTENEDOR
 ========================================================= */
@@ -117,10 +110,32 @@ body{
     padding-bottom: 40px;
 }
 
-
-/* =========================================================
-   NAVBAR OCULTA (LOGIN/REGISTER)
-========================================================= */
+/*
+   OCULTAR NAVBAR (LOGIN / REGISTER)
+*/
 .navbar{
     display: none !important;
+}
+
+
+
+/* ERROR */
+.form-control.is-invalid{
+    border: 2px solid #ff5c5c !important;
+    box-shadow: 0 0 0 .25rem rgba(255,92,92,0.25) !important;
+    background-image: none !important;
+}
+
+/* MENSAJE ERROR */
+.invalid-feedback{
+    color: #ff5c5c !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* SUCCESS */
+.form-control.is-valid{
+    border: 2px solid var(--turquesa) !important;
+    box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25) !important;
+    background-image: none !important;
 }

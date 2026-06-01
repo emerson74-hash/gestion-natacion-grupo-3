@@ -9,7 +9,7 @@
                     <h4 class="mb-0 text-center"><?php echo $title ?? 'Registro de Swimmer'; ?></h4>
                 </div>
                 <div class="card-body">
-                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data">
+                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data" novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">

@@ -11,7 +11,7 @@
             <div class="card p-5">
 
                 <h1 class="text-center mb-4">
-                    Agregar Entrenador ✏️​
+                    Agregar Entrenador
                 </h1>
 
                 <form 

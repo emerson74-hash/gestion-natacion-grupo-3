@@ -24,7 +24,7 @@
 
                 <div class="card-body p-4">
 
-                    <form id="formLogin">
+                  <form id="formLogin" novalidate>
 
                         <div class="mb-3">
                             <label class="form-label">
