@@ -5,6 +5,14 @@ require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php'; //importamos la carpeta que vamos a utilizar
 require_once __DIR__ . '/../models/Lesson.php';
 
+//Importamos PHPMailer para los mail
+require_once __DIR__ . '/../libs/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../libs/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/../libs/PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class AdminController extends BaseController {
     /**
      * Muestra el panel principal.
@@ -80,6 +88,9 @@ class AdminController extends BaseController {
     $this->checkAuth();
     $this->checkRole([1]);
 
+
+    $tempPassword = substr(bin2hex(random_bytes(4)), 0, 8);
+
     $data = [
 
         'first_name' => $_POST['first_name'],
@@ -89,10 +100,13 @@ class AdminController extends BaseController {
         'email'      => $_POST['email'],
         'specialty'  => $_POST['specialty'],
 
-        'password' => password_hash(
-            $_POST['password'],
-            PASSWORD_DEFAULT
-        ),
+        'profile_image' => null,
+
+        
+    'password' => password_hash(
+    $tempPassword,
+    PASSWORD_DEFAULT
+),
 
         'role_id' => 2 // coach
     ];
@@ -101,10 +115,54 @@ class AdminController extends BaseController {
 
     if($this->userModel->emailExists($_POST['email']))
 {
-    die("El email ya existe");
+    $_SESSION['error'] = "El email ya existe";
+
+   header("Location: ?url=admin&section=create-coach");
+   exit;
 }
 
+//Una vez creado el coach, envia el mail automatico
     $this->userModel->createCoach($data);
+
+    $mail = new PHPMailer(true);
+
+    $mail->isSMTP();
+    $mail->Host = Env::get('MAIL_HOST');
+    $mail->SMTPAuth = true;
+    $mail->Username = Env::get('MAIL_USERNAME');
+    $mail->Password = Env::get('MAIL_PASSWORD');
+
+    $mail->setFrom(
+    Env::get('MAIL_FROM'),
+    Env::get('MAIL_FROM_NAME')
+    );
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = Env::get('MAIL_PORT');
+    $mail->addAddress($data['email']);
+    $mail->isHTML(true);
+
+    $mail->Subject = 'Credenciales de acceso';
+
+    $mail->Body = "
+    <h3>Bienvenido {$data['first_name']}</h3>
+
+   <p>Su cuenta ha sido creada correctamente.</p>
+
+   <p><strong>Email:</strong> {$data['email']}</p>
+   <p><strong>Contraseña provisoria:</strong> {$tempPassword}</p>
+
+   <p>Por favor cambie la contraseña al ingresar.</p>
+   ";
+
+   $mail->SMTPDebug = 0;
+
+        try {
+    $mail->send();
+     echo "<h2>Mail enviado correctamente</h2>";
+} catch (Exception $e) {
+    echo "<h2>Error al enviar</h2>"; 
+    $mail->ErrorInfo;
+}
 
     header("Location: ?url=admin&section=coaches");
     exit;
@@ -209,6 +267,7 @@ class AdminController extends BaseController {
         'profile_id' => $_POST['profile_id']
     ];
 
+
     $this->lessonModel->create($data);
 
     header("Location: ?url=admin&section=lessons");
@@ -226,6 +285,12 @@ class AdminController extends BaseController {
     header("Location: ?url=admin&section=create-lesson");
     exit;
 }
+
+   $this->lessonModel->create($data);
+
+   header("Location: ?url=admin&section=lessons");
+   exit;
+
 }
 
 //Boton de editar clases

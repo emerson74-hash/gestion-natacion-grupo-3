@@ -3,22 +3,25 @@
 
 <div class="container mt-4">
 
-
 <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
-    <h2 class="mb-3">Gestión de Clases</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+
+    <h2 class="mb-0">Gestión de clases</h2>
 
     <a href="?url=admin&section=create-lesson"
-       class="btn-admin btn-primary-admin mb-3">
-    <i class="bi bi-plus-lg"></i> Agregar clase
+       class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i>
+        Agregar clase
     </a>
 
-    <div class="card shadow-sm mx-auto" style="max-width: 1100px;">
+</div>
+
+    <div class="card shadow-sm mx-auto">
         <div class="card-body">
 
                 <div class="table-responsive-custom">
-                   <table class="table-modern">
-
+                  <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
                             <th>Nivel</th>
@@ -36,14 +39,15 @@
 
                     <tbody>
 
+
                         <?php foreach ($lessons as $lesson): ?>
 
                             <tr>
 
                                 <td><?= htmlspecialchars($lesson['level']) ?></td>
                                 <td><?= htmlspecialchars($lesson['day_of_week']) ?></td>
-                                <td><?= htmlspecialchars($lesson['start_time']) ?></td>
-                                <td><?= htmlspecialchars($lesson['end_time']) ?></td>
+                                <td><?= substr($lesson['start_time'], 0, 5) ?></td>
+                                <td><?= substr($lesson['end_time'], 0, 5) ?></td>
                                 <td><?= htmlspecialchars($lesson['capacity']) ?></td>
                                 <td><?= htmlspecialchars($lesson['coach_name']) ?></td>
                                 <td><?= htmlspecialchars($lesson['booked_count']) ?></td>
@@ -87,7 +91,7 @@ document.querySelectorAll('.btn-delete').forEach(button => {
         const url = this.href;
 
         Swal.fire({
-            title: '¿Eliminar entrenador?',
+            title: '¿Eliminar clase?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,

@@ -7,6 +7,13 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,11 +57,22 @@
                             $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
                             ?>
 
-                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
+                            <?php if(!empty($_SESSION['profile_image'])): ?>
+
+                             <img src="<?= $rutaFoto ?>"
+                              alt="Perfil"
+                              class="profile-img-nav me-2">
+
+                             <?php else: ?>
+
+                             <i class="bi bi-person-circle fs-3 text-info me-2"></i>
+
+                             <?php endif; ?>
 
                             <span class="nav-link text-info p-0">
                                 Hola,
                                 <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                                
                             </span>
 
                         </li>

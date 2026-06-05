@@ -1,21 +1,24 @@
 /*Admin: Dashboard y Gestion de Entrenadores*/
 body{
-    background-color:#D9E1F1;
+    background-color:var(--light-2);
 }
 
 .navbar{
-    background-color:#192338;
+    background-color:var(--primary-dark);
 }
 
 .card{
     border:none;
     border-radius:18px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    min-height:180px;
+    box-shadow:0 4px 15px rgba(11, 11, 11, 0.08);
 }
 
 .card:hover{
+    
     transform:translateY(-3px);
     transition:0.2s;
+    cursor:pointer;
 }
 
 .table{
@@ -32,38 +35,7 @@ body{
     background-color:#1E2E4F;
 }
 
-.btn-coach{
-    background-color:#31487A;
-    color:white;
-    border:none;
-}
 
-.btn-coach:hover{
-    background-color:#1E2E4F;
-    color:white;
-}
-
-.btn-swimmer{
-    background-color:#8FB3E2;
-    color:#192338;
-    border:none;
-}
-
-.btn-swimmer:hover{
-    background-color:#6b9ddb;
-    color:white;
-}
-
-.btn-classes{
-    background-color:#192338;
-    color:white;
-    border:none;
-}
-
-.btn-classes:hover{
-    background-color:#31487A;
-    color:white;
-}
 
 .form-control{
     border-radius:10px;
@@ -81,7 +53,8 @@ body{
 }
 
 h1,h2,h3,h4{
-    color:#192338;
+    color:var(--primary-dark);
+    font-weight:600;
 }
 
 /*Entrada: Animacion para entrar a agregar y editar coach.*/
@@ -126,34 +99,6 @@ h1,h2,h3,h4{
     --light-2: #D9E1F1;
 }
 
-/*Tablas*/
-.table-modern {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-.table-modern thead {
-    background: var(--primary-dark);
-    color: white;
-}
-
-.table-modern th,
-.table-modern td {
-    padding: 12px;
-    font-size: 14px;
-}
-
-.table-modern tbody tr {
-    border-bottom: 1px solid #eee;
-}
-
-.table-modern tbody tr:hover {
-    background: var(--light-2);
-}
 
 /*Adaptacion celular*/
 .table-responsive-custom {
@@ -163,14 +108,14 @@ h1,h2,h3,h4{
 }
 
 /*Botones*/
-.btn-admin {
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-    transition: 0.2s;
+.btn-admin{
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:600;
+    display:inline-block;
     text-decoration: none;
-    display: inline-block;
+    white-space: nowrap;
 }
 
 .btn-primary-admin {
@@ -197,13 +142,9 @@ h1,h2,h3,h4{
     opacity:0.9;
 }
 
-.btn-danger-admin:hover{
-    opacity:0.9;
-}
 
-.btn-admin{
-    font-weight:600;
-}
+
+
 
 /*Ordena de la tabla*/
 .actions {
@@ -227,6 +168,21 @@ h1,h2,h3,h4{
     font-weight:600;
 }
 
+.table{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:var(--primary-dark);
+}
+
+.table-dark th{
+    background:var(--primary-dark) !important;
+    border:none;
+}
+
 /*vista celular*/
 @media(max-width:768px){
 
@@ -243,4 +199,25 @@ h1,h2,h3,h4{
         font-size:1.5rem;
     }
 
+}
+
+@media (max-width: 768px) {
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .actions .btn-admin {
+        width: 100%;
+        font-size: 12px;
+        padding: 6px;
+         
+    }
+
+}
+
+.table-responsive-custom {
+    overflow-x: auto;
 }

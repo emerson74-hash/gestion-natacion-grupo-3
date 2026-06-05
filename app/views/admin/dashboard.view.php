@@ -17,7 +17,8 @@
                 <h4>Entrenadores </h4>
                 <p>Administre, organice y edite.</p>
 
-                <a href="?url=admin&section=coaches" class="btn btn-coach">
+                <a href="?url=admin&section=coaches"
+                class="btn-admin btn-primary-admin">
                     Entrar
                 </a>
             </div>
@@ -28,7 +29,8 @@
                 <h4>Clases </h4>
                 <p>Administre, organice y edite.</p>
 
-                <a href="?url=admin&section=lessons" class="btn btn-classes">
+                <a href="?url=admin&section=lessons"
+                    class="btn-admin btn-primary-admin">
                     Entrar
                 </a>
             </div>

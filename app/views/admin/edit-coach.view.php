@@ -14,11 +14,14 @@
                      Editar Entrenador ✏️​
                 </h1>
 
-                <form method="POST" action="?url=admin&section=update-coach">
+                <form method="POST" 
+                action="?url=admin&section=update-coach">
 
                     <input type="hidden" name="id" value="<?= $coach['id'] ?>">
 
-                    <div class="mb-3">
+                    <div class="row">
+
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Nombre
@@ -34,7 +37,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Apellido
@@ -50,7 +53,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Fecha de nacimiento
@@ -65,7 +68,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Teléfono
@@ -80,7 +83,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Email
@@ -96,7 +99,7 @@
 
                     </div>
 
-                    <div class="mb-4">
+                    <div class="col-md-6 mb-4">
 
                         <label class="form-label">
                             Especialidad
@@ -131,6 +134,8 @@
                     </div>
 
                 </form>
+
+               </div>
 
             </div>
 

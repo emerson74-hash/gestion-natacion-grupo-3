@@ -1,38 +1,64 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
-<div class="container mt-4">
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
-<h2>Editar Clase</h2>
+<div class="container py-5">
 
-<form method="POST" action="?url=admin&section=update-lesson">
+    <div class="row justify-content-center">
 
-<input type="hidden"
-       name="id"
-       value="<?= $lesson['id'] ?>">
+        <div class="col-12 col-md-8 col-lg-6">
 
-<div class="mb-3">
-    <label>Nivel</label>
+            <div class="card p-4">
 
-    <input type="text"
-           name="level"
-           class="form-control"
-           value="<?= $lesson['level'] ?>">
-</div>
+                <h1 class="text-center mb-4">
+                    Editar Clase 📚
+                </h1>
 
-<div class="mb-3">
+                <form method="POST"
+                      action="?url=admin&section=update-lesson">
 
-<label>Día</label>
+     <input type="hidden"
+            name="id"
+            value="<?= $lesson['id'] ?>">
+
+            <div class="row">
+          <div class="col-md- 6 mb-3">
+          <label>Nivel</label>
+
+                <select name="level" class="form-control" required>
+                <option value="">Seleccione un nivel</option>
+                <option value="Inicial">Inicial</option>
+                <option value="Intermedio">Intermedio</option>
+                <option value="Experto">Experto</option>
+              </select>
+            </div>
+
+          <div class="col-md-6 mb-3">
+
+         <label>Día</label>
         <select name="day_of_week" class="form-control">
-                <option>Lunes</option>
-                <option>Martes</option>
-                <option>Miercoles</option>
-                <option>Jueves</option>
-                <option>Viernes</option>
-                <option>Sabado</option>
+        <option <?= $lesson['day_of_week']=='Lunes' ? 'selected' : '' ?>>
+               Lunes
+         </option>
+                <option <?= $lesson['day_of_week']=='Martes' ? 'selected' : '' ?>>
+               Martes
+         </option>
+         <option <?= $lesson['day_of_week']=='Miércoles' ? 'selected' : '' ?>>
+               Miercoles
+         </option>
+                <option <?= $lesson['day_of_week']=='Jueves' ? 'selected' : '' ?>>
+               Jueves
+         </option>
+                <option <?= $lesson['day_of_week']=='Viernes' ? 'selected' : '' ?>>
+                Viernes
+        </option>
+                <option <?= $lesson['day_of_week']=='Sábado' ? 'selected' : '' ?>>
+                Sabado
+          </option>
             </select>
             </div>
 
-<div class="mb-3">
+       <div class="col-md-6 mb-3">
 
        <label>Hora Inicio</label>
 
@@ -41,9 +67,9 @@
             value="<?= $lesson['start_time'] ?>"
             class="form-control">
 
-</div>
+         </div>
 
-<div class="mb-3">
+       <div class="col-md-6 mb-3">
 
         <label>Hora Fin</label>
 
@@ -52,9 +78,9 @@
        value="<?= $lesson['end_time'] ?>"
        class="form-control">
 
-</div>
+       </div>
 
-<div class="mb-3">
+        <div class="col-md-6 mb-3">
 
        <label>Capacidad</label>
 
@@ -63,9 +89,9 @@
        value="<?= $lesson['capacity'] ?>"
        class="form-control">
 
-</div>
+        </div>
 
-<div class="mb-3">
+        <div class="col-md-6 mb-3">
 
       <label>Entrenador</label>
 
@@ -84,20 +110,28 @@
 
 <?php endforeach; ?>
 
-</select>
+               </select>
 
+                <div class="d-flex gap-2">
+
+                <a 
+                  href="?url=admin&section=lessons"
+                  class="btn btn-secondary w-50"
+                >
+               
+                ← Volver
+
+                </a>
+
+              <button 
+                type="submit"
+                class="btn btn-primary w-50"
+               >
+               Guardar cambios
+              </button>
+
+   </form>
 </div>
-     <a href="?url=admin&section=lessons"
-     class="btn btn-secondary mw-50">
-   ← Volver
-   </a>
-
-    <button class="btn btn-success mw-50">
-    Guardar Cambios
-    </button>
-
-</form>
-
 </div>
 
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

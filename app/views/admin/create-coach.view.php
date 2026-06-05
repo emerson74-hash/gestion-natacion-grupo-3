@@ -19,7 +19,8 @@
                   action="?url=admin&section=store-coach"
                   enctype="multipart/form-data"
                 >
-                    <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Nombre
@@ -34,7 +35,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Apellido
@@ -49,7 +50,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                     <label class="form-label">
                     Fecha de nacimiento
@@ -63,7 +64,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                     <label class="form-label">
                      Teléfono
@@ -77,7 +78,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Email
@@ -92,7 +93,7 @@
 
                     </div>
 
-                    <div class="mb-3">
+                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Especialidad
@@ -107,7 +108,7 @@
 
                     </div>
 
-                    <div class="mb-4">
+                    <div class="col-md-6 mb-4">
 
                         <label class="form-label">
                             Contraseña
@@ -141,6 +142,8 @@
                     </div>
 
                 </form>
+
+               </div>
 
             </div>
 

@@ -4,22 +4,27 @@
 
 <div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Gestion de Entrenadores</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
-        <a href="?url=admin&section=create-coach" class="btn btn-primary">
-            Agregar entrenador
-        </a>
-    </div>
+    <h2 class="mb-0">Gestión de Entrenadores</h2>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <a href="?url=admin&section=create-coach"
+       class="btn-admin btn-primary-admin">
+        <i class="bi bi-plus-lg"></i>
+        Agregar entrenador
+    </a>
+
+</div>
+
+   <div class="card shadow-sm mx-auto">
+    <div class="card-body">
 
             <table class="table table-hover align-middle">
-
+            <div class="table-responsive-custom">
+             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th>Foto</th>
+                        
                         <th>Nombre</th>
                         <th>Nacimiento</th>
                         <th>Telefono</th>
@@ -35,9 +40,7 @@
 
                         <tr>
 
-                            <td class="text-center fs-3">
-                                👤
-                            </td>
+                            
 
                             <td>
                                 <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
@@ -61,19 +64,19 @@
 
                             <td>
 
-                                <a 
-                                    href="?url=admin&section=edit-coach&id=<?= $coach['user_id'] ?>"  
-                                    class="btn btn-warning btn-sm"
-                                >
-                                    Editar
-                                </a>
+                                <div class="actions">
 
-                                <a 
-                                  href="?url=admin&section=delete-coach&id=<?= $coach['user_id'] ?>" 
-                                  class="btn btn-danger btn-sm btn-delete"
-                                >
-                                  Eliminar
-                                </a>
+                                 <a href="?url=admin&section=edit-coach&id=<?= $coach['user_id'] ?>"
+                                 class="btn-admin btn-warning-admin">
+                                 Editar
+                                 </a>
+
+                                 <a href="?url=admin&section=delete-coach&id=<?= $coach['user_id'] ?>"
+                                 class="btn-admin btn-danger-admin btn-delete">
+                                 Eliminar
+                                 </a>
+
+                                </div>
 
                             </td>
 
@@ -83,6 +86,8 @@
 
                 </tbody>
 
+                </div>
+                    </table>
             </table>
 
         </div>
