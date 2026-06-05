@@ -33,9 +33,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
 
-            <a class="navbar-brand" href="<?= ($_SESSION['role_id'] ?? 0) == 2
-                ? '?url=coach/dashboard'
-                : '?url=landing' ?>">
+            <a class="navbar-brand" href="<?=
+                match ($_SESSION['role_id'] ?? 0) {
+                    1 => '?url=admin/dashboard',
+                    3 => '?url=swimmer/dashboard',
+                    2 => '?url=coach/dashboard',
+                    default => '?url=landing'
+                }
+                ?>">
                 Centro de Natación 🚩
             </a>
 
