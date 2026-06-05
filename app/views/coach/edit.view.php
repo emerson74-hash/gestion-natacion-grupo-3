@@ -15,7 +15,7 @@
                 </div>
                 <form id="profileForm" action="?url=coach/updateProfile" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="card-body col-md-3">
+                        <div class="card-body col-md-3 ms-2">
 
 
                             <div class="mb-3">
@@ -46,7 +46,7 @@
                             </button>
 
                         </div>
-                        <div class="card-body col-md-3 p-0" style="height: 200px; overflow-hidden;">
+                        <div class="card-body col-md-3 text-center me-3">
                             <div>
                                 <?php
                                 $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
@@ -56,7 +56,7 @@
                                 <img src="<?= $rutaFoto ?>" class="w-100 h-100 object-fit-cover object-position-center">
                             </div>
                             <div>
-                                <div class="mb-3">
+                                <div class="mb-3 text-center">
                                     <label class="form-label">Cambiar foto de perfil</label>
                                     <input type="file" id="profile_image" name="profile_image" class="form-control"
                                         accept="image/*">
