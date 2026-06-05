@@ -34,9 +34,9 @@ switch ($route) {
         break;
     // --- LANDING PAGE PÚBLICA ---
     case 'landing':
-    require_once __DIR__ . '/../app/controllers/LandingController.php';
-    (new LandingController())->index();
-    break;
+        require_once __DIR__ . '/../app/controllers/LandingController.php';
+        (new LandingController())->index();
+        break;
     // --- MÓDULO DE USUARIOS Y AUTENTICACIÓN ---
     // Agrupamos rutas relacionadas para evitar repetir el require_once
     case 'login':
@@ -75,6 +75,7 @@ switch ($route) {
     case 'coach/profile':
     case 'coach/lessons':
     case 'coach/edit':
+    case 'coach/updateProfile':
         require_once __DIR__ . '/../app/controllers/CoachController.php';
         $controller = new CoachController();
 
@@ -87,72 +88,74 @@ switch ($route) {
             $controller->lessons();
         if ($route === 'coach/edit')
             $controller->edit();
+        if ($route === 'coach/updateProfile')
+            $controller->updateProfile();
         break;
 
 
     //--- MÓDULO ADMIN ---
     // Agrego las rutas de acceso segun el perfil al que entre el admin.
 
-          case 'admin':
+    case 'admin':
 
-    require_once __DIR__ . '/../app/controllers/AdminController.php';
-    $controller = new AdminController();
+        require_once __DIR__ . '/../app/controllers/AdminController.php';
+        $controller = new AdminController();
 
-    $section = $_GET['section'] ?? 'dashboard';
+        $section = $_GET['section'] ?? 'dashboard';
 
-    switch($section){
+        switch ($section) {
 
-        case 'coaches':
-            $controller->coaches();
-            break;
+            case 'coaches':
+                $controller->coaches();
+                break;
 
-        case 'create-coach':
-            $controller->createCoach();
-            break;
+            case 'create-coach':
+                $controller->createCoach();
+                break;
 
-        case 'store-coach':
-            $controller->storeCoach();
-            break;    
+            case 'store-coach':
+                $controller->storeCoach();
+                break;
 
             case 'edit-coach':
-            $controller->editCoach();
-            break;
+                $controller->editCoach();
+                break;
 
-        case 'update-coach':
-            $controller->updateCoach();
-            break;
+            case 'update-coach':
+                $controller->updateCoach();
+                break;
 
-        case 'delete-coach':
-            $controller->deleteCoach();
-            break;
+            case 'delete-coach':
+                $controller->deleteCoach();
+                break;
 
-        case 'lessons':
-            $controller->lessons();
-            break;
+            case 'lessons':
+                $controller->lessons();
+                break;
 
-        case 'create-lesson':
-            $controller->createLesson();
-            break;
+            case 'create-lesson':
+                $controller->createLesson();
+                break;
 
-        case 'store-lesson':
-           $controller->storeLesson();
-            break;
-            
-        case 'edit-lesson':
-           $controller->editLesson();
-           break;
+            case 'store-lesson':
+                $controller->storeLesson();
+                break;
 
-        case 'update-lesson':
-           $controller->updateLesson();
-           break;
+            case 'edit-lesson':
+                $controller->editLesson();
+                break;
 
-        case 'dashboard':
-        default:
-            $controller->dashboard();
-            break;
-    }
+            case 'update-lesson':
+                $controller->updateLesson();
+                break;
 
-    break;
+            case 'dashboard':
+            default:
+                $controller->dashboard();
+                break;
+        }
+
+        break;
 
 
     // --- MÓDULO SWIMMER ---

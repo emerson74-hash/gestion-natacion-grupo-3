@@ -72,7 +72,7 @@
     </div>
 </div>
 <script>
-    let cropper;
+    window.cropper = null;
 
     const imageInput = document.getElementById('profile_image');
     const preview = document.getElementById('preview');
@@ -90,11 +90,11 @@
             preview.src = event.target.result;
             preview.style.display = 'block';
 
-            if (cropper) {
-                cropper.destroy();
+            if (window.cropper) {
+                window.cropper.destroy();
             }
 
-            cropper = new Cropper(preview, {
+            window.cropper = new Cropper(preview, {
                 aspectRatio: 1,
                 viewMode: 1,
                 autoCropArea: 1
@@ -103,5 +103,5 @@
 
         reader.readAsDataURL(file);
     });
-</script>
+</script>v
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

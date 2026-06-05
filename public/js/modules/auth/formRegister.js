@@ -94,6 +94,23 @@ export function initRegister() {
     // ENVÍO
     // =========================
     const formData = new FormData(form);
+    if (window.cropper) {
+      const canvas = window.cropper.getCroppedCanvas({
+        width: 300,
+        height: 300,
+      });
+
+      const blob = await new Promise(resolve =>
+        canvas.toBlob(resolve, "image/jpeg", 0.9)
+      );
+
+      formData.set(
+        "profile_image",
+        blob,
+        "avatar.jpg"
+      );
+    }
+
 
     try {
       const response = await fetch("?url=register", {
