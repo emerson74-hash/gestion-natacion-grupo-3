@@ -60,7 +60,7 @@
                                     </a>
 
                             </div>
-                            <div class="card-body col-md-3 p-0" style="height: 200px; overflow-hidden;">
+                            <div class="card-body col-md-3 text-center me-3" >
 
                                 <?php
                                 $foto = $_SESSION['profile_image'] ?? 'default-profile.png';

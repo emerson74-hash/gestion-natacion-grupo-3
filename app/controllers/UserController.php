@@ -314,40 +314,39 @@ class UserController extends BaseController
     /**
      * Envía el email con el enlace de recuperación de contraseña.
      */
-    public function sendReset()
-    {
-        $email = $_POST['email'] ?? '';
+   public function sendReset()
+{
+    $email = $_POST['email'] ?? '';
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $this->json('error', 'Email inválido.');
-        }
-
-        $user = $this->userModel->findByEmail($email);
-
-        if ($user) {
-            // Generamos un token único y seguro con expiración de 1 hora
-            $token   = bin2hex(random_bytes(32));
-            $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
-            $this->userModel->savePasswordToken($email, $token, $expires);
-
-            require_once __DIR__ . '/../services/MailService.php';
-            $mailService = new MailService();
-
-            $enviado = $mailService->sendEmailResetPassword($email, $token);
-
-            if (!$enviado) {
-                return $this->json('error', 'El servidor de correo falló.');
-            }
-        }
-
-        // Siempre respondemos igual para no revelar si el email existe o no ( seguridad )
-        return $this->json(
-            'success',
-            'Si el correo existe, recibirás un enlace de recuperación.',
-            Env::get('APP_URL') . '/?url=login'
-        );
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return $this->json('error', 'Email inválido.');
     }
+
+    $user = $this->userModel->findByEmail($email);
+
+    if ($user) {
+
+        $token   = bin2hex(random_bytes(32));
+        $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        $this->userModel->savePasswordToken($email, $token, $expires);
+
+        require_once __DIR__ . '/../services/MailService.php';
+        $mailService = new MailService();
+
+        $enviado = $mailService->sendEmailResetPassword($email, $token);
+
+        if (!$enviado) {
+            return $this->json('error', 'No se pudo enviar el correo. Revisá SMTP.');
+        }
+    }
+
+    return $this->json(
+        'success',
+        'Si el correo existe, recibirás un enlace de recuperación.',
+        Env::get('APP_URL') . '/?url=login'
+    );
+}
 
     /**
      * Muestra el formulario para ingresar la nueva contraseña.

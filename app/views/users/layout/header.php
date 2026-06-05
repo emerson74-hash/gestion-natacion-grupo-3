@@ -18,6 +18,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
 
 
 
@@ -37,9 +40,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
 
-            <a class="navbar-brand" href="<?= ($_SESSION['role_id'] ?? 0) == 2
-                ? '?url=coach/dashboard'
-                : '?url=landing' ?>">
+            <a class="navbar-brand" href="<?=
+                match ($_SESSION['role_id'] ?? 0) {
+                    1 => '?url=admin/dashboard',
+                    3 => '?url=swimmer/dashboard',
+                    2 => '?url=coach/dashboard',
+                    default => '?url=landing'
+                }
+                ?>">
                 Centro de Natación 🚩
             </a>
 
