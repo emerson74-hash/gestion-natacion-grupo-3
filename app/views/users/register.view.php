@@ -9,7 +9,8 @@
                     <h4 class="mb-0 text-center"><?php echo $title ?? 'Registro de Swimmer'; ?></h4>
                 </div>
                 <div class="card-body">
-                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data" novalidate>
+                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data"
+                        novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -46,7 +47,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Foto de Perfil</label>
-                                    <input type="file" name="profile_image" class="form-control" accept="image/*">
+                                    <input type="file" id="profile_image" name="profile_image" class="form-control"
+                                        accept="image/*">
+
+                                    <div class="mt-3">
+                                        <img id="preview" style="max-width:100%; display:none;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -65,4 +71,37 @@
         </div>
     </div>
 </div>
+<script>
+    let cropper;
+
+    const imageInput = document.getElementById('profile_image');
+    const preview = document.getElementById('preview');
+
+    imageInput.addEventListener('change', function (e) {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            preview.src = event.target.result;
+            preview.style.display = 'block';
+
+            if (cropper) {
+                cropper.destroy();
+            }
+
+            cropper = new Cropper(preview, {
+                aspectRatio: 1,
+                viewMode: 1,
+                autoCropArea: 1
+            });
+        };
+
+        reader.readAsDataURL(file);
+    });
+</script>
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

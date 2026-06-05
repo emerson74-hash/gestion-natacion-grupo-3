@@ -44,31 +44,31 @@ class CoachController extends BaseController
     }
 
     public function lessons()
-{
-    $this->checkAuth();
-    $this->checkRole([2]);
+    {
+        $this->checkAuth();
+        $this->checkRole([2]);
 
-    global $pdo;
+        global $pdo;
 
-    $lessonModel = new Lesson($pdo);
+        $lessonModel = new Lesson($pdo);
 
-    $lessons = $lessonModel->getAll();
+        $lessons = $lessonModel->getAll();
+        
+        $students = [];
+        $selectedLessonId = $_GET['id'] ?? null;
 
-    $students = [];
-    $selectedLessonId = $_GET['id'] ?? null;
+        if ($selectedLessonId) {
+            $students = $lessonModel->getStudentsByLesson($selectedLessonId);
+        }
 
-    if ($selectedLessonId) {
-        $students = $lessonModel->getStudentsByLesson($selectedLessonId);
+        $this->render('coach/lessons.view', [
+            'lessons' => $lessons,
+            'students' => $students,
+            'selectedLessonId' => $selectedLessonId
+        ]);
     }
 
-    $this->render('coach/lessons.view', [
-        'lessons' => $lessons,
-        'students' => $students,
-        'selectedLessonId' => $selectedLessonId
-    ]);
-}
-
-public function edit()
+    public function edit()
     {
         // Verificamos si el usuario está logueado antes de mostrar el panel
         $this->checkAuth();
