@@ -11,6 +11,21 @@
 
 
 <script type="module" src="<?= rtrim(Env::get('ASSET_URL'), '/') ?>/js/modules/authMain.js"></script>
+
+<?php if(isset($_SESSION['success'])): ?>
+<script>
+toastr.success("<?= $_SESSION['success'] ?>");
+</script>
+<?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['error'])): ?>
+<script>
+toastr.error("<?= $_SESSION['error'] ?>");
+</script>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 </body>
 
 </html>

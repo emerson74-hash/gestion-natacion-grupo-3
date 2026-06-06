@@ -293,4 +293,13 @@ class Lesson
     ]);
 }
 
+public function delete($id)
+{
+    $sql = "DELETE FROM lessons WHERE id = ?";
+
+    $stmt = $this->db->prepare($sql);
+
+    return $stmt->execute([$id]);
+}
+
 }

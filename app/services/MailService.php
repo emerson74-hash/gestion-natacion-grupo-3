@@ -69,4 +69,52 @@ class MailService
             return false;
         }
     }
+
+
+    //Admin: Mail alta de coach
+    public function sendCoachCredentials($email, $nombre, $password)
+{
+    $mail = new PHPMailer(true);
+    $mail->SMTPDebug = 2;
+$mail->Debugoutput = 'error_log';
+
+    try {
+
+        $mail->isSMTP();
+        $mail->Host = Env::get('MAIL_HOST');
+        $mail->SMTPAuth = true;
+        $mail->Username = Env::get('MAIL_USERNAME');
+        $mail->Password = Env::get('MAIL_PASSWORD');
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = Env::get('MAIL_PORT');
+
+        $mail->setFrom(
+            Env::get('MAIL_FROM'),
+            'Sistema Natacion'
+        );
+
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Subject = 'Credenciales de acceso';
+
+        $mail->Body = "
+            <h3>Bienvenido {$nombre}</h3>
+
+            <p>Su cuenta fue creada correctamente.</p>
+
+            <p><strong>Email:</strong> {$email}</p>
+            <p><strong>Contraseña provisoria:</strong> {$password}</p>
+        ";
+
+
+        return $mail->send();
+
+    } catch (Exception $e) {
+    die("MAIL ERROR: " . $e->getMessage());
+}
+}
+
 }

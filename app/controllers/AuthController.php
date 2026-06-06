@@ -10,7 +10,7 @@ require_once __DIR__ . '/../models/Profile.php';
  * - recuperación de contraseña
  * - listado de swimmers
  */
-class UserController extends BaseController
+class AuthController extends BaseController
 {
     private $userModel;
     private $profileModel;
