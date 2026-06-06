@@ -40,6 +40,19 @@
 
                                     ) ?>">
                             </div>
+                            <div class="mb-3">
+                                <label for="nueva_contraseña" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="nueva_contraseña"
+                                    name="nueva_contraseña">
+                                <small class="text-muted">
+                                    Dejar en blanco para mantener la contraseña actual.
+                                </small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmar_nueva_contraseña" class="form-label">Confirmar contraseña</label>
+                                <input type="password" class="form-control" id="confirmar_nueva_contraseña"
+                                    name="confirmar_nueva_contraseña">
+                            </div>
 
                             <button type="submit" class="btn text-light colorsitoPiola">
                                 Guardar cambios

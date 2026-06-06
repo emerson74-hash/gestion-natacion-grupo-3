@@ -85,7 +85,7 @@ class CoachController extends BaseController
     }
     public function updateProfile()
     {
-        
+
         $this->checkAuth();
         $this->checkRole([2]);
 
@@ -96,10 +96,46 @@ class CoachController extends BaseController
         if (!$nombre || !$apellido) {
             die("Nombre y apellido son obligatorios");
         }
+        global $pdo;
+        //                                                                                                               VALIDACIÓN DE CONTRASEÑAP
+        $nuevaContraseña = trim($_POST['nueva_contraseña'] ?? '');
+        $confirmarContraseña = trim($_POST['confirmar_nueva_contraseña'] ?? '');
 
-        // ==========================
-        // SUBIDA DE FOTO
-        // ==========================
+        if ($nuevaContraseña !== '' || $confirmarContraseña !== '') {
+
+            if ($nuevaContraseña !== $confirmarContraseña) {
+                return $this->json(
+                    'warning',
+                    'Las contraseñas no coinciden.'
+                );
+            }
+
+            if (strlen($nuevaContraseña) < 6) {
+                return $this->json(
+                    'warning',
+                    'La contraseña debe tener al menos 6 caracteres.'
+                );
+            }
+
+            $passwordHash = password_hash(
+                $nuevaContraseña,
+                PASSWORD_DEFAULT
+            );
+
+            $stmt = $pdo->prepare("
+            UPDATE users
+            SET password = ?
+            WHERE id = ?
+        ");
+
+            $stmt->execute([
+                $passwordHash,
+                $_SESSION['user_id']
+            ]);
+        }
+
+        //                                                                                                                  PAARA SUBIDA DE FOTO
+
 
         $profileImage = $_SESSION['profile_image'];
 
@@ -146,8 +182,8 @@ class CoachController extends BaseController
                 specialty = ?,
                 profile_image = ?
             WHERE user_id = ?";
-            
-            
+
+
 
         $stmt = $pdo->prepare($sql);
 
@@ -158,14 +194,18 @@ class CoachController extends BaseController
             $profileImage,
             $_SESSION['user_id']
         ]);
-        
+
 
         $_SESSION['first_name'] = $nombre;
         $_SESSION['last_name'] = $apellido;
         $_SESSION['specialty'] = $especialidad;
         $_SESSION['profile_image'] = $profileImage;
 
-        header('Location: ?url=coach/profile');
+        return $this->json(
+            'success',
+            'Perfil actualizado correctamente.',
+            '?url=coach/profile'
+        );
         exit;
     }
 
