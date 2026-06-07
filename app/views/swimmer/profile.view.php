@@ -1,24 +1,29 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
+<div class="container mt-4">
+
+```
 <div class="bg-white p-5 rounded shadow-sm">
 
+    <?php
+    $img = $profile['profile_image'] ?? 'default-profile.png';
+    $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
+    ?>
+
+    <!-- =========================
+         CABECERA PERFIL
+    ========================== -->
     <div class="d-flex align-items-center gap-3 mb-4">
-        <?php
-        // Tomamos la imagen guardada en la base de datos
-        // Si no tiene foto, usamos una por defecto
-        $img = $profile['profile_image'] ?? 'default-profile.png';
 
-        // Armamos la ruta completa de la imagen
-        // Ahora todas las fotos están en /profiles/
-        $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
-        ?>
+        <img
+            src="<?= $src ?>"
+            alt="Foto de perfil"
+            class="rounded-circle border"
+            style="width:80px; height:80px; object-fit:cover;"
+            id="preview-img">
 
-        <!-- Foto del usuario -->
-        <img src="<?= $src ?>" alt="Foto de perfil" class="rounded-circle border"
-            style="width:80px; height:80px; object-fit:cover;" id="preview-img">
-
-        <!-- Nombre y email -->
         <div>
+
             <h2 class="mb-0">
                 <?= htmlspecialchars(($profile['first_name'] ?? '') . ' ' . ($profile['last_name'] ?? '')) ?>
             </h2>
@@ -26,262 +31,162 @@
             <small class="text-muted">
                 <?= htmlspecialchars($profile['email'] ?? '') ?>
             </small>
+
         </div>
+
     </div>
 
-    <hr>
+    <!-- =========================
+         ALERTAS
+    ========================== -->
+    <div
+        id="profile-alert"
+        class="alert d-none"
+        role="alert">
+    </div>
 
-    <!-- Acá mostramos mensajes de éxito o error -->
-    <div id="profile-alert" class="alert d-none" role="alert"></div>
-
-    <!-- Formulario para actualizar el perfil -->
-    <form id="profile-form" enctype="multipart/form-data" novalidate>
+    <!-- =========================
+         FORMULARIO
+    ========================== -->
+    <form
+        id="profile-form"
+        action="<?= _URL ?>/?url=swimmer/update-profile"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate>
 
         <div class="row g-3">
 
-            <!-- Campo teléfono -->
+            <!-- TELEFONO -->
             <div class="col-md-6">
-                <label for="phone" class="form-label fw-semibold">
-                    Teléfono <span class="text-danger">*</span>
+
+                <label
+                    for="phone"
+                    class="form-label fw-semibold">
+
+                    Teléfono
+                    <span class="text-danger">*</span>
+
                 </label>
 
-                <input type="tel" id="phone" name="phone" class="form-control"
-                    value="<?= htmlspecialchars($profile['phone'] ?? '') ?>" required>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="form-control"
+                    value="<?= htmlspecialchars($profile['phone'] ?? '') ?>"
+                    placeholder="Ej: 1153170256"
+                    pattern="[0-9]{8,15}"
+                    maxlength="15"
+                    required>
 
-                <!-- Mensaje de validación -->
                 <div class="invalid-feedback">
-                    El teléfono es obligatorio.
+                    Ingrese un teléfono válido (8 a 15 números).
                 </div>
+
             </div>
 
-            <!-- Campo fecha de nacimiento -->
+            <!-- FECHA -->
             <div class="col-md-6">
-                <label for="birth_date" class="form-label fw-semibold">
+
+                <label
+                    for="birth_date"
+                    class="form-label fw-semibold">
+
                     Fecha de nacimiento
+
                 </label>
 
-                <input type="date" id="birth_date" name="birth_date" class="form-control"
+                <input
+                    type="date"
+                    id="birth_date"
+                    name="birth_date"
+                    class="form-control"
+                    max="<?= date('Y-m-d') ?>"
                     value="<?= htmlspecialchars($profile['birth_date'] ?? '') ?>">
+
+                <div class="invalid-feedback">
+                    La fecha no puede ser futura.
+                </div>
+
             </div>
 
-            <!-- Campo para subir nueva foto -->
-            <input type="file" id="profile_image" name="profile_image" class="form-control"
-                accept="image/jpg,image/jpeg,image/png,image/gif">
+            <!-- FOTO -->
+            <div class="col-12">
 
-            <div class="form-text">
-                Formatos aceptados: JPG, PNG, GIF.
+                <label
+                    for="profile_image"
+                    class="form-label fw-semibold">
+
+                    Foto de perfil
+
+                </label>
+
+                <input
+                    type="file"
+                    id="profile_image"
+                    name="profile_image"
+                    class="form-control"
+                    accept="image/jpg,image/jpeg,image/png,image/gif">
+
+                <div class="form-text">
+                    Formatos permitidos: JPG, JPEG, PNG y GIF.
+                    Tamaño máximo recomendado: 2 MB.
+                </div>
+
             </div>
 
-            <div class="mt-3">
-                <img id="crop-preview" style="
-            max-width:100%;
-            max-height:400px;
-            display:none;
-        ">
+            <!-- PREVIEW CROPPER -->
+            <div class="col-12 mt-3">
+
+                <img
+                    id="crop-preview"
+                    style="
+                        max-width:100%;
+                        max-height:400px;
+                        display:none;
+                    ">
+
             </div>
 
         </div>
 
-        <!-- Botones -->
+        <!-- =========================
+             BOTONES
+        ========================== -->
         <div class="mt-4">
 
-            <!-- Botón guardar -->
-            <button type="submit" class="btn btn-primary px-4" id="save-btn">
+            <button
+                type="submit"
+                class="btn btn-info text-white px-4"
+                id="save-btn">
 
-                <!-- Spinner de carga -->
-                <span class="spinner-border spinner-border-sm d-none me-2" id="save-spinner"></span>
+                <span
+                    class="spinner-border spinner-border-sm d-none me-2"
+                    id="save-spinner">
+                </span>
 
                 Guardar cambios
+
             </button>
 
-            <!-- Botón cancelar -->
-            <a href="<?= _URL ?>/?url=swimmer/dashboard" class="btn btn-outline-secondary ms-2">
+            <a
+                href="<?= _URL ?>/?url=swimmer/dashboard"
+                class="btn btn-outline-secondary ms-2">
+
                 Cancelar
+
             </a>
 
         </div>
 
     </form>
+
+</div>
+```
+
 </div>
 
-<script>
-    (function () {
-
-        'use strict';
-
-        // Tomamos elementos del HTML para trabajar con JS
-        const form = document.getElementById('profile-form');
-        const alertBox = document.getElementById('profile-alert');
-        const saveBtn = document.getElementById('save-btn');
-        const spinner = document.getElementById('save-spinner');
-        const preview = document.getElementById('preview-img');
-
-        // =========================
-        // PREVIEW DE IMAGEN
-        // =========================
-
-        // Cuando el usuario selecciona una imagen
-        // mostramos la preview sin recargar la página
-        let cropper = null;
-
-        document.getElementById('profile_image').addEventListener('change', function () {
-
-            const file = this.files[0];
-
-            if (!file) return;
-
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-
-                const img = document.getElementById('crop-preview');
-
-                img.src = e.target.result;
-                img.style.display = 'block';
-
-                if (cropper) {
-                    cropper.destroy();
-                }
-
-                cropper = new Cropper(img, {
-                    aspectRatio: 1,
-                    viewMode: 1,
-                    autoCropArea: 1
-                });
-            };
-
-            reader.readAsDataURL(file);
-        });
-
-        // =========================
-        // ALERTAS
-        // =========================
-
-        // Muestra mensajes arriba del formulario
-        // success = verde
-        // warning = amarillo
-        // error = rojo
-        function showAlert(type, message) {
-
-            const map = {
-                success: 'success',
-                warning: 'warning',
-                error: 'danger'
-            };
-
-            alertBox.className = 'alert alert-' + (map[type] ?? 'info');
-            alertBox.textContent = message;
-
-            // Hacemos visible la alerta
-            alertBox.classList.remove('d-none');
-
-            // Subimos automáticamente arriba
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // =========================
-        // LOADING
-        // =========================
-
-        // Bloquea el botón mientras se procesa
-        // y muestra el spinner de carga
-        function setLoading(on) {
-
-            saveBtn.disabled = on;
-
-            spinner.classList.toggle('d-none', !on);
-        }
-
-        // =========================
-        // VALIDACIÓN
-        // =========================
-
-        // Validamos que el teléfono no esté vacío
-        function validate() {
-
-            const phone = document.getElementById('phone');
-
-            if (!phone.value.trim()) {
-
-                phone.classList.add('is-invalid');
-                return false;
-            }
-
-            phone.classList.remove('is-invalid');
-
-            return true;
-        }
-
-        // =========================
-        // ENVÍO DEL FORMULARIO
-        // =========================
-
-        // Enviamos el formulario con AJAX
-        // para evitar recargar la página
-        form.addEventListener('submit', async function (e) {
-
-            e.preventDefault();
-
-            if (!validate()) return;
-
-            setLoading(true);
-
-            try {
-
-                const formData = new FormData(form);
-
-                if (cropper) {
-
-                    const blob = await new Promise(resolve => {
-
-                        cropper.getCroppedCanvas({
-                            width: 300,
-                            height: 300
-                        }).toBlob(resolve, 'image/png');
-
-                    });
-
-                    formData.delete('profile_image');
-
-                    formData.append(
-                        'profile_image',
-                        blob,
-                        'cropped.png'
-                    );
-                }
-
-                const res = await fetch(
-                    '<?= _URL ?>/?url=swimmer/update-profile',
-                    {
-                        method: 'POST',
-                        body: formData
-                    }
-                );
-
-                const data = await res.json();
-
-                showAlert(data.status, data.message);
-
-            } catch (error) {
-
-                console.error(error);
-
-                showAlert(
-                    'error',
-                    'Error de conexión.'
-                );
-
-            } finally {
-
-                setLoading(false);
-            }
-        });
-
-    })();
-</script>
-
+<div style="height:80px;"></div>
 
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

@@ -161,10 +161,17 @@ class SwimmerController extends BaseController
         $updated = $this->profileModel->updateProfile($data);
 
         // Retornamos una respuesta según el resultado
-        return $updated
-            ? $this->json('success', 'Perfil actualizado correctamente.')
-            : $this->json('error', 'No se pudo actualizar el perfil.');
-    }
+return $updated
+    ? $this->json(
+        'success',
+        'Perfil actualizado correctamente.',
+        '?url=swimmer/dashboard'
+      )
+    : $this->json(
+        'error',
+        'No se pudo actualizar el perfil.'
+      );
+       }
 
     // ─── LECCIONES ────────────────────────────────────────────────────────────
 
