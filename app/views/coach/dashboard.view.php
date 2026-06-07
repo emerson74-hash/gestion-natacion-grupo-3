@@ -11,7 +11,7 @@
 
             <div class="bg-white p-5 rounded shadow-sm">
 
-                <h1>Bienvenido, Coach</h1>
+                <h1>Bienvenido, Entrenador </h1>
                 <p class="lead">Este es el panel administrativo de la escuela.</p>
 
                 <hr>

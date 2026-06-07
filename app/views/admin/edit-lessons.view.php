@@ -11,7 +11,7 @@
             <div class="card p-4">
 
                 <h1 class="text-center mb-4">
-                    Editar Clase 📚
+                    Editar Clase
                 </h1>
 
                 <form method="POST"

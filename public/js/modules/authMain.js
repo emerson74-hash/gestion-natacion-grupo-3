@@ -6,16 +6,18 @@ import { initLogin } from "./auth/formLogin.js";
 import { initRegister } from "./auth/formRegister.js";
 import { initForgotPassword } from "./auth/formForgotPassword.js";
 import { initResetPassword } from "./auth/formResetPassword.js";
+import { initProfile } from "./coach/formProfile.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // Inicializamos cada funcionalidad. 
     // Cada módulo interno se encargará de verificar si su formulario existe en la vista actual.
     initLogin();
     initRegister();
     initForgotPassword();
     initResetPassword();
+    initProfile();
 
     console.log("Auth module initialized successfully.");
 });
