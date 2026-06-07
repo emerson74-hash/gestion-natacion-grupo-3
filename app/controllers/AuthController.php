@@ -24,7 +24,7 @@ class AuthController extends BaseController
         $this->pdo = $pdo;
 
         // Inicializamos los modelos
-        $this->userModel    = new User($pdo);
+        $this->userModel = new User($pdo);
         $this->profileModel = new Profile($pdo);
     }
 
@@ -87,16 +87,16 @@ class AuthController extends BaseController
 
         // Guardamos y limpiamos los datos enviados desde el formulario
         $fields = [
-            'first_name'      => trim($_POST['nombre'] ?? ''),
-            'last_name'       => trim($_POST['apellido'] ?? ''),
-            'email'           => trim($_POST['email'] ?? ''),
-            'password'        => $_POST['password'] ?? '',
+            'first_name' => trim($_POST['nombre'] ?? ''),
+            'last_name' => trim($_POST['apellido'] ?? ''),
+            'email' => trim($_POST['email'] ?? ''),
+            'password' => $_POST['password'] ?? '',
             'passwordconfirm' => $_POST['passwordconfirm'] ?? '',
-            'phone'           => trim($_POST['telefono'] ?? ''),
-            'birth_date'      => trim($_POST['birth_date'] ?? ''),
+            'phone' => trim($_POST['telefono'] ?? ''),
+            'birth_date' => trim($_POST['birth_date'] ?? ''),
 
             // Imagen por defecto
-            'profile_image'   => 'default-profile.png'
+            'profile_image' => 'default-profile.png'
         ];
 
         // Validamos campos obligatorios
@@ -128,8 +128,10 @@ class AuthController extends BaseController
         $tempFile = null;
 
         // Verificamos si se subió una imagen
-        if (isset($_FILES['profile_image']) &&
-            $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+        if (
+            isset($_FILES['profile_image']) &&
+            $_FILES['profile_image']['error'] === UPLOAD_ERR_OK
+        ) {
 
             $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/';
 
@@ -169,10 +171,12 @@ class AuthController extends BaseController
                 $absolutePath = $uploadDir . $newFileName;
 
                 // Movemos la imagen a la carpeta final
-                if (move_uploaded_file(
-                    $_FILES['profile_image']['tmp_name'],
-                    $absolutePath
-                )) {
+                if (
+                    move_uploaded_file(
+                        $_FILES['profile_image']['tmp_name'],
+                        $absolutePath
+                    )
+                ) {
 
                     $fields['profile_image'] = $newFileName;
                     $tempFile = $absolutePath;
@@ -206,9 +210,9 @@ class AuthController extends BaseController
 
             // Paso 1: creamos el usuario en la tabla users ( solo credenciales )
             $userId = $this->userModel->create([
-                'email'    => $f['email'],
+                'email' => $f['email'],
                 'password' => $f['password'],
-                'role_id'  => 3 // Rol Swimmer
+                'role_id' => 3 // Rol Swimmer
             ]);
 
             if (!$userId)
@@ -216,7 +220,7 @@ class AuthController extends BaseController
 
             // Paso 2: creamos el perfil en la tabla profiles ( datos personales )
             // specialty = null indica que es un Swimmer ( los Coaches tienen specialty con valor )
-            $f['user_id']   = $userId;
+            $f['user_id'] = $userId;
             $f['specialty'] = null;
             $this->profileModel->create($f);
 
@@ -246,7 +250,7 @@ class AuthController extends BaseController
             return $this->json('error', 'No se pudo completar: ' . $e->getMessage());
         }
     }
-
+   
     // --- SECCIÓN: AUTENTICACIÓN ---
 
     /**
@@ -260,7 +264,7 @@ class AuthController extends BaseController
         }
 
         $email = trim($_POST['email'] ?? '');
-        $pass  = $_POST['password']   ?? '';
+        $pass = $_POST['password'] ?? '';
 
         // Verificamos las credenciales contra la base de datos
         $user = $this->userModel->login($email, $pass);
@@ -268,14 +272,14 @@ class AuthController extends BaseController
         if ($user) {
 
             // Guardamos los datos del usuario en la sesión
-            $_SESSION['user_id']       = $user['id'];
-            $_SESSION['role_id']       = $user['role_id'];
-            $_SESSION['email']         = $user['email'];
-            $_SESSION['specialty']         = $user['specialty'];
-           
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role_id'] = $user['role_id'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['specialty'] = $user['specialty'];
+
             // Datos para el saludo y la foto que pide el layout
-            $_SESSION['first_name']    = $user['first_name'];
-            $_SESSION['last_name']    = $user['last_name'];
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
 
             $_SESSION['profile_image'] = $user['profile_image'];
 
@@ -314,39 +318,39 @@ class AuthController extends BaseController
     /**
      * Envía el email con el enlace de recuperación de contraseña.
      */
-   public function sendReset()
-{
-    $email = $_POST['email'] ?? '';
+    public function sendReset()
+    {
+        $email = $_POST['email'] ?? '';
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return $this->json('error', 'Email inválido.');
-    }
-
-    $user = $this->userModel->findByEmail($email);
-
-    if ($user) {
-
-        $token   = bin2hex(random_bytes(32));
-        $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
-        $this->userModel->savePasswordToken($email, $token, $expires);
-
-        require_once __DIR__ . '/../services/MailService.php';
-        $mailService = new MailService();
-
-        $enviado = $mailService->sendEmailResetPassword($email, $token);
-
-        if (!$enviado) {
-            return $this->json('error', 'No se pudo enviar el correo. Revisá SMTP.');
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->json('error', 'Email inválido.');
         }
-    }
 
-    return $this->json(
-        'success',
-        'Si el correo existe, recibirás un enlace de recuperación.',
-        Env::get('APP_URL') . '/?url=login'
-    );
-}
+        $user = $this->userModel->findByEmail($email);
+
+        if ($user) {
+
+            $token = bin2hex(random_bytes(32));
+            $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+            $this->userModel->savePasswordToken($email, $token, $expires);
+
+            require_once __DIR__ . '/../services/MailService.php';
+            $mailService = new MailService();
+
+            $enviado = $mailService->sendEmailResetPassword($email, $token);
+
+            if (!$enviado) {
+                return $this->json('error', 'No se pudo enviar el correo. Revisá SMTP.');
+            }
+        }
+
+        return $this->json(
+            'success',
+            'Si el correo existe, recibirás un enlace de recuperación.',
+            Env::get('APP_URL') . '/?url=login'
+        );
+    }
 
     /**
      * Muestra el formulario para ingresar la nueva contraseña.
@@ -370,7 +374,7 @@ class AuthController extends BaseController
      */
     public function updatePassword()
     {
-        $token    = $_POST['token']    ?? '';
+        $token = $_POST['token'] ?? '';
         $password = $_POST['password'] ?? '';
 
         if (empty($token) || strlen($password) < 6) {
@@ -381,7 +385,7 @@ class AuthController extends BaseController
         $resetRequest = $this->userModel->validateToken($token);
 
         if ($resetRequest) {
-            $email          = $resetRequest['email'];
+            $email = $resetRequest['email'];
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             try {
@@ -415,8 +419,8 @@ class AuthController extends BaseController
     private function hasEmptyFields($f)
     {
         return empty($f['first_name']) ||
-               empty($f['last_name'])  ||
-               empty($f['email'])      ||
-               empty($f['password']);
+            empty($f['last_name']) ||
+            empty($f['email']) ||
+            empty($f['password']);
     }
 }

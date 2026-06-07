@@ -7,20 +7,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-md-6 fs-1">
 
-
-            Hola,
-            <?= htmlspecialchars(
-                ($_SESSION['first_name'] ?? 'Usuario')
-                . ' ' .
-                ($_SESSION['last_name'] ?? 'xd')
-            ) ?>
-
-
-            <p class="fs-2">Este es el panel de perfil</p>
-
-        </div>
         <div class="container mt-5">
 
             <div class="row justify-content-center">
@@ -60,7 +47,7 @@
                                     </a>
 
                             </div>
-                            <div class="card-body col-md-3 text-center me-3" >
+                            <div class="card-body col-md-3 text-center me-3">
 
                                 <?php
                                 $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
