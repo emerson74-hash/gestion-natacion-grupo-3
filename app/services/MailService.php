@@ -59,7 +59,7 @@ class MailService
                 </div>
             </div>";
 
-            // ❌ IMPORTANTE: quitar debug en producción
+            //quitar debug en producción
             $mail->SMTPDebug = 0;
 
             return $mail->send();

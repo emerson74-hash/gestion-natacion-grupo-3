@@ -17,7 +17,7 @@
     <div class="container-fluid">
 
         <a class="navbar-brand" href="?url=admin&section=dashboard">
-            🏊 Panel Administrativo
+             Panel Administrativo
         </a>
 
         <div class="collapse navbar-collapse">
@@ -59,3 +59,4 @@
 
 </body>
 </html>
+

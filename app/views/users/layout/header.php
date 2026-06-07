@@ -3,106 +3,145 @@
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $titulo ?? 'Escuela de Natación' ?></title>
+    <title><?= $titulo ?? 'SWIM LEARN' ?></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
-
-
+    <link rel="stylesheet"
+          href="/Gestion-Natacion-Grupo-3/public/css/bootstrap.min.css">
 
     <style>
+        .navbar {
+            border-bottom: 2px solid #4FD1E8;
+            padding: 6px 0;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand img {
+            height: 50px; /* Ajustá si querés más grande o más chico */
+            width: auto;
+            display: block;
+        }
+
+        .text-swim {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
         .profile-img-nav {
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid #17a2b8;
+            border: 2px solid #4FD1E8;
         }
+        .navbar-nav {
+    margin-right: 35px;
+}
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container-fluid px-5">
 
-            <a class="navbar-brand" href="<?=
-                match ($_SESSION['role_id'] ?? 0) {
-                    1 => '?url=admin/dashboard',
-                    3 => '?url=swimmer/dashboard',
-                    2 => '?url=coach/dashboard',
-                    default => '?url=landing'
-                }
-                ?>">
-                Centro de Natación 🚩
-            </a>
+        <a class="navbar-brand" href="<?=
+            match ($_SESSION['role_id'] ?? 0) {
+                1 => '?url=admin/dashboard',
+                2 => '?url=coach/dashboard',
+                3 => '?url=swimmer/dashboard',
+                default => '?url=landing'
+            }
+        ?>">
 
-            <div class="collapse navbar-collapse">
+            <img
+                src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png"
+                alt="SWIM LEARN">
 
-                <ul class="navbar-nav ms-auto align-items-center">
+            <span class="text-swim">
+                SWIM LEARN
+            </span>
 
-                    <?php if (isset($_SESSION['user_id'])): ?>
+        </a>
 
-                        <li class="nav-item d-flex align-items-center">
+        <div class="collapse navbar-collapse">
 
-                            <?php
-                            $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
+            <ul class="navbar-nav ms-auto align-items-center">
 
-                            $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
-                            ?>
+                <?php if (isset($_SESSION['user_id'])): ?>
 
-                            <?php if(!empty($_SESSION['profile_image'])): ?>
+                    <?php
+                    $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
 
-                             <img src="<?= $rutaFoto ?>"
-                              alt="Perfil"
-                              class="profile-img-nav me-2">
+                    $rutaFoto =
+                        Env::get('ASSET_URL')
+                        . "/img/uploads/profiles/"
+                        . $foto;
+                    ?>
 
-                             <?php else: ?>
+                    <li class="nav-item d-flex align-items-center">
 
-                             <i class="bi bi-person-circle fs-3 text-info me-2"></i>
+                        <img
+                            src="<?= $rutaFoto ?>"
+                            alt="Perfil"
+                            class="profile-img-nav me-2">
 
-                             <?php endif; ?>
+                        <span class="nav-link text-info p-0">
+                            Hola,
+                            <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                        </span>
 
-                            <span class="nav-link text-info p-0">
-                                Hola,
-                                <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
-                                
-                            </span>
+                    </li>
 
-                        </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link btn btn-outline-info btn-sm ms-3"
+                            href="?url=logout">
+                            Salir
+                        </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-danger btn-sm ms-3" href="?url=logout">
-                                Salir
-                            </a>
-                        </li>
+                <?php else: ?>
 
-                    <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?url=login">
+                            Ingresar
+                        </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="?url=login">Ingresar</a>
-                        </li>
+                <?php endif; ?>
 
-                    <?php endif; ?>
+            </ul>
 
-                </ul>
-
-            </div>
         </div>
-    </nav>
-    <main>
+
+    </div>
+
+</nav>
+
+<main>

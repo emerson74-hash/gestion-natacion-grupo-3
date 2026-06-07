@@ -4,7 +4,7 @@
 
 <div class="container mt-4">
 
-    <h1 class="mb-4">Bienvenido, Admin Nerea</h1>
+    <h1 class="mb-4">Bienvenido, Administrador</h1>
     <p class="text-muted">
     Un lugar para gestionar sus tareas...
     </p>
