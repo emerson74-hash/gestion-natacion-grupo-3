@@ -19,7 +19,17 @@
                 action="?url=admin&section=store-lesson"
                 enctype="multipart/form-data"
                 >
-
+                 <div class="row">
+                 <div class="col-md-6 mb-3">
+            <label>Entrenador</label>
+            <select name="profile_id" class="form-control">
+                <?php foreach ($coaches as $coach): ?>
+                    <option value="<?= $coach['profile_id'] ?>">
+                        <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
                 <div class="col-md-6 mb-3">
                 <label>Nivel</label>
@@ -61,21 +71,12 @@
             <input type="number" name="capacity" class="form-control" value="20">
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label>Entrenador</label>
-            <select name="profile_id" class="form-control">
-                <?php foreach ($coaches as $coach): ?>
-                    <option value="<?= $coach['profile_id'] ?>">
-                        <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+       
 
-        <a href="?url=admin&section=lessons"
+       <!-- <a href="?url=admin&section=lessons"
         class="btn btn-secondary mw-50">
              ← Volver
-       </a>
+       </a> -->
 
         <button class="btn btn-success mw-50">
             Crear clase
@@ -83,7 +84,8 @@
 
     </form>
                 
-    
+                </div>
+
        </div>
     
     </div>

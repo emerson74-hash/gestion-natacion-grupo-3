@@ -106,31 +106,15 @@
                             required
                         >
 
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-                            Contraseña
-                        </label>
-
-                        <input 
-                            type="password"
-                            name="password"
-                            class="form-control"
-                            required
-                        >
-
-                    </div>
 
                         <div class="d-flex gap-2">
 
-                        <a 
+                      <!--  <a 
                             href="?url=admin&section=coaches"
                             class="btn btn-secondary w-50"
                         >
                             ← Volver
-                        </a>
+                        </a> -->
 
                     <button 
                     type="submit" 
