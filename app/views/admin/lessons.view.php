@@ -4,6 +4,7 @@
 <div class="container mt-4">
 
 <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
+ 
 
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
@@ -20,8 +21,11 @@
     <div class="card shadow-sm mx-auto">
         <div class="card-body">
 
+
                 <div class="table-responsive-custom">
-                  <table class="table table-hover">
+                
+                  <table id="tablaClases" class="table table-hover">
+
                     <thead class="table-dark">
                         <tr>
                             <th>Nivel</th>
@@ -81,6 +85,45 @@
     </div>
 
 </div>
+
+                        <!--Data table-->
+<script>
+$(document).ready(function () {
+    $('#tablaClases').DataTable({
+        pageLength: 5,
+        responsive: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+        }
+    });
+});
+</script>
+
+                        <!--Clase creada correctamente-->
+                        <?php if (isset($_SESSION['success'])): ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: '¡Éxito!',
+    text: '<?= $_SESSION['success'] ?>'
+});
+</script>
+<?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+                        <!--Error de horarios-->
+<?php if (isset($_SESSION['error'])): ?>
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: '<?= $_SESSION['error'] ?>'
+});
+</script>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+                        <!--Sweet Alerts-->
 <script>
 document.querySelectorAll('.btn-delete').forEach(button => {
 

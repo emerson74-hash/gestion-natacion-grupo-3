@@ -137,6 +137,8 @@ $mailService->sendCoachCredentials(
     $tempPassword
 );
 
+$_SESSION['success'] = 'Entrenador creado correctamente';
+
 header("Location: ?url=admin&section=coaches");
 exit;
 
@@ -232,20 +234,20 @@ exit;
     $this->checkAuth();
     $this->checkRole([1]);
 
-    $data = [
+  /* $data = [
         'level' => $_POST['level'],
         'day_of_week' => $_POST['day_of_week'],
         'start_time' => $_POST['start_time'],
         'end_time' => $_POST['end_time'],
         'capacity' => $_POST['capacity'],
         'profile_id' => $_POST['profile_id']
-    ];
+    ];**/
 
 
-    $this->lessonModel->create($data);
+    //$this->lessonModel->create($data);
 
-    header("Location: ?url=admin&section=lessons");
-    exit;
+    //header("Location: ?url=admin&section=lessons");
+   // exit;
 
     if (
     $this->lessonModel->hasScheduleConflict(
@@ -261,10 +263,21 @@ exit;
     exit;
 }
 
-  //$this->lessonModel->create($data);
+   $data = [
+        'level' => $_POST['level'],
+        'day_of_week' => $_POST['day_of_week'],
+        'start_time' => $_POST['start_time'],
+        'end_time' => $_POST['end_time'],
+        'capacity' => $_POST['capacity'],
+        'profile_id' => $_POST['profile_id']
+    ];
 
-   header("Location: ?url=admin&section=lessons");
-   exit;
+    $this->lessonModel->create($data);
+
+    $_SESSION['success'] = "Clase creada correctamente";
+
+    header("Location: ?url=admin&section=lessons");
+    exit;
 
 }
 

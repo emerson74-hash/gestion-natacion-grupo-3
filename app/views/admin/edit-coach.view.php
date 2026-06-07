@@ -11,7 +11,7 @@
             <div class="card p-4">
 
                 <h1 class="text-center mb-4">
-                     Editar Entrenador ✏️​
+                     Editar Entrenador
                 </h1>
 
                 <form method="POST" 
@@ -117,12 +117,12 @@
 
                     <div class="d-flex gap-2">
 
-                        <a 
+                      <!--  <a 
                             href="?url=admin&section=coaches"
                             class="btn btn-secondary w-50"
                         >
                             ← Volver
-                        </a>
+                        </a> -->
 
                         <button 
                             type="submit"

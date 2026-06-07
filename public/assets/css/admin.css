@@ -110,6 +110,7 @@ h1,h2,h3,h4{
 /*Botones*/
 .btn-admin{
     border:none;
+    margin-bottom: 10px;
     padding:8px 14px;
     border-radius:10px;
     font-weight:600;
@@ -121,10 +122,12 @@ h1,h2,h3,h4{
 .btn-primary-admin {
     background: var(--accent);
     color: white;
+    margin-top: 10px;
 }
 
 .btn-primary-admin:hover {
     background: var(--primary);
+     margin-top: 10px;
 }
 
 .btn-warning-admin {
@@ -144,9 +147,7 @@ h1,h2,h3,h4{
 
 
 
-
-
-/*Ordena de la tabla*/
+/*Orden de la tabla*/
 .actions {
     display: flex;
     gap: 8px;

@@ -5,60 +5,43 @@
 
 <head>
 
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <!-- Titulo -->
-
     <title>Swim Learn | Escuela de Natación</title> 
-
-
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
-
-
     <!-- bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
-
-
-    <!-- ccs -->
+    <!-- css -->
     <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/landing.css">
 
 </head>
 
 <body>
 
-
-
-
-<!-- parte principal del hero  -->
-
+<!-- ================= HERO ================= -->
 <section class="hero">
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar"> <!--MENU HAMBURGUESA QUE SE ADAPTA AL CELU!!!!!-->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
 
         <div class="container">
 
-
-
-            <!-- logo -->
+            <!-- 🔥 SOLO SE AGREGÓ EL LOGO -->
             <a class="navbar-brand logo-text" href="?url=landing">
+
+                <img
+                    src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png"
+                    alt="Swim Learn"
+                    class="landing-logo">
+
                 Swim Learn
             </a>
 
-
-
-
-            <!-- boton ACA CONTROLA EL MENU EN EL CELU-->
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -68,32 +51,29 @@
 
             </button>
 
-
-
-            <!-- aca links para acceder del menu/ cuando aprete el botón abre el bloque” -->
             <div class="collapse navbar-collapse" id="menu">
 
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-4">
 
-                    <li class="nav-item"> <!--lista opciones del menu-->
+                    <li class="nav-item">
                         <a class="nav-link" href="#nosotros">
                             Acerca de Nosotros
                         </a>
                     </li>
 
-                    <li class="nav-item"><!--lista opciones del menu-->
+                    <li class="nav-item">
                         <a class="nav-link" href="#niveles">
                             Niveles
                         </a>
                     </li>
 
-                    <li class="nav-item"> <!--lista opciones del menu-->
+                    <li class="nav-item">
                         <a class="nav-link" href="#contacto">
                             Contacto
                         </a>
                     </li>
 
-                    <li class="nav-item"> <!--BOTON INICIA SESION-->
+                    <li class="nav-item">
                         <a class="btn login-btn" href="?url=login">
                             Iniciar sesión
                         </a>
@@ -107,28 +87,30 @@
 
     </nav>
 
-
-
-    <!-- contenido del hero, lineas y titulo de la pagina-->
+    <!-- HERO CONTENT -->
     <div class="hero-content">
 
-        <!-- Linea superior -->
         <div class="hero-top-line"></div>
 
-        <!-- Titulo -->
-        <h1 class="hero-title">
-            SWIM LEARN
-        </h1>
+        <div class="hero-title-wrapper">
 
-        <!-- Subtítulo -->
+            <img
+                src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png"
+                alt="Swim Learn"
+                class="hero-logo">
+
+            <h1 class="hero-title">
+                SWIM LEARN
+            </h1>
+
+        </div>
+
         <p class="hero-subtitle">
             ESCUELA DE NATACIÓN
         </p>
 
-        <!-- Linea inferior -->
         <div class="hero-bottom-line"></div>
 
-        <!-- BotOn -->
         <a href="?url=register" class="hero-button">
             Inscribite ya
         </a>
@@ -137,10 +119,7 @@
 
 </section>
 
-
-
-<!-- Niveles de la escuela-->
-
+<!-- ================= NIVELES ================= -->
 <section id="niveles" class="info-section">
 
     <div class="container">
@@ -151,9 +130,7 @@
 
         <div class="info-cards">
 
-
-
-            <!-- Contenido de la card 1 -->
+            <!-- CARD 1 -->
             <div class="info-card">
 
                 <h3>Inicial</h3>
@@ -166,13 +143,9 @@
                     <strong>Aprendizajes clave:</strong>
                     <br>
                     • Flotación cervical y dorsal con material auxiliar.
-                    <br>
                     • Control de la respiración: sumergir boca y nariz.
-                    <br>
                     • Desplazamientos básicos en posición vertical.
-                    <br>
                     • Iniciación a la patada en posición ventral y dorsal.
-                    <br>
                     • Introducir voluntariamente la cara en el agua.
                     <br><br>
 
@@ -182,11 +155,7 @@
 
             </div>
 
-
-
-
-
-            <!-- card 2 contenido -->
+            <!-- CARD 2 -->
             <div class="info-card">
 
                 <h3>Intermedio</h3>
@@ -199,15 +168,10 @@
                     <strong>Aprendizajes clave:</strong>
                     <br>
                     • Todos los logros del nivel anterior.
-                    <br>
                     • Coordinación de brazos y piernas en crol y espalda.
-                    <br>
                     • Respiración lateral en crol.
-                    <br>
                     • Flotación dorsal, ventral, vertical y estilo “medusa”.
-                    <br>
                     • Control de la posición corporal en inspiración y espiración.
-                    <br>
                     • Buceo hasta 5 metros.
                     <br><br>
 
@@ -217,11 +181,7 @@
 
             </div>
 
-
-
-
-
-            <!-- contenido de la card 3 -->
+            <!-- CARD 3 -->
             <div class="info-card">
 
                 <h3>Experto</h3>
@@ -234,11 +194,8 @@
                     <strong>Aprendizajes clave:</strong>
                     <br>
                     • Todos los logros del nivel anterior.
-                    <br>
                     • Dominio técnico de todos los estilos.
-                    <br>
                     • Salidas y virajes correctos.
-                    <br>
                     • Trabajo de velocidad, coordinación y resistencia.
                     <br><br>
 
@@ -254,10 +211,7 @@
 
 </section>
 
-
-
-
-<!-- contenido de acerca de nosotros-->
+<!-- ================= ACERCA DE NOSOTROS ================= -->
 <section id="nosotros" class="about-section">
 
     <div class="container">
@@ -288,16 +242,13 @@
             Acompañamos a cada familia en este proceso con una enseñanza 
             personalizada, cercana y llena de cariño.
 
-
         </p>
 
     </div>
 
 </section>
 
-
-
-<!-- contenido de contacto -->
+<!-- ================= CONTACTO ================= -->
 <section id="contacto" class="contact-section">
 
     <div class="container">
@@ -312,9 +263,7 @@
                 <h3>Escuela Swim Learn</h3>
 
                 <p>📍 Calle 149 N° 1881 - Berazategui</p>
-
                 <p>📞 11 5317-0256</p>
-
                 <p>✉️ escueladenatacion@swimlearn.com</p>
 
                 <p class="contact-text">
@@ -327,7 +276,6 @@
 
                 <form>
                     <input type="text" placeholder="Nombre completo" required>
-
                     <input type="email" placeholder="Correo electrónico" required>
 
                     <select required>
@@ -354,10 +302,7 @@
 
 </section>
 
-
-
-
-<!--bootstrap js-->
+<!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

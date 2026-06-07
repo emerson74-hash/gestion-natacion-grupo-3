@@ -21,7 +21,7 @@
 
             <table class="table table-hover align-middle">
             <div class="table-responsive-custom">
-             <table class="table table-hover">
+             <table id="tablaClases" class="table table-hover">
                 <thead class="table-dark">
                     <tr>
                         
@@ -95,6 +95,46 @@
 
 </div>
 
+
+                        <!--Data table-->
+<script>
+$(document).ready(function () {
+    $('#tablaClases').DataTable({
+        pageLength: 5,
+        responsive: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+        }
+    });
+});
+</script>
+
+                    <!--Creacion de entrenadores-->
+                    <?php if (isset($_SESSION['success'])): ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: '¡Éxito!',
+    text: '<?= $_SESSION['success'] ?>',
+    confirmButtonText: 'Aceptar'
+});
+</script>
+<?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+                    <!--Error de Mails-->
+                    <?php if (isset($_SESSION['error'])): ?>
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: '<?= $_SESSION['error'] ?>'
+});
+</script>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+                      <!--Sweet Alerts--> 
 <script>
 document.querySelectorAll('.btn-delete').forEach(button => {
 

@@ -11,7 +11,7 @@
             <div class="card p-4">
 
                 <h1 class="text-center mb-4">
-                    Editar Clase 📚
+                    Editar Clase
                 </h1>
 
                 <form method="POST"
@@ -114,18 +114,18 @@
 
                 <div class="d-flex gap-2">
 
-                <a 
+              <!--  <a 
                   href="?url=admin&section=lessons"
                   class="btn btn-secondary w-50"
                 >
                
                 ← Volver
 
-                </a>
+                </a> -->
 
               <button 
                 type="submit"
-                class="btn btn-primary w-50"
+                class="btn btn-primary w-100 py-2"
                >
                Guardar cambios
               </button>
