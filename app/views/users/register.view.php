@@ -1,4 +1,5 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
+
 <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/register.css">
 
 <div class="container mt-5">
@@ -103,5 +104,5 @@
 
         reader.readAsDataURL(file);
     });
-</script>v
+</script>
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

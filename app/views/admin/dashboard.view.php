@@ -8,7 +8,7 @@
     <p class="text-muted">
     Un lugar para gestionar sus tareas...
     </p>
-    <p>Selecciona una opción para trámitar el sistema:</p>
+    <p>Selecciona una opción para realizar en el sistema:</p>
 
     <div class="row mt-4">
 
