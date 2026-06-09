@@ -11,19 +11,19 @@
             <div class="card p-4">
 
                 <h1 class="text-center mb-4">
-                    Editar Clase
+                  Editar Clase
                 </h1>
 
                 <form method="POST"
                       action="?url=admin&section=update-lesson">
 
-     <input type="hidden"
-            name="id"
-            value="<?= $lesson['id'] ?>">
+            <input type="hidden"
+             name="id"
+             value="<?= $lesson['id'] ?>">
 
             <div class="row">
-          <div class="col-md- 6 mb-3">
-          <label>Nivel</label>
+            <div class="col-md- 6 mb-3">
+            <label>Nivel</label>
 
                 <select name="level" class="form-control" required>
                 <option value="">Seleccione un nivel</option>

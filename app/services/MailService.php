@@ -76,7 +76,7 @@ class MailService
 {
     $mail = new PHPMailer(true);
     $mail->SMTPDebug = 2;
-$mail->Debugoutput = 'error_log';
+    $mail->Debugoutput = 'error_log';
 
     try {
 

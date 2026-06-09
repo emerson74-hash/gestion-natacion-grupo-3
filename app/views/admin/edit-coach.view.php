@@ -6,12 +6,12 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-12 col-md-8 col-lg-6">
+        <div class="col-12 col-md-8 col-lg-9">
 
-            <div class="card p-4">
+            <div class="card p-4 p-md-4">
 
-                <h1 class="text-center mb-4">
-                     Editar Entrenador
+                <h1 class="text-center mb-3">
+                    Editar Entrenador
                 </h1>
 
                 <form method="POST" 
@@ -19,7 +19,7 @@
 
                     <input type="hidden" name="id" value="<?= $coach['id'] ?>">
 
-                    <div class="row">
+                    <div class="row g-2">
 
                     <div class="col-md-6 mb-3">
 
@@ -100,20 +100,19 @@
                     </div>
 
                     <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-                            Especialidad
-                        </label>
-
-                        <input 
-                            type="text"
-                            name="specialty"
-                            class="form-control"
-                            value="<?= $coach['specialty'] ?>"
-                            required
-                        >
-
-                    </div>
+                    <label class="form-label">Especialidad</label>
+                    <select name="specialty" class="form-control" required>
+                        <!--Opcion vacia por defecto-->
+                    <option value="" disabled hidden>Selecciona especialidad...</option>
+        
+                    <option value="Natación Terapéutica" <?= $coach['specialty'] == 'Natación Terapéutica' ? 'selected' : '' ?>>Natación Terapéutica</option>
+                    <option value="Matronatación / Bebés" <?= $coach['specialty'] == 'Matronatación / Bebés' ? 'selected' : '' ?>>Matronatación / Bebés</option>
+                    <option value="Iniciación / Infantil" <?= $coach['specialty'] == 'Iniciación / Infantil' ? 'selected' : '' ?>>Iniciación / Infantil</option>
+                    <option value="Perfeccionamiento / Adultos" <?= $coach['specialty'] == 'Perfeccionamiento / Adultos' ? 'selected' : '' ?>>Perfeccionamiento / Adultos</option>
+                    <option value="Alto Rendimiento / Competición" <?= $coach['specialty'] == 'Alto Rendimiento / Competición' ? 'selected' : '' ?>>Alto Rendimiento / Competición</option>
+                    <option value="Aquagym / Fitness Acuático" <?= $coach['specialty'] == 'Aquagym / Fitness Acuático' ? 'selected' : '' ?>>Aquagym / Fitness Acuático</option>
+              </select>
+           </div>
 
                     <div class="d-flex gap-2">
 
@@ -132,6 +131,8 @@
                         </button>
 
                     </div>
+
+                </div>
 
                 </form>
 
