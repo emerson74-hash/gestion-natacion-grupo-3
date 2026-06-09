@@ -31,7 +31,7 @@
 
         <div class="container">
 
-            <!-- 🔥 SOLO SE AGREGÓ EL LOGO -->
+            <!--  SOLO SE AGREGÓ EL LOGO -->
             <a class="navbar-brand logo-text" href="?url=landing">
 
                 <img

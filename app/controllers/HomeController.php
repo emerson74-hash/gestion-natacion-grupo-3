@@ -22,3 +22,4 @@ class HomeController extends BaseController {
         $this->render('home.view', $data);
     }
 }
+//SE DEBERIA IR

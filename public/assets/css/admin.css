@@ -1,41 +1,173 @@
-/*Admin: Dashboard y Gestion de Entrenadores*/
-body{
-    background-color:var(--light-2);
+/* =========================================================
+   ADMIN DASHBOARD - SWIM LEARN MODERNO
+========================================================= */
+
+:root {
+    --primary: #4fd1e8;
+    --primary-dark: #22b8cf;
+    --accent: #4fd1e8;
+
+    --dark-1: #192338;
+    --dark-2: #1E2E4F;
+
+    --light-1: #ffffff;
+    --light-2: #f5fbfc;
 }
 
+/* =========================================================
+   GENERAL
+========================================================= */
+
+body{
+    
+    background: #ffffff;
+
+}
+
+.container{
+    animation: fadeIn .3s ease;
+}
+
+h1{
+    color: var(--dark-1);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+h2,
+h3,
+h4{
+    color: var(--dark-1);
+    font-weight: 600;
+}
+
+.text-muted{
+    color:#6c757d !important;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
 .navbar{
-    background-color:var(--primary-dark);
+    background-color: var(--dark-1);
+    border-bottom: 2px solid var(--primary);
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.row{
+    justify-content:center;
+    gap:20px;
 }
 
 .card{
-    border:none;
+    position:relative;
+    overflow:hidden;
+
+    background:#ffffff;
+
+    border:2px solid rgba(79,209,232,.45);
+
     border-radius:18px;
+
     min-height:180px;
-    box-shadow:0 4px 15px rgba(11, 11, 11, 0.08);
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05),
+        0 0 0 3px rgba(79,209,232,.08);
+
+    transition:.25s ease;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:5px;
+
+    background:#4fd1e8;
+
+    border-radius:18px 18px 0 0;
 }
 
 .card:hover{
-    
-    transform:translateY(-3px);
-    transition:0.2s;
-    cursor:pointer;
+    transform:translateY(-4px);
+
+    border-color:#4fd1e8;
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,.08),
+        0 0 0 4px rgba(79,209,232,.15);
 }
 
-.table{
-    border-radius:15px;
-    overflow:hidden;
+.card h4{
+    margin-bottom:15px;
 }
 
-.btn-primary{
-    background-color:#31487A;
+.card p{
+    color:#6c757d;
+}
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.btn-admin{
+    border:none;
+    padding:10px 24px;
+    border-radius:10px;
+    font-weight:600;
+    display:inline-block;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.btn-primary-admin{
+    background:linear-gradient(
+        135deg,
+        #4fd1e8,
+        #22b8cf
+    );
+
+    color:white;
+    box-shadow:0 4px 10px rgba(79,209,232,.25);
+}
+
+.btn-primary-admin:hover{
+    background:linear-gradient(
+        135deg,
+        #22b8cf,
+        #18a8be
+    );
+
+    color:white;
+}
+
+.btn-warning-admin,
+.btn-danger-admin{
+    background:#4fd1e8;
+    color:white;
     border:none;
 }
 
-.btn-primary:hover{
-    background-color:#1E2E4F;
+.btn-warning-admin:hover,
+.btn-danger-admin:hover{
+    background:#22b8cf;
+    color:white;
 }
 
 
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
 
 .form-control{
     border-radius:10px;
@@ -43,26 +175,137 @@ body{
 }
 
 .form-control:focus{
-    border-color:#31487A;
-    box-shadow:0 0 0 0.2rem rgba(49,72,122,0.25);
+    border-color:var(--primary);
+    box-shadow:0 0 0 .2rem rgba(79,209,232,.25);
 }
 
 .form-label{
     font-weight:600;
-    color:#192338;
+    color:var(--dark-1);
 }
 
-h1,h2,h3,h4{
-    color:var(--primary-dark);
+/* =========================================================
+   TABLAS
+========================================================= */
+
+.table{
+    background:#ffffff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    margin-bottom:0;
+}
+
+.table-modern thead th,
+.table-dark th,
+.table thead th{
+    background:#4fd1e8 !important;
+    color:white !important;
+    border:none !important;
     font-weight:600;
 }
 
-/*Entrada: Animacion para entrar a agregar y editar coach.*/
-.container{
-    animation: fadeIn 0.3s ease;
+.table td,
+.table th{
+    vertical-align:middle;
+    padding:12px;
 }
 
+/* Mantener fondo blanco */
+
+.table tbody,
+.table tbody tr,
+.table tbody td{
+    background:#ffffff !important;
+}
+
+/* Hover suave */
+
+.table-hover tbody tr:hover,
+.table tbody tr:hover{
+    background:#f2fcfe !important;
+}
+
+.table-hover tbody tr:hover td,
+.table tbody tr:hover td{
+    background:#f2fcfe !important;
+}
+
+.table-responsive-custom{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+
+/* =========================================================
+   DATATABLES
+========================================================= */
+
+.dataTables_wrapper{
+    padding:5px;
+}
+
+.dataTables_filter input{
+    border:1px solid rgba(79,209,232,.45) !important;
+    border-radius:10px;
+    padding:6px 10px;
+    outline:none;
+}
+
+.dataTables_filter input:focus{
+    border-color:#4fd1e8 !important;
+    box-shadow:0 0 0 3px rgba(79,209,232,.15);
+}
+
+.dataTables_length select{
+    border:1px solid rgba(79,209,232,.45);
+    border-radius:10px;
+    padding:4px 8px;
+}
+
+.dataTables_paginate .paginate_button{
+    border-radius:8px !important;
+}
+
+/* Espacio debajo del buscador y selector */
+
+.dataTables_length,
+.dataTables_filter{
+    margin-bottom:20px;
+}
+/* =========================================================
+   GESTIÓN DE ENTRENADORES
+========================================================= */
+
+.card.shadow-sm{
+    border:2px solid rgba(79,209,232,.45) !important;
+
+    border-radius:18px !important;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05),
+        0 0 0 3px rgba(79,209,232,.08) !important;
+
+    overflow:hidden;
+}
+
+/* =========================================================
+   ACCIONES
+========================================================= */
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
 @keyframes fadeIn{
+
     from{
         opacity:0;
         transform:translateY(10px);
@@ -72,7 +315,12 @@ h1,h2,h3,h4{
         opacity:1;
         transform:translateY(0);
     }
+
 }
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:768px){
 
@@ -81,111 +329,12 @@ h1,h2,h3,h4{
     }
 
     h1{
-        font-size:1.7rem;
+        font-size:1.8rem;
     }
 
-}
-
-/*Gestion de Clases*/
-
-:root {
-    --primary-dark: #03045E;
-    --primary: #007786;
-    --accent: #0084D8;
-    --dark-1: #192338;
-    --dark-2: #1E2E4F;
-    --dark-3: #31487A;
-    --light-1: #8FB3E2;
-    --light-2: #D9E1F1;
-}
-
-
-/*Adaptacion celular*/
-.table-responsive-custom {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-/*Botones*/
-.btn-admin{
-    border:none;
-    margin-bottom: 10px;
-    padding:8px 14px;
-    border-radius:10px;
-    font-weight:600;
-    display:inline-block;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.btn-primary-admin {
-    background: var(--accent);
-    color: white;
-    margin-top: 10px;
-}
-
-.btn-primary-admin:hover {
-    background: var(--primary);
-     margin-top: 10px;
-}
-
-.btn-warning-admin {
-    background: #f7b731;
-    color: black;
-}
-
-.btn-danger-admin {
-    background: #e74c3c;
-    color: white;
-}
-
-
-.btn-warning-admin:hover{
-    opacity:0.9;
-}
-
-
-
-/*Orden de la tabla*/
-.actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.table td, .table th {
-    vertical-align: middle;
-    padding: 12px;
-}
-
-.actions {
-    justify-content: center;
-}
-
-.table-modern thead th{
-    background:#03045E;
-    color:white;
-    font-weight:600;
-}
-
-.table{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-}
-
-.table thead{
-    background:var(--primary-dark);
-}
-
-.table-dark th{
-    background:var(--primary-dark) !important;
-    border:none;
-}
-
-/*vista celular*/
-@media(max-width:768px){
+    h2{
+        font-size:1.5rem;
+    }
 
     .actions{
         flex-direction:column;
@@ -196,29 +345,51 @@ h1,h2,h3,h4{
         text-align:center;
     }
 
-    h2{
-        font-size:1.5rem;
+    .table thead{
+        font-size:.9rem;
     }
 
+    .table td{
+        font-size:.9rem;
+    }
+
+    /* =========================================================
+   FORMULARIO AGREGAR ENTRENADOR
+========================================================= */
+
+.card form{
+    margin-top:10px;
 }
 
-@media (max-width: 768px) {
-
-    .actions {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .actions .btn-admin {
-        width: 100%;
-        font-size: 12px;
-        padding: 6px;
-         
-    }
-
+.form-label{
+    color:var(--dark-1);
+    font-weight:600;
+    margin-bottom:6px;
 }
 
-.table-responsive-custom {
-    overflow-x: auto;
+.form-control{
+    border:1px solid rgba(79,209,232,.25);
+    background:#fff;
+}
+
+.form-control:hover{
+    border-color:rgba(79,209,232,.45);
+}
+
+.form-control:focus{
+    border-color:#4fd1e8;
+    box-shadow:0 0 0 3px rgba(79,209,232,.15);
+}
+
+input[type="date"]{
+    cursor:pointer;
+}
+.is-invalid{
+    border-color:#dc3545 !important;
+}
+
+.is-invalid:focus{
+    border-color:#dc3545 !important;
+    box-shadow:0 0 0 .2rem rgba(220,53,69,.25) !important;
+}
 }

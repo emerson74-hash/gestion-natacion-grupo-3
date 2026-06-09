@@ -47,7 +47,9 @@
                             </td>
 
                             <td>
-                                <?= $coach['birth_date'] ?>
+                                
+                                <?= date('d/m/Y', strtotime($coach['birth_date'])) ?>
+
                             </td>
 
                             <td>
