@@ -1,5 +1,5 @@
 <?php
-// app/controllers/HomeController.php
+// app/controllers/HomeController.php ESTA CLASE ESTA OBSOLETA TIENE QUE IRSE, ANTES VERIFICAR QUE NADA ROMPA
 
 require_once __DIR__ . '/../core/BaseController.php';
 
