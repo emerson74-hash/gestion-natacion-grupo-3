@@ -53,10 +53,20 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label">Especialidad</label>
-                            <input type="text" name="specialty"
-                                   class="form-control form-control-sm">
-                        </div>
+                        <label class="form-label">Especialidad</label>
+                        <select name="specialty" class="form-control form-control-sm" required>
+                        <!--Opcion vacia por defecto-->
+                        <option value="" disabled selected hidden>Selecciona especialidad...</option>
+        
+                        <!--Opciones de Natacion-->
+                        <option value="Natación Terapéutica">Natación Terapéutica</option>
+                        <option value="Matronatación / Bebés">Matronatación / Bebés</option>
+                        <option value="Iniciación / Infantil">Iniciación / Infantil</option>
+                        <option value="Perfeccionamiento / Adultos">Perfeccionamiento / Adultos</option>
+                        <option value="Alto Rendimiento / Competición">Alto Rendimiento / Competición</option>
+                        <option value="Aquagym / Fitness Acuático">Aquagym / Fitness Acuático</option>
+                        </select>
+                    </div>
 
                         <!-- BOTÓN -->
                         <div class="col-12 mt-4 d-flex justify-content-center">

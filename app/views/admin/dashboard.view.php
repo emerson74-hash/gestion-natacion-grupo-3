@@ -7,8 +7,6 @@
     <h1 class="mb-4">Bienvenido, Administrador</h1>
 
     <p class="text-muted">
-        
-    </p>
 
     <p>Selecciona una opción para realizar en el sistema:</p>
 

@@ -24,6 +24,8 @@
                         <div class="col-md-4">
                             <label class="form-label">Entrenador</label>
                             <select name="profile_id" class="form-control form-control-sm">
+                                 <!--Esta opción hace que aparezca vacío por defecto-->
+                           <option value="" disabled selected hidden>Selecciona un entrenador...</option>
                                 <?php foreach ($coaches as $coach): ?>
                                     <option value="<?= $coach['profile_id'] ?>">
                                         <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
@@ -35,7 +37,8 @@
                         <div class="col-md-4">
                             <label class="form-label">Nivel</label>
                             <select name="level" class="form-control form-control-sm" required>
-                                <option value="">Nivel</option>
+                                  <!--Opción vacía por defecto-->
+               <option value="" disabled selected hidden>Selecciona el nivel...</option>
                                 <option value="Inicial">Inicial</option>
                                 <option value="Intermedio">Intermedio</option>
                                 <option value="Experto">Experto</option>
@@ -45,6 +48,8 @@
                         <div class="col-md-4">
                             <label class="form-label">Día</label>
                             <select name="day_of_week" class="form-control form-control-sm">
+                                <!--Opción vacía por defecto-->
+                       <option value="" disabled selected hidden>Selecciona el día...</option>
                                 <option>Lunes</option>
                                 <option>Martes</option>
                                 <option>Miércoles</option>
