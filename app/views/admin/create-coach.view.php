@@ -2,24 +2,23 @@
 
 <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
 
-<div class="container py-4 card-form">
+<div class="container py-5">
 
-```
-<div class="row justify-content-center">
+    <div class="row justify-content-center">
 
-    <div class="col-12">
+        <div class="col-12 col-lg-8">
 
-        <div class="card shadow-sm border-0 p-4">
+            <div class="card shadow-sm border-0 p-4">
 
-            <h2 class="text-center mb-4">
-                Agregar Entrenador
-            </h2>
+                <h2 class="text-center mb-4">
+                    Agregar Entrenador
+                </h2>
 
-            <form method="POST"
-                  action="?url=admin&section=store-coach"
-                  enctype="multipart/form-data">
+                <form method="POST"
+                      action="?url=admin&section=store-coach"
+                      enctype="multipart/form-data">
 
-                <div class="row g-4">
+                    <div class="row g-4">
 
                     <!-- FILA 1 -->
 
@@ -110,6 +109,5 @@
     </div>
 
 </div>
-```
 
 </div>

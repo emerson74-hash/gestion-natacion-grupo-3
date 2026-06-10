@@ -2,7 +2,6 @@
 
 <div class="container mt-4">
 
-```
 <div class="bg-white p-5 rounded shadow-sm">
 
     <?php
@@ -183,7 +182,6 @@
     </form>
 
 </div>
-```
 
 </div>
 

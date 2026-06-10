@@ -150,16 +150,13 @@ h4{
     color:white;
 }
 
-.btn-warning-admin,
-.btn-danger-admin{
-    background:#4fd1e8;
+.btn-warning-admin{
+    background: #2c7da0;
     color:white;
-    border:none;
 }
 
-.btn-warning-admin:hover,
-.btn-danger-admin:hover{
-    background:#22b8cf;
+.btn-danger-admin{
+    background:#546e7a;
     color:white;
 }
 
