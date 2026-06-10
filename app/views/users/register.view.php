@@ -72,37 +72,4 @@
         </div>
     </div>
 </div>
-<script>
-    window.cropper = null;
-
-    const imageInput = document.getElementById('profile_image');
-    const preview = document.getElementById('preview');
-
-    imageInput.addEventListener('change', function (e) {
-
-        const file = e.target.files[0];
-
-        if (!file) return;
-
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-
-            preview.src = event.target.result;
-            preview.style.display = 'block';
-
-            if (window.cropper) {
-                window.cropper.destroy();
-            }
-
-            window.cropper = new Cropper(preview, {
-                aspectRatio: 1,
-                viewMode: 1,
-                autoCropArea: 1
-            });
-        };
-
-        reader.readAsDataURL(file);
-    });
-</script>
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>
