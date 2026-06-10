@@ -109,9 +109,9 @@ class CoachController extends BaseController
         $newPassword = $_POST['nueva_contraseña'] ?? '';
         $confirmPass = $_POST['confirmar_nueva_contraseña'] ?? '';
 
-        
         $profileImage = $_SESSION['profile_image'] ?? '';
 
+        // Procesamiento y validación de la imagen
         if (
             isset($_FILES['profile_image']) &&
             $_FILES['profile_image']['error'] === UPLOAD_ERR_OK
@@ -124,7 +124,6 @@ class CoachController extends BaseController
 
             $extension = strtolower(pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION));
 
-            // Validacionn
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             if (!in_array($extension, $allowedExtensions)) {
                 return $this->json('warning', 'El formato de archivo no es válido. Solo imágenes.');
@@ -134,24 +133,27 @@ class CoachController extends BaseController
             $absolutePath = $uploadDir . $newFileName;
 
             if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $absolutePath)) {
-                
                 $profileImage = $newFileName;
             } else {
                 return $this->json('error', 'No se pudo mover el archivo al directorio de destino.');
             }
         }
 
-        // UPDATE PROFILE EN BASE DE DATOS sin sql
-        $this->profileModel->updateCoachProfile([
+        // ==========================================================
+        // UPDATE PROFILE (Pasamos las llaves correctas que espera tu modelo)
+        // ==========================================================
+        $this->profileModel->updateProfile([
             'first_name' => $firstName,
             'last_name' => $lastName,
             'specialty' => $specialty,
-            'profile_image' => $profileImage, 
+            'profile_image' => $profileImage, // Tu modelo evalúa si está vacío para no pisarlo
             'user_id' => $userId
         ]);
 
-        // pass update
-        if (!empty($newPassword)) {
+        // ==========================================================
+        // UPDATE PASSWORD (Opcional - Solo si el campo no viene vacío)
+        // ==========================================================
+        if (!empty(trim($newPassword))) {
             if (strlen($newPassword) < 6) {
                 return $this->json('warning', 'La contraseña debe tener al menos 6 caracteres.');
             }
@@ -165,7 +167,7 @@ class CoachController extends BaseController
         $_SESSION['first_name'] = $firstName;
         $_SESSION['last_name'] = $lastName;
         $_SESSION['specialty'] = $specialty;
-        $_SESSION['profile_image'] = $profileImage; // Actualizamos la sesión con el nombre limpio
+        $_SESSION['profile_image'] = $profileImage;
 
         $baseUrl = rtrim(Env::get('APP_URL'), '/');
         $redirect = $baseUrl . '/?url=coach/dashboard';

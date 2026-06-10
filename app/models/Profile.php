@@ -111,27 +111,25 @@ class Profile
      */
     public function updateProfile(array $data)
     {
-        // Construimos la query dinámicamente según si viene o no una nueva imagen
         if (!empty($data['profile_image'])) {
             $sql = "UPDATE profiles 
-                    SET phone = ?, birth_date = ?, profile_image = ?
-                    WHERE user_id = ?";
-
+                SET first_name = ?, last_name = ?, specialty = ?, profile_image = ?
+                WHERE user_id = ?";
             $params = [
-                $data['phone'],
-                $data['birth_date'] ?? null,
+                $data['first_name'],
+                $data['last_name'],
+                $data['specialty'],
                 $data['profile_image'],
                 $data['user_id']
             ];
         } else {
-            // Si no viene imagen, no la tocamos para no pisar la anterior
             $sql = "UPDATE profiles 
-                    SET phone = ?, birth_date = ?
-                    WHERE user_id = ?";
-
+                SET first_name = ?, last_name = ?, specialty = ?
+                WHERE user_id = ?";
             $params = [
-                $data['phone'],
-                $data['birth_date'] ?? null,
+                $data['first_name'],
+                $data['last_name'],
+                $data['specialty'],
                 $data['user_id']
             ];
         }
