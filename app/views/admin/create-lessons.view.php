@@ -6,7 +6,7 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-12 col-xl-10">
+        <div class="col-12 col-lg-8 col-xl-7">
 
             <div class="card p-4">
 
@@ -19,15 +19,8 @@
 
                     <div class="row g-3">
 
-                        <!-- FILA 1 -->
-
                         <div class="col-md-4">
-<<<<<<< HEAD
-                            <label class="form-label">Entrenador</label>
-                            <select name="profile_id" class="form-control form-control-sm">
-                                 <!--Esta opción hace que aparezca vacío por defecto-->
-                           <option value="" disabled selected hidden>Selecciona un entrenador...</option>
-=======
+
                             <label class="form-label">
                                 Entrenador
                             </label>
@@ -36,7 +29,10 @@
                                     class="form-control"
                                     required>
 
->>>>>>> 1807713 (Mejoras formularios admin)
+                                <option value="" disabled selected hidden>
+                                    Selecciona un entrenador...
+                                </option>
+
                                 <?php foreach ($coaches as $coach): ?>
 
                                     <option value="<?= $coach['profile_id'] ?>">
@@ -46,18 +42,11 @@
                                 <?php endforeach; ?>
 
                             </select>
+
                         </div>
 
                         <div class="col-md-4">
-<<<<<<< HEAD
-                            <label class="form-label">Nivel</label>
-                            <select name="level" class="form-control form-control-sm" required>
-                                  <!--Opción vacía por defecto-->
-               <option value="" disabled selected hidden>Selecciona el nivel...</option>
-                                <option value="Inicial">Inicial</option>
-                                <option value="Intermedio">Intermedio</option>
-                                <option value="Experto">Experto</option>
-=======
+
                             <label class="form-label">
                                 Nivel
                             </label>
@@ -66,8 +55,8 @@
                                     class="form-control"
                                     required>
 
-                                <option value="">
-                                    Seleccione un nivel
+                                <option value="" disabled selected hidden>
+                                    Selecciona el nivel...
                                 </option>
 
                                 <option value="Inicial">
@@ -82,11 +71,12 @@
                                     Experto
                                 </option>
 
->>>>>>> 1807713 (Mejoras formularios admin)
                             </select>
+
                         </div>
 
                         <div class="col-md-4">
+
                             <label class="form-label">
                                 Día
                             </label>
@@ -103,11 +93,11 @@
                                 <option value="Sábado">Sábado</option>
 
                             </select>
+
                         </div>
 
-                        <!-- FILA 2 -->
-
                         <div class="col-md-4">
+
                             <label class="form-label">
                                 Hora Inicio
                             </label>
@@ -116,9 +106,11 @@
                                    name="start_time"
                                    class="form-control"
                                    required>
+
                         </div>
 
                         <div class="col-md-4">
+
                             <label class="form-label">
                                 Hora Fin
                             </label>
@@ -127,9 +119,11 @@
                                    name="end_time"
                                    class="form-control"
                                    required>
+
                         </div>
 
                         <div class="col-md-4">
+
                             <label class="form-label">
                                 Capacidad
                             </label>
@@ -139,19 +133,17 @@
                                    class="form-control"
                                    value="20"
                                    required>
-                        </div>
 
-                        <!-- BOTÓN -->
+                        </div>
 
                         <div class="col-12 text-center mt-4">
 
                             <button type="submit"
                                     class="btn btn-primary-admin"
                                     style="
-                                        width:240px;
-                                        height:48px;
+                                        min-width:260px;
+                                        padding:12px 30px;
                                         border-radius:12px;
-                                        font-weight:600;
                                     ">
                                 Crear Clase
                             </button>

@@ -6,39 +6,22 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-12 col-xl-10">
+        <div class="col-12 col-lg-8 col-xl-7">
 
             <div class="card p-4">
 
-<<<<<<< HEAD
-                <h1 class="text-center mb-4">
-                  Editar Clase
-                </h1>
-=======
                 <h2 class="text-center mb-4">
                     Editar Clase
                 </h2>
->>>>>>> 1807713 (Mejoras formularios admin)
 
                 <form method="POST"
                       action="?url=admin&section=update-lesson">
 
-<<<<<<< HEAD
-            <input type="hidden"
-             name="id"
-             value="<?= $lesson['id'] ?>">
-
-            <div class="row">
-            <div class="col-md- 6 mb-3">
-            <label>Nivel</label>
-=======
                     <input type="hidden"
                            name="id"
                            value="<?= $lesson['id'] ?>">
 
                     <div class="row g-3">
-
-                        <!-- FILA 1 -->
 
                         <div class="col-md-4">
                             <label class="form-label">
@@ -75,27 +58,27 @@
                             <select name="day_of_week"
                                     class="form-control">
 
-                                <option <?= $lesson['day_of_week']=='Lunes' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Lunes' ? 'selected' : '' ?>>
                                     Lunes
                                 </option>
 
-                                <option <?= $lesson['day_of_week']=='Martes' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Martes' ? 'selected' : '' ?>>
                                     Martes
                                 </option>
 
-                                <option <?= $lesson['day_of_week']=='Miércoles' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Miércoles' ? 'selected' : '' ?>>
                                     Miércoles
                                 </option>
 
-                                <option <?= $lesson['day_of_week']=='Jueves' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Jueves' ? 'selected' : '' ?>>
                                     Jueves
                                 </option>
 
-                                <option <?= $lesson['day_of_week']=='Viernes' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Viernes' ? 'selected' : '' ?>>
                                     Viernes
                                 </option>
 
-                                <option <?= $lesson['day_of_week']=='Sábado' ? 'selected' : '' ?>>
+                                <option <?= $lesson['day_of_week'] == 'Sábado' ? 'selected' : '' ?>>
                                     Sábado
                                 </option>
 
@@ -112,8 +95,7 @@
 
                                 <?php foreach ($coaches as $coach): ?>
 
-                                    <option
-                                        value="<?= $coach['profile_id'] ?>"
+                                    <option value="<?= $coach['profile_id'] ?>"
                                         <?= $coach['profile_id'] == $lesson['profile_id'] ? 'selected' : '' ?>>
 
                                         <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
@@ -124,8 +106,6 @@
 
                             </select>
                         </div>
-
-                        <!-- FILA 2 -->
 
                         <div class="col-md-4">
                             <label class="form-label">
@@ -160,17 +140,14 @@
                                    value="<?= $lesson['capacity'] ?>">
                         </div>
 
-                        <!-- BOTÓN -->
-
                         <div class="col-12 text-center mt-4">
 
                             <button type="submit"
                                     class="btn btn-primary-admin"
                                     style="
-                                        width:240px;
-                                        height:48px;
+                                        min-width:260px;
+                                        padding:12px 30px;
                                         border-radius:12px;
-                                        font-weight:600;
                                     ">
                                 Guardar cambios
                             </button>
@@ -180,7 +157,6 @@
                     </div>
 
                 </form>
->>>>>>> 1807713 (Mejoras formularios admin)
 
             </div>
 
