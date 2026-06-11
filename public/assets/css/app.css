@@ -313,6 +313,170 @@ h4{
     }
 
 }
+/* =========================================================
+   CLASES DISPONIBLES
+========================================================= */
+
+#lessons-grid{
+    justify-content:center;
+}
+
+.lesson-modern-card{
+    background:#ffffff;
+    border:2px solid rgba(79,209,232,.30) !important;
+    border-radius:18px !important;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    transition:.25s ease;
+    min-height:auto;
+}
+
+.lesson-modern-card:hover{
+    transform:translateY(-4px);
+    border-color:#4fd1e8 !important;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.card-header{
+    background:linear-gradient(
+        135deg,
+        #17A2B8,
+        #2c7da0
+    ) !important;
+
+    border:none !important;
+}
+
+.lesson-card-header .badge{
+    background:#2c7da0 !important;
+    color:white !important;
+    font-weight:600;
+    border-radius:30px;
+    padding:6px 12px;
+}
+
+.lesson-modern-card .card-title{
+    color:#2c7da0;
+    font-size:1.5rem;
+    font-weight:700;
+}
+
+.lesson-coach-box{
+    background:#f8fbfc;
+    border:1px solid rgba(44,125,160,.15);
+    border-radius:12px;
+    padding:15px;
+}
+
+.lesson-places{
+    color:#546e7a;
+    font-weight:600;
+}
+
+.booking-btn{
+    border-radius:10px;
+    font-weight:600;
+    padding:10px;
+    transition:.2s ease;
+}
+
+.booking-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* INSCRIBIRSE */
+
+.btn-book{
+    background:#2c7da0;
+    border:none;
+    color:white;
+}
+
+.btn-book:hover{
+    background:#245f7c;
+    color:white;
+}
+
+/* CANCELAR */
+
+.btn-cancel{
+    background:#1f4e64;
+    border:none;
+    color:white;
+}
+
+.btn-cancel:hover{
+    background:#2ba0d6;
+    color:white;
+}
+
+/* COMPLETA */
+
+.btn-full{
+    background:#dfe7ea;
+    border:none;
+    color:#546e7a;
+}
+
+/* CABECERA GENERAL */
+
+.card-header{
+    background:#4fd1e8 !important;
+}
+
+.card-header h2{
+    color:white !important;
+}
+
+/* FILTROS */
+
+#day-filter .btn{
+    border-radius:10px;
+}
+
+.filter-btn{
+    border-color:#2c7da0 !important;
+    color:#2c7da0 !important;
+}
+
+.filter-btn.active{
+    background:#2c7da0 !important;
+    border-color:#2c7da0 !important;
+    color:white !important;
+}
+.filter-btn{
+    border-color:#2c7da0 !important;
+    color:#2c7da0 !important;
+    background:white !important;
+}
+
+.filter-btn:hover{
+    background:#e9ecef !important;
+    border-color:#546e7a !important;
+    color:#546e7a !important;
+}
+
+.filter-btn.active{
+    background:#2c7da0 !important;
+    border-color:#2c7da0 !important;
+    color:white !important;
+}
+.btn-cancel{
+    background:#2c7da0;
+    border:1px solid #2c7da0;
+    color:white;
+    font-weight:600;
+}
+
+.btn-cancel:hover{
+    background:#225f7a;
+    border-color:#225f7a;
+    color:white;
+}
+
+.btn-cancel:focus{
+    box-shadow:0 0 0 .2rem rgba(44,125,160,.25);
+}
 
 /* =========================================================
    RESPONSIVE

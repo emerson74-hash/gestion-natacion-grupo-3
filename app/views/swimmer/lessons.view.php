@@ -1,220 +1,202 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/app.css">
 
-<div class="bg-white p-5 rounded shadow-sm">
 
-    <!-- Encabezado de la pantalla -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container py-4">
 
-        <div>
-            <h1 class="mb-1">Clases Disponibles</h1>
+    <div class="card shadow-sm mx-auto" style="max-width:1400px;">
 
-            <!-- Texto informativo -->
-            <p class="text-muted mb-0">
+        <div class="card-header py-3 position-relative">
+
+            <a href="<?= _URL ?>/?url=swimmer/dashboard"
+               class="btn btn-light btn-sm position-absolute"
+               style="
+                    left:20px;
+                    top:50%;
+                    transform:translateY(-50%);
+                    border-radius:10px;
+                    font-weight:600;
+               ">
+                ← Volver
+            </a>
+
+            <h2 class="mb-0 text-white fw-bold text-center">
+                Clases Disponibles
+            </h2>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <p class="text-center text-muted mb-4">
                 Inscribite en las clases que quieras. Podés cancelar cuando necesites.
             </p>
-        </div>
 
-        <!-- Botón para volver al dashboard -->
-        <a href="<?= _URL ?>/?url=swimmer/dashboard"
-           class="btn btn-outline-secondary">
+            <hr>
 
-            ← Volver al panel
-        </a>
+            <div id="lessons-alert" class="alert d-none" role="alert"></div>
 
-    </div>
+            <?php if (empty($lessons)): ?>
 
-    <hr>
+                <div class="alert alert-info">
+                    No hay clases disponibles por el momento.
+                </div>
 
-    <!-- Acá mostramos mensajes de éxito o error -->
-    <div id="lessons-alert" class="alert d-none" role="alert"></div>
+            <?php else: ?>
 
-    <?php if (empty($lessons)): ?>
+                <div class="mb-4 d-flex flex-wrap gap-2" id="day-filter">
 
-        <!-- Si no hay clases -->
-        <div class="alert alert-info">
-            No hay clases disponibles por el momento.
-        </div>
+                    <button class="btn btn-sm btn-primary filter-btn active"
+                            data-day="all">
+                        Todos los días
+                    </button>
 
-    <?php else: ?>
+                    <?php
+                        $days = array_unique(array_column($lessons, 'day_of_week'));
 
-        <!-- ========================= -->
-        <!-- FILTRO POR DÍA -->
-        <!-- ========================= -->
+                        foreach ($days as $day):
+                    ?>
 
-        <div class="mb-4 d-flex flex-wrap gap-2" id="day-filter">
+                        <button class="btn btn-sm btn-outline-primary filter-btn"
+                                data-day="<?= htmlspecialchars($day) ?>">
 
-            <!-- Botón para mostrar todas -->
-            <button class="btn btn-sm btn-primary filter-btn active"
-                    data-day="all">
+                            <?= htmlspecialchars($dayLabels[$day] ?? $day) ?>
 
-                Todos los días
-            </button>
+                        </button>
 
-            <?php
-                // Sacamos días repetidos
-                $days = array_unique(array_column($lessons, 'day_of_week'));
+                    <?php endforeach; ?>
 
-                foreach ($days as $day):
-            ?>
+                </div>
 
-                <!-- Botones de filtro -->
-                <button class="btn btn-sm btn-outline-primary filter-btn"
-                        data-day="<?= htmlspecialchars($day) ?>">
+                <div class="row g-4" id="lessons-grid">
 
-                    <?= htmlspecialchars($dayLabels[$day] ?? $day) ?>
+                <?php foreach ($lessons as $lesson):
 
-                </button>
+                    $isFull = $lesson['booked_count'] >= $lesson['capacity'];
+                    $isBooked = (bool) $lesson['is_booked'];
+                    $spotsLeft = max(0, $lesson['capacity'] - $lesson['booked_count']);
+                ?>
 
-            <?php endforeach; ?>
+                    <div class="col-md-6 col-xl-4 lesson-card"
+                         data-day="<?= htmlspecialchars($lesson['day_of_week']) ?>">
 
-        </div>
+                        <div class="card h-100 lesson-modern-card">
 
-        <!-- Contenedor de tarjetas -->
-        <div class="row g-3" id="lessons-grid">
+                            <div class="card-header lesson-card-header d-flex justify-content-between align-items-center py-2">
 
-        <?php foreach ($lessons as $lesson):
+                                <span class="badge <?= $isBooked ? 'bg-success' : ($isFull ? 'bg-danger' : 'bg-primary') ?>">
 
-            // Verifica si la clase ya está llena
-            $isFull = $lesson['booked_count'] >= $lesson['capacity'];
+                                    <?= $isBooked ? '✓ Inscripto' : ($isFull ? 'Clase llena' : 'Disponible') ?>
 
-            // Verifica si el usuario ya está inscripto
-            $isBooked = (bool) $lesson['is_booked'];
-
-            // Calcula lugares disponibles
-            $spotsLeft = max(0, $lesson['capacity'] - $lesson['booked_count']);
-        ?>
-
-            <!-- Tarjeta de clase -->
-            <div class="col-md-6 col-lg-4 lesson-card"
-                 data-day="<?= htmlspecialchars($lesson['day_of_week']) ?>">
-
-                <!-- Si está inscripto agregamos borde verde -->
-                <div class="card h-100 <?= $isBooked ? 'border-success border-2' : '' ?>">
-
-                    <!-- Parte superior de la tarjeta -->
-                    <div class="card-header d-flex justify-content-between align-items-center py-2">
-
-                        <!-- Estado de la clase -->
-                        <span class="badge <?= $isBooked ? 'bg-success' : ($isFull ? 'bg-danger' : 'bg-primary') ?>">
-
-                            <?= $isBooked ? '✓ Inscripto' : ($isFull ? 'Clase llena' : 'Disponible') ?>
-
-                        </span>
-
-                        <!-- Lugares disponibles -->
-                        <small class="text-muted">
-
-                            <?= $spotsLeft ?> lugar<?= $spotsLeft !== 1 ? 'es' : '' ?>
-                            libre<?= $spotsLeft !== 1 ? 's' : '' ?>
-
-                        </small>
-
-                    </div>
-
-                    <!-- Contenido principal -->
-                    <div class="card-body">
-
-                        <!-- Nivel -->
-                        <h5 class="card-title">
-                            <?= htmlspecialchars($lesson['level'] ?? 'Natación') ?>
-                        </h5>
-
-                        <!-- Día -->
-                        <p class="card-text mb-1">
-
-                            <span class="fw-semibold"></span>
-
-                            <?= htmlspecialchars($dayLabels[$lesson['day_of_week']] ?? $lesson['day_of_week']) ?>
-
-                        </p>
-
-                        <!-- Horario -->
-                        <p class="card-text mb-2">
-
-                            <span class="fw-semibold"></span>
-
-                            <?= htmlspecialchars(substr($lesson['start_time'], 0, 5)) ?>
-                            –
-                            <?= htmlspecialchars(substr($lesson['end_time'], 0, 5)) ?>
-
-                        </p>
-
-                        <!-- Profesor responsable -->
-                        <div class="mt-3 p-2 bg-light rounded">
-
-                            <small class="text-muted d-block"
-                                   style="font-size:.7rem;">
-
-                                Profesor a cargo
-                            </small>
-
-                            <span class="fw-semibold small">
-
-                                👤 <?= htmlspecialchars($lesson['coach_name']) ?>
-
-                            </span>
-
-                            <!-- Especialidad del coach -->
-                            <?php if (!empty($lesson['coach_specialty'])): ?>
-
-                                <br>
+                                </span>
 
                                 <small class="text-muted">
 
-                                    <?= htmlspecialchars($lesson['coach_specialty']) ?>
+                                    <?= $spotsLeft ?> lugar<?= $spotsLeft !== 1 ? 'es' : '' ?>
+                                    libre<?= $spotsLeft !== 1 ? 's' : '' ?>
 
                                 </small>
 
-                            <?php endif; ?>
+                            </div>
+
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-3">
+                                    <?= htmlspecialchars($lesson['level'] ?? 'Natación') ?>
+                                </h5>
+
+                                <p class="card-text mb-2">
+
+                                    
+                                    <?= htmlspecialchars($dayLabels[$lesson['day_of_week']] ?? $lesson['day_of_week']) ?>
+
+                                </p>
+
+                                <p class="card-text mb-3">
+
+                                    
+                                    <?= htmlspecialchars(substr($lesson['start_time'], 0, 5)) ?>
+                                    -
+                                    <?= htmlspecialchars(substr($lesson['end_time'], 0, 5)) ?>
+
+                                </p>
+
+                                <div class="lesson-coach-box">
+
+                                    <small class="text-muted d-block">
+                                        Profesor a cargo
+                                    </small>
+
+                                    <span class="fw-semibold">
+
+                                         <?= htmlspecialchars($lesson['coach_name']) ?>
+
+                                    </span>
+
+                                    <?php if (!empty($lesson['coach_specialty'])): ?>
+
+                                        <br>
+
+                                        <small class="text-muted">
+
+                                            <?= htmlspecialchars($lesson['coach_specialty']) ?>
+
+                                        </small>
+
+                                    <?php endif; ?>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top-0 pb-3">
+
+                                <?php if ($isBooked): ?>
+
+                                <button class="btn btn-cancel w-100 booking-btn"
+                                    data-action="cancel"
+                                    data-lesson-id="<?= (int) $lesson['id'] ?>">
+
+                                     Cancelar inscripción
+
+                                </button>
+
+                                <?php elseif ($isFull): ?>
+
+                                    <button class="btn btn-outline-secondary w-100" disabled>
+
+                                        Sin lugares disponibles
+
+                                    </button>
+
+                                <?php else: ?>
+
+                                    <button class="btn btn-primary w-100 booking-btn"
+                                            data-action="book"
+                                            data-lesson-id="<?= (int) $lesson['id'] ?>">
+
+                                        Inscribirme
+
+                                    </button>
+
+                                <?php endif; ?>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                    <!-- Botones -->
-                    <div class="card-footer bg-transparent border-top-0 pb-3">
-
-                        <?php if ($isBooked): ?>
-
-                            <!-- Botón cancelar -->
-                            <button class="btn btn-outline-danger btn-sm w-100 booking-btn"
-                                    data-action="cancel"
-                                    data-lesson-id="<?= (int) $lesson['id'] ?>">
-
-                                Cancelar inscripción
-                            </button>
-
-                        <?php elseif ($isFull): ?>
-
-                            <!-- Clase llena -->
-                            <button class="btn btn-secondary btn-sm w-100" disabled>
-
-                                Sin lugares disponibles
-                            </button>
-
-                        <?php else: ?>
-
-                            <!-- Botón inscribirse -->
-                            <button class="btn btn-primary btn-sm w-100 booking-btn"
-                                    data-action="book"
-                                    data-lesson-id="<?= (int) $lesson['id'] ?>">
-
-                                Inscribirme
-                            </button>
-
-                        <?php endif; ?>
-
-                    </div>
+                <?php endforeach; ?>
 
                 </div>
-            </div>
 
-        <?php endforeach; ?>
+            <?php endif; ?>
 
         </div>
 
-    <?php endif; ?>
+    </div>
 
 </div>
 
@@ -379,4 +361,5 @@
 })();
 </script>
 
+</div>
 <?php include __DIR__ . '/../users/layout/footer.php'; ?>

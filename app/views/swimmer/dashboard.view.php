@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <hr>
+
 
     <!-- Accesos rápidos -->
     <div class="row g-3 mb-4">
