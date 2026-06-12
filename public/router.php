@@ -76,6 +76,7 @@ switch ($route) {
     case 'coach/lessons':
     case 'coach/edit':
     case 'coach/updateProfile':
+    case 'coach/getStudents':
         require_once __DIR__ . '/../app/controllers/CoachController.php';
         $controller = new CoachController();
 
@@ -88,9 +89,12 @@ switch ($route) {
             $controller->lessons();
         if ($route === 'coach/edit')
             $controller->edit();
+        if ($route === 'coach/getStudents')
+            $controller->getStudents();
         if ($route === 'coach/updateProfile')
             $controller->updateProfile();
         break;
+        
 
 
     //--- MÓDULO ADMIN ---
@@ -151,7 +155,8 @@ switch ($route) {
 
             case 'delete-lesson':
                 $controller->deleteLesson();
-                break;    
+                break;
+             
 
             case 'dashboard':
             default:

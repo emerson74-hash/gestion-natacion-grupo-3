@@ -178,5 +178,29 @@ class CoachController extends BaseController
             $redirect
         );
     }
+    public function getStudents()
+    {
+        $this->checkAuth();
+        $this->checkRole([2]);
+
+        global $pdo;
+
+        $lessonModel = new Lesson($pdo);
+
+        $lessonId = $_GET['lesson_id'] ?? null;
+
+        if (!$lessonId) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $students = $lessonModel->getStudentsByLesson($lessonId);
+
+        header('Content-Type: application/json');
+
+        echo json_encode($students);
+        exit;
+    }
+
 
 }

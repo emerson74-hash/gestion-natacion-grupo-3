@@ -7,7 +7,7 @@ import { initRegister } from "./auth/formRegister.js";
 import { initForgotPassword } from "./auth/formForgotPassword.js";
 import { initResetPassword } from "./auth/formResetPassword.js";
 import { initEdit } from "./coach/formEdit.js";
-
+import { initLessonsTable } from "./coach/tableLessons.js";
 
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initForgotPassword();
     initResetPassword();
     initEdit();
+    initLessonsTable();
 
     console.log("Auth module initialized successfully.");
 });
