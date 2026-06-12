@@ -9,11 +9,11 @@
             <div class="bg-white p-5 rounded shadow-sm">
 
                 <!-- TABLA DE CLASES -->
-                <table class="table">
+                <table class="table" id="swimmers_table">
                     <thead>
                         <tr>
                             <th>Día</th>
-                            <th>Hora</th>
+                            <th>Horario</th>
                             <th>Nivel</th>
                             <th>Inscriptos</th>
                             <th></th>
@@ -31,58 +31,42 @@
                                 <td><?= $lesson['booked_count'] ?></td>
 
                                 <td>
-                                    <a href="?url=coach/lessons&id=<?= $lesson['id'] ?>" class="btn btn-sm btn-primary">
+                                    <button class="btn btn-sm btn-primary btn-students"
+                                        data-lesson-id="<?= $lesson['id'] ?>">
                                         Ver alumnos
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
 
-                            <?php if (!empty($selectedLessonId) && $selectedLessonId == $lesson['id']): ?>
 
-                                <tr>
-                                    <td colspan="5">
-
-                                        <div class="mt-2 mb-2">
-                                            <strong>Alumnos inscriptos</strong>
-                                        </div>
-
-                                        <?php if (!empty($students)): ?>
-
-                                            <table class="table table-primary table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Apellido</th>
-                                                        <th>Nombre</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <?php foreach ($students as $student): ?>
-                                                        <tr>
-                                                            <td><?= $student['first_name'] ?></td>
-                                                            <td><?= $student['last_name'] ?></td>
-                                                        </tr>
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
-
-                                        <?php else: ?>
-
-                                            <div class="alert alert-info mb-0">
-                                                No hay inscriptos en esta clase.
-                                            </div>
-
-                                        <?php endif; ?>
-
-                                    </td>
-                                </tr>
-
-                            <?php endif; ?>
 
                         <?php endforeach; ?>
 
                     </tbody>
                 </table>
+                <div class="modal fade" id="studentsModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Alumnos inscriptos</h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                </button>
+                            </div>
+
+                            <div class="modal-body" id="studentsContainer">
+
+                                <div class="text-center">
+                                    Cargando...
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
 

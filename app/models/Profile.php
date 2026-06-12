@@ -109,34 +109,32 @@ class Profile
      * Si viene nueva foto de perfil la actualiza, si no, la deja como está.
      * @param array $data ['user_id', 'phone', 'birth_date', 'profile_image'?]
      */
-    public function updateProfile(array $data)
-    {
-        if (!empty($data['profile_image'])) {
-            $sql = "UPDATE profiles 
-                SET first_name = ?, last_name = ?, specialty = ?, profile_image = ?
-                WHERE user_id = ?";
-            $params = [
-                $data['first_name'],
-                $data['last_name'],
-                $data['specialty'],
-                $data['profile_image'],
-                $data['user_id']
-            ];
-        } else {
-            $sql = "UPDATE profiles 
-                SET first_name = ?, last_name = ?, specialty = ?
-                WHERE user_id = ?";
-            $params = [
-                $data['first_name'],
-                $data['last_name'],
-                $data['specialty'],
-                $data['user_id']
-            ];
-        }
-
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($params);
+public function updateProfile(array $data)
+{
+    if (!empty($data['profile_image'])) {
+        $sql = "UPDATE profiles 
+            SET phone = ?, birth_date = ?, profile_image = ?
+            WHERE user_id = ?";
+        $params = [
+            $data['phone'],
+            $data['birth_date'] ?? null,
+            $data['profile_image'],
+            $data['user_id']
+        ];
+    } else {
+        $sql = "UPDATE profiles 
+            SET phone = ?, birth_date = ?
+            WHERE user_id = ?";
+        $params = [
+            $data['phone'],
+            $data['birth_date'] ?? null,
+            $data['user_id']
+        ];
     }
+
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute($params);
+}
 
     public function updateCoachProfile(array $data)
     {
