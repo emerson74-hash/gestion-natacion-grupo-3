@@ -7,80 +7,114 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class MailService
- {
-    public function sendEmailResetPassword( $toEmail, $token )
- {
-        $colorPrincipal = '#007bff';
-        $colorFondo = '#f4f7f9';
-
-        $mail = new PHPMailer( true );
+{
+    public function sendEmailResetPassword($toEmail, $token)
+    {
+        $mail = new PHPMailer(true);
 
         try {
+            // CONFIG SMTP
             $mail->isSMTP();
-            $mail->Host       = Env::get( 'MAIL_HOST' );
+            $mail->Host       = Env::get('MAIL_HOST');
             $mail->SMTPAuth   = true;
-            $mail->Username   = Env::get( 'MAIL_USERNAME' );
-            $mail->Password   = Env::get( 'MAIL_PASSWORD' );
+            $mail->Username   = Env::get('MAIL_USERNAME');
+            $mail->Password   = Env::get('MAIL_PASSWORD');
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = Env::get( 'MAIL_PORT' );
+            $mail->Port       = Env::get('MAIL_PORT');
 
-            $mail->setFrom( Env::get( 'MAIL_FROM' ), 'Soporte Escuela de Natación' );
-            //$mail->setFrom( 'lic.juanpablocesarini@gmail.com', 'Escuela de Natación' );
-            $mail->addAddress( $toEmail );
+            $mail->setFrom(Env::get('MAIL_FROM'), 'Soporte Escuela de Natación');
+            $mail->addAddress($toEmail);
 
-            $mail->isHTML( true );
+            $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Subject = 'Recuperación de contraseña';
 
-            $baseUrl = Env::get( 'APP_URL' );
-            $resetLink = rtrim( $baseUrl, '/' ) . '/index.php?url=reset-password&token=' . $token;
+            $baseUrl = rtrim(Env::get('APP_URL'), '/');
+            $resetLink = $baseUrl . '/?url=reset-password&token=' . $token;
 
-            // Armamos el Body con un formato más robusto
+            // 🔵 TURQUESA
+            $color = '#4FD1E8';
+
             $mail->Body = "
-<div style='background-color: {$colorFondo}; padding: 40px; font-family: Arial, sans-serif; line-height: 1.6;'>
-    <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e1e8ed;'>
-        
-        <div style='background-color: {$colorPrincipal}; padding: 20px; text-align: center;'>
-            <h1 style='color: #ffffff; margin: 0; font-size: 24px;'>Escuela de Natación</h1>
-        </div>
+            <div style='font-family:Arial;background:#f4f7f9;padding:30px'>
+                <div style='max-width:600px;margin:auto;background:#fff;border-radius:10px;overflow:hidden'>
+                    
+                    <div style='background:$color;padding:20px;text-align:center;color:white'>
+                        <h2>Recuperación de contraseña</h2>
+                    </div>
 
-        <div style='padding: 30px; text-align: center;'>
-            <h2 style='color: #333333;'>¿Olvidaste tu contraseña?</h2>
-            <p style='color: #666666; font-size: 16px;'>
-                No te preocupes, nos pasa a todos. Haz clic en el botón de abajo para elegir una nueva clave y volver al agua.
-            </p>
-            
-            <div style='margin: 30px 0;'>
-                <a href='{$resetLink}' style='background-color: {$colorPrincipal}; color: #ffffff; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;'>
-                    Restablecer Contraseña
-                </a>
-            </div>
+                    <div style='padding:30px;text-align:center'>
+                        <p>Hacé clic en el botón para restablecer tu contraseña</p>
 
-            <p style='color: #999999; font-size: 12px; margin-top: 30px;'>
-                Si no solicitaste este cambio, puedes ignorar este correo con seguridad. 
-                El enlace expirará automáticamente en 1 hora.
-            </p>
-        </div>
+                        <a href='$resetLink'
+                           style='display:inline-block;margin-top:20px;padding:12px 20px;
+                           background:$color;color:white;text-decoration:none;border-radius:6px'>
+                           Restablecer contraseña
+                        </a>
 
-        <div style='background-color: #f8f9fa; padding: 15px; text-align: center; border-top: 1px solid #eeeeee;'>
-            <p style='color: #aaaaaa; font-size: 11px; margin: 0;'>
-                © " . date( 'Y' ) . " Escuela de Natación - Panel Administrativo
-            </p>
-        </div>
-    </div>
-</div>
-";
-           // $mail->SMTPDebug = 3;
-            // Nivel 3 es más detallado
-         //   $mail->Debugoutput = 'html';
-            // Para que se vea bien en el navegador
-            $mail->send();
-            return true;
-        } catch ( Exception $e ) {
-            //error_log( $e->getMessage() );
-            echo 'Error de PHPMailer: ' . $mail->ErrorInfo;
-            die();
+                        <p style='margin-top:20px;font-size:12px;color:#888'>
+                            Este enlace expira en 1 hora
+                        </p>
+                    </div>
+                </div>
+            </div>";
+
+            //quitar debug en producción
+            $mail->SMTPDebug = 0;
+
+            return $mail->send();
+
+        } catch (Exception $e) {
+            error_log("MAIL ERROR: " . $mail->ErrorInfo);
             return false;
         }
     }
+
+
+    //Admin: Mail alta de coach
+    public function sendCoachCredentials($email, $nombre, $password)
+{
+    $mail = new PHPMailer(true);
+    $mail->SMTPDebug = 2;
+    $mail->Debugoutput = 'error_log';
+
+    try {
+
+        $mail->isSMTP();
+        $mail->Host = Env::get('MAIL_HOST');
+        $mail->SMTPAuth = true;
+        $mail->Username = Env::get('MAIL_USERNAME');
+        $mail->Password = Env::get('MAIL_PASSWORD');
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = Env::get('MAIL_PORT');
+
+        $mail->setFrom(
+            Env::get('MAIL_FROM'),
+            'Sistema Natacion'
+        );
+
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Subject = 'Credenciales de acceso';
+
+        $mail->Body = "
+            <h3>Bienvenido {$nombre}</h3>
+
+            <p>Su cuenta fue creada correctamente.</p>
+
+            <p><strong>Email:</strong> {$email}</p>
+            <p><strong>Contraseña provisoria:</strong> {$password}</p>
+        ";
+
+
+        return $mail->send();
+
+    } catch (Exception $e) {
+    die("MAIL ERROR: " . $e->getMessage());
+}
+}
+
 }

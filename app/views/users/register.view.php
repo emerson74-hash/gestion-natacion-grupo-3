@@ -1,14 +1,17 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/auth.css">
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h4 class="mb-0 text-center"><?php echo $title ?? 'Registro de Swimmer'; ?></h4>
                 </div>
                 <div class="card-body">
-                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data">
+                    <form id="formRegister" action="?url=register" method="POST" enctype="multipart/form-data"
+                        novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -45,14 +48,19 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Foto de Perfil</label>
-                                    <input type="file" name="profile_image" class="form-control" accept="image/*">
+                                    <input type="file" id="profile_image" name="profile_image" class="form-control"
+                                        accept="image/*">
+
+                                    <div class="mt-3">
+                                        <img id="preview" style="max-width:100%; display:none;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary px-5">Crear Cuenta</button>
+                                <button type="submit" class="btn register-btn">Crear Cuenta</button>
                             </div>
                         </div>
                     </form>

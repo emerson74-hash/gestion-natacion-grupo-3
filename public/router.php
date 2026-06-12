@@ -17,7 +17,7 @@ require_once __DIR__ . '/../app/core/BaseController.php';
  * Usamos el parámetro 'url' definido en el .htaccess o pasado por GET.
  * Si no hay ruta ( página de inicio ), por defecto vamos a 'home'.
  */
-$route = $_GET['url'] ?? 'home';
+$route = $_GET['url'] ?? 'landing';
 
 /**
  * 2. DESPACHO DE RUTAS ( DISPATCHER )
@@ -32,7 +32,11 @@ switch ($route) {
         require_once __DIR__ . '/../app/controllers/HomeController.php';
         (new HomeController())->index();
         break;
-
+    // --- LANDING PAGE PÚBLICA ---
+    case 'landing':
+        require_once __DIR__ . '/../app/controllers/LandingController.php';
+        (new LandingController())->index();
+        break;
     // --- MÓDULO DE USUARIOS Y AUTENTICACIÓN ---
     // Agrupamos rutas relacionadas para evitar repetir el require_once
     case 'login':
@@ -42,8 +46,8 @@ switch ($route) {
     case 'send-reset':
     case 'reset-password':
     case 'update-password':
-        require_once __DIR__ . '/../app/controllers/UserController.php';
-        $controller = new UserController();
+        require_once __DIR__ . '/../app/controllers/AuthController.php';
+        $controller = new AuthController();
 
         /**
          * Ejecución del método según la acción solicitada.
@@ -69,6 +73,10 @@ switch ($route) {
     // Agrupa todas las rutas del rol Coach ( role_id = 2 )
     case 'coach/dashboard':
     case 'coach/profile':
+    case 'coach/lessons':
+    case 'coach/edit':
+    case 'coach/updateProfile':
+    case 'coach/getStudents':
         require_once __DIR__ . '/../app/controllers/CoachController.php';
         $controller = new CoachController();
 
@@ -77,14 +85,87 @@ switch ($route) {
             $controller->dashboard();
         if ($route === 'coach/profile')
             $controller->profile();
+        if ($route === 'coach/lessons')
+            $controller->lessons();
+        if ($route === 'coach/edit')
+            $controller->edit();
+        if ($route === 'coach/getStudents')
+            $controller->getStudents();
+        if ($route === 'coach/updateProfile')
+            $controller->updateProfile();
+        break;
+        
+
+
+    //--- MÓDULO ADMIN ---
+    // Agrego las rutas de acceso segun el perfil al que entre el admin.
+
+    case 'admin':
+
+        require_once __DIR__ . '/../app/controllers/AdminController.php';
+        $controller = new AdminController();
+
+        $section = $_GET['section'] ?? 'dashboard';
+
+        switch ($section) {
+
+            case 'coaches':
+                $controller->coaches();
+                break;
+
+            case 'create-coach':
+                $controller->createCoach();
+                break;
+
+            case 'store-coach':
+                $controller->storeCoach();
+                break;
+
+            case 'edit-coach':
+                $controller->editCoach();
+                break;
+
+            case 'update-coach':
+                $controller->updateCoach();
+                break;
+
+            case 'delete-coach':
+                $controller->deleteCoach();
+                break;
+
+            case 'lessons':
+                $controller->lessons();
+                break;
+
+            case 'create-lesson':
+                $controller->createLesson();
+                break;
+
+            case 'store-lesson':
+                $controller->storeLesson();
+                break;
+
+            case 'edit-lesson':
+                $controller->editLesson();
+                break;
+
+            case 'update-lesson':
+                $controller->updateLesson();
+                break;
+
+            case 'delete-lesson':
+                $controller->deleteLesson();
+                break;
+             
+
+            case 'dashboard':
+            default:
+                $controller->dashboard();
+                break;
+        }
+
         break;
 
-    // --- MÓDULO ADMIN ---
-    // Agrupa todas las rutas del rol Administrador ( role_id = 1 )
-    case 'admin/dashboard':
-        require_once __DIR__ . '/../app/controllers/AdminController.php';
-        (new AdminController())->dashboard();
-        break;
 
     // --- MÓDULO SWIMMER ---
     // Agrupa todas las rutas del rol Swimmer ( role_id = 3 )

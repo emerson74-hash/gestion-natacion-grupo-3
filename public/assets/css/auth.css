@@ -1,0 +1,144 @@
+/* =========================================================
+   VARIABLES
+========================================================= */
+:root{
+    --turquesa: #4FD1E8;
+    --turquesa-oscuro: #2fbfd6;
+}
+
+/* =========================================================
+   FONDO GENERAL
+========================================================= */
+body{
+    background: #ffffff;
+    min-height: 100vh;
+    
+}
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+.card{
+    border: 2px solid var(--turquesa);
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(79,209,232,0.15);
+    
+}
+
+/* =========================================================
+   CABECERA
+========================================================= */
+.card-header{
+    background: var(--turquesa) !important;
+    border-bottom: 2px solid var(--turquesa);
+    padding: 22px;
+}
+
+.card-header h4{
+    color: white;
+    font-weight: 700;
+}
+
+/* =========================================================
+   LABELS
+========================================================= */
+.form-label{
+    color: var(--turquesa);
+    font-weight: 600;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+.form-control{
+    border: 2px solid var(--turquesa);
+    border-radius: 12px;
+    padding: 12px;
+    transition: 0.3s;
+}
+
+/* foco */
+.form-control:focus{
+    border-color: var(--turquesa-oscuro);
+    box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25);
+}
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+========================================================= */
+.register-btn{
+    background: var(--turquesa);
+    border: 2px solid var(--turquesa);
+    color: white;
+    padding: 12px 40px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* hover */
+.register-btn:hover{
+    background: white;
+    color: var(--turquesa);
+    border: 2px solid var(--turquesa);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79,209,232,0.25);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.card-footer{
+    background: #f8ffff;
+    border-top: 2px solid var(--turquesa);
+}
+
+.card-footer a{
+    color: var(--turquesa);
+    font-weight: 600;
+}
+
+.card-footer a:hover{
+    text-decoration: underline;
+}
+
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+.container{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/*
+   OCULTAR NAVBAR (LOGIN / REGISTER)
+*/
+.navbar{
+    display: none !important;
+}
+
+
+
+/* ERROR */
+.form-control.is-invalid{
+    border: 2px solid #ff5c5c !important;
+    box-shadow: 0 0 0 .25rem rgba(255,92,92,0.25) !important;
+    background-image: none !important;
+}
+
+/* MENSAJE ERROR */
+.invalid-feedback{
+    color: #ff5c5c !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* SUCCESS */
+.form-control.is-valid{
+    border: 2px solid var(--turquesa) !important;
+    box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25) !important;
+    background-image: none !important;
+}
+

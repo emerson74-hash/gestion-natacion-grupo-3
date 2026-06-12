@@ -1,0 +1,343 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    background: #001826;
+    color: #fff;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(rgba(0, 30, 45, 0.55), rgba(0, 30, 45, 0.55)),
+        url('/Gestion-Natacion-Grupo-3/public/imglanding/swim-bg.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+/* CONTENEDOR HERO */
+.hero-content {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+/* =========================================================
+   TITULO HERO (MÁS GRANDE Y BALANCEADO)
+========================================================= */
+
+.hero-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* TITULO */
+.hero-title {
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 4px;
+
+    font-size: clamp(2.5rem, 6vw, 10rem);
+    line-height: 1;
+
+    margin: 0;
+}
+
+/* LOGO */
+.hero-logo {
+    width: 95px !important;
+    height: auto !important;
+    flex-shrink: 0;
+}
+
+/* SUBTITULO */
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 600;
+    letter-spacing: 3px;
+
+    margin-top: 10px;
+}
+
+/* LINEAS DECORATIVAS */
+.hero-top-line,
+.hero-bottom-line {
+    width: 200px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50px;
+}
+
+.hero-top-line {
+    margin-bottom: 25px;
+}
+
+.hero-bottom-line {
+    margin-top: 25px;
+}
+
+/* BOTON HERO */
+.hero-button {
+    display: inline-block;
+    margin-top: 30px;
+
+    background: #49D9FF;
+    color: #fff;
+
+    padding: 16px 42px;
+    border-radius: 50px;
+
+    font-weight: 700;
+    font-size: 1.1rem;
+
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.hero-button:hover {
+    background: #fff;
+    color: #0099CC;
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.custom-navbar {
+    padding-top: 20px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.landing-logo {
+    height: 50px;
+}
+
+.nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #7BE7FF !important;
+}
+
+.login-btn {
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 40px;
+    padding: 10px 22px;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #49D9FF;
+    border-color: #49D9FF;
+}
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+.info-section,
+.about-section,
+.contact-section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    margin-bottom: 50px;
+    color: #7BE7FF;
+    font-weight: 700;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.info-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.info-card {
+    width: 320px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 30px;
+
+    transition: 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card h3 {
+    color: #7BE7FF;
+    margin-bottom: 15px;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-section {
+    background: linear-gradient(135deg, #0A3A52, #125D79);
+}
+
+.about-text {
+    max-width: 900px;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 2;
+}
+
+/* =========================================================
+   CONTACTO
+========================================================= */
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.contact-data {
+    text-align: left;
+}
+
+.contact-data h3 {
+    color: #7BE7FF;
+    margin-bottom: 20px;
+}
+
+.contact-data p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+/* FORM */
+.contact-form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+
+    border: none;
+    border-radius: 10px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #49D9FF;
+}
+
+.contact-form button {
+    background: #49D9FF;
+    color: #fff;
+    border: none;
+
+    padding: 14px 28px;
+    border-radius: 40px;
+
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 992px) {
+    .hero-content {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .hero {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-title-wrapper {
+        flex-direction: column;
+    }
+
+    .hero-logo {
+        width: 70px !important;
+    }
+
+    .info-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
