@@ -5,9 +5,32 @@
 import { handleAlert } from "../../services/ui.js";
 
 
+    // Mostrar / ocultar contraseña
 export function initLogin() {
+
     const form = document.getElementById("formLogin");
     if (!form) return;
+
+
+  const togglePassword =
+        document.getElementById("togglePassword");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    if (togglePassword && passwordInput) {
+
+        togglePassword.addEventListener("click", () => {
+
+            passwordInput.type =
+                passwordInput.type === "password"
+                    ? "text"
+                    : "password";
+
+   });
+     }
+    
+
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -15,11 +38,9 @@ export function initLogin() {
         const email = form.querySelector("input[name='email']");
         const password = form.querySelector("input[name='password']");
 
-        // RESET estilos
         email.classList.remove("is-invalid");
         password.classList.remove("is-invalid");
 
-        // VALIDACIONES FRONT
         if (!email.value.trim()) {
             email.classList.add("is-invalid");
             return handleAlert("warning", "Ingrese su correo electrónico.");
@@ -43,6 +64,7 @@ export function initLogin() {
         const formData = new FormData(form);
 
         try {
+
             const response = await fetch("?url=authenticate", {
                 method: "POST",
                 body: formData,
@@ -51,12 +73,23 @@ export function initLogin() {
             const text = await response.text();
             const data = JSON.parse(text);
 
-            handleAlert(data.status, data.message, data.redirect);
+            handleAlert(
+                data.status,
+                data.message,
+                data.redirect
+            );
 
         } catch (error) {
-            handleAlert("error", "Error de conexión con el servidor.");
+
+            handleAlert(
+                "error",
+                "Error de conexión con el servidor."
+            );
+
         }
+
     });
+
 }
 
 function validarEmail(email) {

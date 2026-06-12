@@ -10,7 +10,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
 
 
-<script type="module" src="<?= rtrim(Env::get('ASSET_URL'), '/') ?>/js/modules/authMain.js"></script>
+<script type="module"
+src="<?= rtrim(Env::get('ASSET_URL'), '/') ?>/js/modules/authMain.js?v=<?= time() ?>">
+</script>
 
 <?php if(isset($_SESSION['success'])): ?>
 <script>

@@ -9,18 +9,19 @@ import { initResetPassword } from "./auth/formResetPassword.js";
 import { initEdit } from "./coach/formEdit.js";
 
 
-
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 document.addEventListener("DOMContentLoaded", () => {
 
-    initEdit();
+    //initEdit();
     // Inicializamos cada funcionalidad. 
     // Cada módulo interno se encargará de verificar si su formulario existe en la vista actual.
+   
     initLogin();
     initRegister();
     initForgotPassword();
     initResetPassword();
     initEdit();
 
-    console.log("Auth module initialized successfully.");
+
+    console.log("Auth module initialized successfully."); 
 });

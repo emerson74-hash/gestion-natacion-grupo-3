@@ -44,12 +44,24 @@
                                 Contraseña
                             </label>
 
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control"
-                                required>
-                        </div>
+                             <div class="input-group">
+                             <input
+                             type="password"
+                             name="password"
+                             id="password"
+                             class="form-control"
+                             required>
+
+                             <button
+                             type="button"
+                             class="btn btn-outline-secondary"
+                             id="togglePassword">
+
+                            <i class="bi bi-eye"></i>
+
+                             </button>
+                         </div>
+                     </div>
 
                         <div class="text-center">
 
