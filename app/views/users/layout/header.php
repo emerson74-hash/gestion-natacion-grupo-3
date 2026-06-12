@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+<meta name="base-url" content="<?= rtrim(Env::get('APP_URL'), '/') ?>">
+</head>
     <meta charset="UTF-8">
     <title><?= $titulo ?? 'SWIM LEARN' ?></title>
 
@@ -157,8 +157,8 @@ if ($url == '' || $url == 'home') {
                             class="profile-img-nav me-2">
 
                         <span class="nav-link text-info p-0">
-                            Hola,
-                            <?= htmlspecialchars($_SESSION['first_name'] ?? 'Usuario') ?>
+                            Hola
+                            <?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>
                         </span>
 
                     </li>

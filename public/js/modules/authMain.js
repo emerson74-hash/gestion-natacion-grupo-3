@@ -1,27 +1,27 @@
-/**
- * Centraliza la inicialización de todos los formularios relacionados con usuarios.
- * Se carga como type="module" en el layout principal.
- */
 import { initLogin } from "./auth/formLogin.js";
 import { initRegister } from "./auth/formRegister.js";
 import { initForgotPassword } from "./auth/formForgotPassword.js";
 import { initResetPassword } from "./auth/formResetPassword.js";
+
 import { initEdit } from "./coach/formEdit.js";
 import { initLessonsTable } from "./coach/tableLessons.js";
 
+import { initSwimmerProfile } from "./swimmer/formProfile.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 document.addEventListener("DOMContentLoaded", () => {
 
-    initEdit();
-    // Inicializamos cada funcionalidad. 
-    // Cada módulo interno se encargará de verificar si su formulario existe en la vista actual.
     initLogin();
     initRegister();
     initForgotPassword();
     initResetPassword();
+
+    // Funciones del coach
     initEdit();
     initLessonsTable();
+
+    // Funciones del swimmer
+    initSwimmerProfile();
 
     console.log("Auth module initialized successfully.");
 });
