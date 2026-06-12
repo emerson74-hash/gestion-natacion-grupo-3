@@ -27,7 +27,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
     
    
-     <link href="/Gestion-Natacion-Grupo-3/public/css/bootstrap.min.css">
+<?php
+$url = $_GET['url'] ?? '';
+
+if ($url == '' || $url == 'home') {
+
+?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/landing.css">
+
+
+<?php
+
+} elseif (
+    $url == 'login' ||
+    $url == 'register' ||
+    $url == 'forgot-password' ||
+    $url == 'reset-password'
+) {
+
+?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/auth.css">
+
+
+<?php
+
+} else {
+
+?>
+
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/app.css">
+
+
+<?php
+
+}
+
+?>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>

@@ -2,7 +2,7 @@
 
 <div class="container mt-4">
 
-<div class="bg-white p-5 rounded shadow-sm">
+<div class="profile-box">
 
     <?php
     $img = $profile['profile_image'] ?? 'default-profile.png';
@@ -12,7 +12,7 @@
     <!-- =========================
          CABECERA PERFIL
     ========================== -->
-    <div class="d-flex align-items-center gap-3 mb-4">
+   <div class="profile-header d-flex align-items-center gap-3 mb-4">
 
         <img
             src="<?= $src ?>"

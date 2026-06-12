@@ -18,7 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- css -->
-    <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/landing.css">
+    <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/landing.css">
 
 </head>
 

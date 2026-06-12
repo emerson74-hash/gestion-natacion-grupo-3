@@ -1,6 +1,6 @@
 <?php include __DIR__ . '/../users/layout/header.php'; ?>
 
-<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/register.css">
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/auth.css">
 
 <div class="container mt-5">
     <div class="row justify-content-center">

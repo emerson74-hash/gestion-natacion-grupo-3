@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!-- CSS propio -->
-    <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/css/style.css">
+    
+<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/assets/css/landing.css">
 </head>
 
 <body>
