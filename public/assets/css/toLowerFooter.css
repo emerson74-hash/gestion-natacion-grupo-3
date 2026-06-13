@@ -1,0 +1,22 @@
+/* ROBADISIMO DE STACK OVERFLOW RIP
+Source - https://stackoverflow.com/a/20352949
+Posted by vsync, modified by community. See post 'Timeline' for change history
+Retrieved 2026-06-13, License - CC BY-SA 4.0
+*/
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  min-height: 50px;
+  
+}
+
+footer {
+  min-height: 50px;
+  
+}
