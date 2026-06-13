@@ -295,8 +295,15 @@ class Lesson
 
 public function delete($id)
 {
-    $sql = "DELETE FROM lessons WHERE id = ?";
+    $sql = "SELECT COUNT(*) FROM bookings WHERE lesson_id = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$id]);
 
+    if ($stmt->fetchColumn() > 0) {
+        return false;
+    }
+
+    $sql = "DELETE FROM lessons WHERE id = ?";
     $stmt = $this->db->prepare($sql);
 
     return $stmt->execute([$id]);

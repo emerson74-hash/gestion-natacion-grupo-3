@@ -379,6 +379,35 @@ class User
 
         return $stmt->execute([$id]);
     }
+    public function coachHasLessons($userId)
+    {
+        $sql = "
+        SELECT COUNT(*)
+        FROM lessons l
+        INNER JOIN profiles p
+            ON l.profile_id = p.id
+        WHERE p.user_id = ?
+    ";
 
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchColumn() > 0;
+    }
+    public function coachHasBookings($userId)
+    {
+        $sql = "
+        SELECT COUNT(*)
+        FROM bookings b
+        INNER JOIN profiles p
+            ON b.profile_id = p.id
+        WHERE p.user_id = ?
+    ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$userId]);
+
+        return $stmt->fetchColumn() > 0;
+    }
 
 }

@@ -4,6 +4,7 @@
 require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/User.php'; //importamos la carpeta que vamos a utilizar
 require_once __DIR__ . '/../models/Lesson.php';
+require_once __DIR__ . '/../models/Profile.php';
 
 //Importamos PHPMailer para los mail
 require_once __DIR__ . '/../libs/PHPMailer/src/PHPMailer.php';
@@ -26,6 +27,7 @@ class AdminController extends BaseController
 
     private $userModel;
     private $lessonModel;
+    private $profileModel;
 
 
     public function __construct() //Definimos un constructor para la clase.
@@ -40,6 +42,8 @@ class AdminController extends BaseController
         $this->userModel = new User($pdo); //Creamos el modelo user 
         //para poder utilizarlo posteriormente 
         $this->lessonModel = new Lesson($pdo);
+        $this->profileModel = new Profile($pdo);
+        
     }
 
 
@@ -209,7 +213,23 @@ class AdminController extends BaseController
 
         $id = $_GET['id'];
 
-        $this->userModel->deleteCoach($id);
+        if ($this->profileModel->coachHasLessons($id)) {
+
+            $_SESSION['error'] =
+                'No se puede eliminar el entrenador porque tiene clases asignadas.';
+
+        } elseif ($this->profileModel->coachHasBookings($id)) {
+
+            $_SESSION['error'] =
+                'No se puede eliminar el entrenador porque tiene reservas asociadas.';
+
+        } else {
+
+            $this->userModel->deleteCoach($id);
+
+            $_SESSION['success'] =
+                'Entrenador eliminado correctamente.';
+        }
 
         header("Location: ?url=admin&section=coaches");
         exit;
@@ -350,7 +370,18 @@ class AdminController extends BaseController
 
         $id = $_GET['id'];
 
-        $this->lessonModel->delete($id);
+        $deleted = $this->lessonModel->delete($id);
+
+        if (!$deleted) {
+
+            $_SESSION['error'] =
+                'No se puede eliminar la clase porque tiene alumnos inscriptos.';
+
+            header("Location: ?url=admin&section=lessons");
+            exit;
+        }
+
+        $_SESSION['success'] = 'Clase eliminada correctamente.';
 
         header("Location: ?url=admin&section=lessons");
         exit;
