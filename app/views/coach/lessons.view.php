@@ -31,7 +31,7 @@
                                 <td><?= $lesson['booked_count'] ?></td>
 
                                 <td>
-                                    <button class="btn btn-sm btn-primary btn-students"
+                                    <button class="btn btn-sm btn-book btn-students"
                                         data-lesson-id="<?= $lesson['id'] ?>">
                                         Ver alumnos
                                     </button>

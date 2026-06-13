@@ -11,7 +11,7 @@
 
             <div class="bg-white p-5 rounded shadow-sm">
 
-                <h1>Bienvenido, Entrenador </h1>
+                <h1>Bienvenido entrenador </h1>
                 <p class="lead">Este es el panel administrativo de la escuela.</p>
 
                 <hr>
@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <a href="?url=coach/lessons"
-                            class="card text-white colorsitoPiola mb-3 text-decoration-none d-block">
+                            class="card text-white coach-primary mb-3 text-decoration-none d-block">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ver calendario de clases</h5>
                             </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-6">
                         <a href="?url=coach/profile"
-                            class="card text-white colorsitoPiola mb-3 text-decoration-none d-block">
+                            class="card text-white coach-primary mb-3 text-decoration-none d-block">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Editar datos personales</h5>
                             </div>

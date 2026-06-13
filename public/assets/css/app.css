@@ -1,6 +1,4 @@
-/* =========================================================
-   ADMIN DASHBOARD - SWIM LEARN MODERNO
-========================================================= */
+/*ADMIN DASHBOARD - SWIM LEARN MODERNO */
 
 :root {
     --primary: #4fd1e8;
@@ -14,9 +12,7 @@
     --light-2: #f5fbfc;
 }
 
-/* =========================================================
-   GENERAL
-========================================================= */
+/*GENERAL */
 
 body{
     
@@ -45,18 +41,14 @@ h4{
     color:#6c757d !important;
 }
 
-/* =========================================================
-   NAVBAR
-========================================================= */
+/*NAVBAR */
 
 .navbar{
     background-color: var(--dark-1);
     border-bottom: 2px solid var(--primary);
 }
 
-/* =========================================================
-   CARDS
-========================================================= */
+/*CARDS*/
 
 .swimmer-actions{
     gap:20px;
@@ -131,9 +123,7 @@ h4{
     color:white;
 }
 
-/* =========================================================
-   BOTONES
-========================================================= */
+/*BOTONES */
 
 .btn-admin{
     border:none;
@@ -177,9 +167,7 @@ h4{
 }
 
 
-/* =========================================================
-   FORMULARIOS
-========================================================= */
+/*FORMULARIOS */
 
 .form-control{
     border-radius:10px;
@@ -196,9 +184,7 @@ h4{
     color:var(--dark-1);
 }
 
-/* =========================================================
-   TABLAS
-========================================================= */
+/*TABLAS */
 
 .table{
     background:#ffffff;
@@ -249,9 +235,7 @@ h4{
     -webkit-overflow-scrolling:touch;
 }
 
-/* =========================================================
-   DATATABLES
-========================================================= */
+/*DATATABLES*/
 
 .dataTables_wrapper{
     padding:5px;
@@ -285,9 +269,8 @@ h4{
 .dataTables_filter{
     margin-bottom:20px;
 }
-/* =========================================================
-   GESTIÓN DE ENTRENADORES
-========================================================= */
+/* 
+   GESTIÓN DE ENTRENADORES */
 
 .card.shadow-sm{
     border:2px solid rgba(79,209,232,.45) !important;
@@ -301,9 +284,8 @@ h4{
     overflow:hidden;
 }
 
-/* =========================================================
-   ACCIONES
-========================================================= */
+/* 
+   ACCIONES */
 
 .actions{
     display:flex;
@@ -312,9 +294,8 @@ h4{
     justify-content:center;
 }
 
-/* =========================================================
-   ANIMACIONES
-========================================================= */
+/*
+   ANIMACIONES */
 
 @keyframes fadeIn{
 
@@ -329,9 +310,7 @@ h4{
     }
 
 }
-/* =========================================================
-   CLASES DISPONIBLES
-========================================================= */
+/*CLASES DISPONIBLES */
 
 #lessons-grid{
     justify-content:center;
@@ -494,9 +473,8 @@ h4{
     box-shadow:0 0 0 .2rem rgba(44,125,160,.25);
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* 
+   RESPONSIVE */
 
 @media(max-width:768px){
 
@@ -529,9 +507,8 @@ h4{
         font-size:.9rem;
     }
 
-    /* =========================================================
-   FORMULARIO AGREGAR ENTRENADOR
-========================================================= */
+    /* FORMULARIO AGREGAR ENTRENADOR
+*/
 
 .card form{
     margin-top:10px;
@@ -569,9 +546,8 @@ input[type="date"]{
     box-shadow:0 0 0 .2rem rgba(220,53,69,.25) !important;
 }
 }
-/* =================================
-   SWIMMER DASHBOARD FINAL TURQUESA
-================================= */
+/* 
+   SWIMMER DASHBOARD FINAL TURQUESA */
 
 
 /* CONTENEDOR DE CARDS */
@@ -752,3 +728,35 @@ input[type="date"]{
     
 
         
+
+/* 
+   COACH
+ */
+
+.coach-primary {
+    background: linear-gradient(135deg, #4fd1e8, #17a2b8);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(79, 209, 232, 0.25);
+    transition: 0.25s ease;
+}
+
+.coach-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(79, 209, 232, 0.35);
+    color: white;
+}
+
+/*  COACH - card header*/
+
+.coach-header {
+    background: linear-gradient(135deg, #192338, #2c7da0);
+    color: white;
+}
+
+.coach-header h4,
+.coach-header h5 {
+    color: white;
+    margin: 0;
+}
