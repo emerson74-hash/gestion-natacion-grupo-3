@@ -8,6 +8,7 @@ import { initLessonsTable } from "./coach/tableLessons.js";
 
 import { initSwimmerProfile } from "./swimmer/formProfile.js";
 
+import { initPasswordToggles } from "./passwordToggle.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,6 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones del swimmer
     initSwimmerProfile();
+
+    // Funciones password
+    initPasswordToggles();
 
 
     console.log("Auth module initialized successfully."); 

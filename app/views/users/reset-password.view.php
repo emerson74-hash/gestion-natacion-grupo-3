@@ -22,14 +22,16 @@
 
                         <div class='mb-3'>
                             <label class='form-label'>Nueva contraseña</label>
-                            <input type='password' name='password' class='form-control'
+                            <input type='password' id="password" name='password' class='form-control'
                                 placeholder='Mínimo 6 caracteres' minlength='6' required>
+                                <button type="button" id="toggleResetPassword">👁</button>
                         </div>
 
                         <div class='mb-3'>
                             <label class='form-label'>Confirmar contraseña</label>
-                            <input type='password' name='confirm_password' class='form-control'
+                            <input type='password' id="passwordconfirm" name='passwordconfirm' class='form-control'
                                 placeholder='Repetí tu contraseña' required>
+                                <button type="button" id="toggleConfirmPassword">👁</button>
                         </div>
 
                         <button type='submit' class='btn btn-success w-100 py-2'>

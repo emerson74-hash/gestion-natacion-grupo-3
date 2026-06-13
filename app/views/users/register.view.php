@@ -24,15 +24,20 @@
                                     <input type="email" name="email" class="form-control" placeholder="juan@correo.com"
                                         required>
                                 </div>
-                                <div class="mb-3">
+
+                                
+                               <div class="mb-3">
                                     <label class="form-label">Contraseña</label>
-                                    <input type="password" name="password" class="form-control"
+                                    <input type="password" id="password" name="password" class="form-control"
                                         placeholder="Mín. 6 caracteres" required>
-                                </div>
+                                       
+                                
+
                                 <div class="mb-3">
                                     <label class="form-label">Repita la contraseña</label>
-                                    <input type="password" name="passwordconfirm" class="form-control"
+                                    <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"
                                         placeholder="Mín. 6 caracteres" required>
+                                    
                                 </div>
                             </div>
 
