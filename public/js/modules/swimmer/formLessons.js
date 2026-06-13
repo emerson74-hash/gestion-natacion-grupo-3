@@ -1,8 +1,6 @@
 import { handleAlert } from "../../services/ui.js";
 export function initSwimmerLessons() {
-    console.log('initSwimmerLessons ejecutado');
-    console.log('grid:', document.getElementById('lessons-grid'));
-
+    
 
     const grid = document.getElementById('lessons-grid');
     if (!grid) return;

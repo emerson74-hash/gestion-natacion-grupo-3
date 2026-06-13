@@ -1,6 +1,6 @@
 
 export function initDeleteCoach() {
-    console.log("INIT COACH TABLE ADMIN");
+   
 
     const table = document.getElementById("tablaClases");
 

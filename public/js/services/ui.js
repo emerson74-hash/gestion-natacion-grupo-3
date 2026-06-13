@@ -2,7 +2,7 @@
  * Servicio de Interfaz de Usuario
  * Centraliza SweetAlert2 con estilo personalizado del sistema
  */
-console.log("UI SERVICE CARGADO");
+
 export const handleAlert = (status, message, redirectUrl = null) => {
 
   switch (status) {

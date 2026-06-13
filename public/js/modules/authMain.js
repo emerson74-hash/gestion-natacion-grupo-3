@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Funciones del swimmer
     initSwimmerProfile();
     initSwimmerLessons();
-
+    initPasswordToggles();
 
     // Funciones password
     initPasswordToggles();
