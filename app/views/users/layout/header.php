@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
 
     <!-- DATATABLES -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
     <!-- CSS -->
     <?php
@@ -48,73 +49,73 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- JS PRINCIPAL -->
-<script type="module" src="/gestion-natacion-grupo-3/public/js/modules/authMain.js"></script>
+    <script type="module" src="/gestion-natacion-grupo-3/public/js/modules/authMain.js"></script>
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid px-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid px-5">
 
-        <a class="navbar-brand" href="<?=
-            match ($_SESSION['role_id'] ?? 0) {
-                1 => '?url=admin&section=dashboard',
-                2 => '?url=coach/dashboard',
-                3 => '?url=swimmer/dashboard',
-                default => '?url=landing'
-            }
-        ?>">
+            <a class="navbar-brand" href="<?=
+                match ($_SESSION['role_id'] ?? 0) {
+                    1 => '?url=admin&section=dashboard',
+                    2 => '?url=coach/dashboard',
+                    3 => '?url=swimmer/dashboard',
+                    default => '?url=landing'
+                }
+                ?>">
 
-            <img src="<?= Env::get('ASSET_URL') ?>/imglogo/logo.png" alt="SWIM LEARN">
+                <img src="<?= Env::get('ASSET_URL') ?>/imglogo/logo.png" alt="SWIM LEARN">
 
-            <span class="text-swim">SWIM LEARN</span>
+                <span class="text-swim">SWIM LEARN</span>
 
-        </a>
+            </a>
 
-        <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse">
 
-            <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center">
 
-                <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
 
-                    <?php
-                    $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
+                        <?php
+                        $foto = $_SESSION['profile_image'] ?? 'default-profile.png';
 
-                    $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
-                    ?>
+                        $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
+                        ?>
 
-                    <li class="nav-item d-flex align-items-center">
+                        <li class="nav-item d-flex align-items-center">
 
-                        <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
+                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
 
-                        <span class="nav-link text-info p-0">
-                            Hola <?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>
-                        </span>
+                            <span class="nav-link text-info p-0">
+                                Hola <?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>
+                            </span>
 
-                    </li>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-info btn-sm ms-3" href="?url=logout">
-                            Salir
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-info btn-sm ms-3" href="?url=logout">
+                                Salir
+                            </a>
+                        </li>
 
-                <?php else: ?>
+                    <?php else: ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="?url=login">
-                            Ingresar
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?url=login">
+                                Ingresar
+                            </a>
+                        </li>
 
-                <?php endif; ?>
+                    <?php endif; ?>
 
-            </ul>
+                </ul>
+
+            </div>
 
         </div>
+    </nav>
 
-    </div>
-</nav>
-
-<main>
+    <main>
