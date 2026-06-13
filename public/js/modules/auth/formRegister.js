@@ -4,7 +4,11 @@
  * y los envía al controlador mediante la API Fetch.
  */
 import { handleAlert } from "../../services/ui.js";
-console.log("olaa")
+ 
+/*OJO */
+import { initPasswordToggles } from "../passwordToggle.js";
+
+//console.log("olaa")
 export function initRegister() {
   const form = document.getElementById("formRegister");
   if (!form) return;

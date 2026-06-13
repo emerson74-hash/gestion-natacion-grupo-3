@@ -11,6 +11,11 @@ import { initDeleteCoach } from "./admin/deleteCoach.js";
 import { initLessonsTableAdmin } from "./admin/tableLessons.js";
 import { initDeleteLesson } from "./admin/deleteLesson.js";
 
+
+import { initPasswordToggles } from "./passwordToggle.js";
+
+// Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
+
 document.addEventListener("DOMContentLoaded", () => {
 
     initLogin();
@@ -26,11 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
     initSwimmerProfile();
     initSwimmerLessons();
 
+
+    // Funciones password
+    initPasswordToggles();
+
+
     // Funciones del admin
     initCoachesTable();
     initDeleteCoach();
     initLessonsTableAdmin();
     initDeleteLesson();
+
 
     console.log("Auth module initialized successfully.");
 });

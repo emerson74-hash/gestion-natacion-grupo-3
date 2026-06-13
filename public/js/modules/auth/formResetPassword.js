@@ -3,12 +3,17 @@
  * Envía el token (oculto) y la nueva clave al método 'update-password'.
  */
 import { handleAlert } from '../../services/ui.js';
+/*OJO PASSWORD */
+import { initPasswordToggles } from '../passwordToggle.js'; 
+
 
 export function initResetPassword() {
     const form = document.getElementById('formResetPassword');
     
     // Verificamos presencia del formulario para evitar errores en otras vistas
     if (!form) return;
+
+
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
