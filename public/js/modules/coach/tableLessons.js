@@ -1,4 +1,4 @@
-export function initLessonsTable() {
+export function initLessonsTableCoach() {
 
     const tabla = document.getElementById("swimmers_table");
 
