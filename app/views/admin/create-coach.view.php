@@ -14,100 +14,86 @@
                     Agregar Entrenador
                 </h2>
 
-                <form method="POST"
-                      action="?url=admin&section=store-coach"
-                      enctype="multipart/form-data">
+                <form id="formCreateCoach" method="POST" action="?url=admin&section=store-coach"
+                    enctype="multipart/form-data">
 
                     <div class="row g-4">
 
-                    <!-- FILA 1 -->
+                        <!-- FILA 1 -->
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Nombre
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Nombre
+                            </label>
 
-                        <input type="text"
-                               name="first_name"
-                               class="form-control">
-                    </div>
+                            <input type="text" name="first_name" class="form-control" id="name">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Apellido
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Apellido
+                            </label>
 
-                        <input type="text"
-                               name="last_name"
-                               class="form-control">
-                    </div>
+                            <input type="text" name="last_name" class="form-control" id="surname">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Fecha de nacimiento
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Fecha de nacimiento
+                            </label>
 
-                        <input type="date"
-                               name="birth_date"
-                               class="form-control">
-                    </div>
+                            <input type="date" name="birth_date" class="form-control" id="birthDate">
+                        </div>
 
-                    <!-- FILA 2 -->
+                        <!-- FILA 2 -->
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Teléfono
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Teléfono
+                            </label>
 
-                        <input type="text"
-                               name="phone"
-                               class="form-control">
-                    </div>
+                            <input type="text" name="phone" class="form-control" id="phone">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Email
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Email
+                            </label>
 
-                        <input type="email"
-                               name="email"
-                               class="form-control">
-                    </div>
+                            <input type="email" name="email" class="form-control" id="">
+                        </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Especialidad
-                        </label>
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Especialidad
+                            </label>
 
-                        <input type="text"
-                               name="specialty"
-                               class="form-control">
-                    </div>
+                            <input type="text" name="specialty" class="form-control">
+                        </div>
 
-                    <!-- BOTÓN -->
+                        <!-- BOTÓN -->
 
-                    <div class="col-12 text-center mt-4">
+                        <div class="col-12 text-center mt-4">
 
-                        <button type="submit"
-                                class="btn btn-primary-admin"
-                                style="
+                            <button type="submit" class="btn btn-primary-admin" style="
                                     min-width:260px;
                                     padding:12px 30px;
                                     border-radius:12px;
                                 ">
-                            Guardar entrenador
-                        </button>
+                                Guardar entrenador
+                            </button>
+
+                        </div>
 
                     </div>
 
-                </div>
+                </form>
 
-            </form>
+            </div>
 
         </div>
 
     </div>
 
 </div>
-
-</div>
+<?php include __DIR__ . '/../users/layout/footer.php'; ?>
