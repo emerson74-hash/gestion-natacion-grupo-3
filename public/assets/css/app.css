@@ -738,6 +738,17 @@ input[type="date"]{
 
 }
 
+   //CROPPER SWIMMER
+
+#crop-preview {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 50%;
+}
+
+.cropper-container {
+    background: #f8f9fa !important;
+}
     
 
         

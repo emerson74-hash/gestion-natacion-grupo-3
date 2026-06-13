@@ -59,7 +59,7 @@
 
         <a class="navbar-brand" href="<?=
             match ($_SESSION['role_id'] ?? 0) {
-                1 => '?url=admin/dashboard',
+                1 => '?url=admin&section=dashboard',
                 2 => '?url=coach/dashboard',
                 3 => '?url=swimmer/dashboard',
                 default => '?url=landing'

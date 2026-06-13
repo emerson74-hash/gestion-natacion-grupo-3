@@ -43,7 +43,7 @@
             <h2 class="mb-0">
 
                 Bienvenido nadador
-                <?= htmlspecialchars($_SESSION['first_name'] ?? 'Swimmer') ?>
+                
 
             </h2>
 

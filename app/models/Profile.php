@@ -111,31 +111,38 @@ class Profile
      */
 public function updateProfile(array $data)
 {
+    // Actualizamos datos del perfil
+    $sqlProfile = "UPDATE profiles 
+        SET first_name = ?, last_name = ?, phone = ?, birth_date = ?";
+
+    $params = [
+        $data['first_name'],
+        $data['last_name'],
+        $data['phone'],
+        $data['birth_date'] ?? null,
+    ];
+
     if (!empty($data['profile_image'])) {
-        $sql = "UPDATE profiles 
-            SET phone = ?, birth_date = ?, profile_image = ?
-            WHERE user_id = ?";
-        $params = [
-            $data['phone'],
-            $data['birth_date'] ?? null,
-            $data['profile_image'],
-            $data['user_id']
-        ];
-    } else {
-        $sql = "UPDATE profiles 
-            SET phone = ?, birth_date = ?
-            WHERE user_id = ?";
-        $params = [
-            $data['phone'],
-            $data['birth_date'] ?? null,
-            $data['user_id']
-        ];
+        $sqlProfile .= ", profile_image = ?";
+        $params[]    = $data['profile_image'];
     }
 
-    $stmt = $this->db->prepare($sql);
-    return $stmt->execute($params);
-}
+    $sqlProfile .= " WHERE user_id = ?";
+    $params[]    = $data['user_id'];
 
+    $stmt = $this->db->prepare($sqlProfile);
+    $ok   = $stmt->execute($params);
+
+    // Actualizamos contraseña solo si viene
+    if ($ok && !empty($data['password'])) {
+        $hash    = password_hash($data['password'], PASSWORD_BCRYPT);
+        $sqlPass = "UPDATE users SET password = ? WHERE id = ?";
+        $stmt2   = $this->db->prepare($sqlPass);
+        $ok      = $stmt2->execute([$hash, $data['user_id']]);
+    }
+
+    return $ok;
+}
     public function updateCoachProfile(array $data)
     {
         // Si viene nueva imagen, la actualizamos también

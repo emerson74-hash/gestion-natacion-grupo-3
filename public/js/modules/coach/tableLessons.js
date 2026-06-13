@@ -1,10 +1,14 @@
-export function initLessonsTable() {
+export function initLessonsTableCoach() {
 
     const tabla = document.getElementById("swimmers_table");
 
     if (!tabla) return;
 
-    new DataTable('#swimmers_table');
+    $('#swimmers_table').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+        }
+    });
 
     const modal = new bootstrap.Modal(
         document.getElementById('studentsModal')

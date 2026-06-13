@@ -95,89 +95,118 @@ class CoachController extends BaseController
 
         $this->render('coach/edit.view', $data);
     }
-    public function updateProfile()
-    {
-        $this->checkAuth();
-        $this->checkRole([2]);
 
-        $userId = $_SESSION['user_id'];
+public function updateProfile()
+{
+    $this->checkAuth();
+    $this->checkRole([2]);
 
-        $firstName = $_POST['nuevo_nombre'] ?? '';
-        $lastName = $_POST['nuevo_apellido'] ?? '';
-        $specialty = $_POST['nueva_especialidad'] ?? '';
+    $userId = $_SESSION['user_id'];
 
-        $newPassword = $_POST['nueva_contraseña'] ?? '';
-        $confirmPass = $_POST['confirmar_nueva_contraseña'] ?? '';
+    $firstName = $_POST['nuevo_nombre'] ?? '';
+    $lastName = $_POST['nuevo_apellido'] ?? '';
+    $specialty = $_POST['nueva_especialidad'] ?? '';
 
-        $profileImage = $_SESSION['profile_image'] ?? '';
+    $newPassword = $_POST['nueva_contraseña'] ?? '';
+    $confirmPass = $_POST['confirmar_nueva_contraseña'] ?? '';
 
-        // Procesamiento y validación de la imagen
-        if (
-            isset($_FILES['profile_image']) &&
-            $_FILES['profile_image']['error'] === UPLOAD_ERR_OK
-        ) {
-            $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/';
+    $profileImage = $_SESSION['profile_image'] ?? '';
+    $oldProfileImage = $profileImage;
 
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
+    if (
+        isset($_FILES['profile_image']) &&
+        $_FILES['profile_image']['error'] === UPLOAD_ERR_OK
+    ) {
+        $uploadDir = __DIR__ . '/../../public/img/uploads/profiles/';
 
-            $extension = strtolower(pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION));
-
-            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-            if (!in_array($extension, $allowedExtensions)) {
-                return $this->json('warning', 'El formato de archivo no es válido. Solo imágenes.');
-            }
-
-            $newFileName = 'profile_' . $userId . '_' . time() . '.' . $extension;
-            $absolutePath = $uploadDir . $newFileName;
-
-            if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $absolutePath)) {
-                $profileImage = $newFileName;
-            } else {
-                return $this->json('error', 'No se pudo mover el archivo al directorio de destino.');
-            }
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
         }
 
-        // ==========================================================
-        // UPDATE PROFILE (Pasamos las llaves correctas que espera tu modelo)
-        // ==========================================================
-        $this->profileModel->updateProfile([
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'specialty' => $specialty,
-            'profile_image' => $profileImage, // Tu modelo evalúa si está vacío para no pisarlo
-            'user_id' => $userId
-        ]);
+        $extension = strtolower(
+            pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION)
+        );
 
-        // ==========================================================
-        // UPDATE PASSWORD (Opcional - Solo si el campo no viene vacío)
-        // ==========================================================
-        if (!empty(trim($newPassword))) {
-            if (strlen($newPassword) < 6) {
-                return $this->json('warning', 'La contraseña debe tener al menos 6 caracteres.');
-            }
-            if ($newPassword !== $confirmPass) {
-                return $this->json('warning', 'Las contraseñas no coinciden.');
-            }
-            $this->authModel->updateCoachPassword($userId, $newPassword);
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (!in_array($extension, $allowedExtensions)) {
+            return $this->json(
+                'warning',
+                'El formato de archivo no es válido. Solo imágenes.'
+            );
         }
 
-        // UPDATE SESSION
-        $_SESSION['first_name'] = $firstName;
-        $_SESSION['last_name'] = $lastName;
-        $_SESSION['specialty'] = $specialty;
-        $_SESSION['profile_image'] = $profileImage;
+        $newFileName = 'profile_' . $userId . '_' . time() . '.' . $extension;
+        $absolutePath = $uploadDir . $newFileName;
 
-        $baseUrl = rtrim(Env::get('APP_URL'), '/');
-        $redirect = $baseUrl . '/?url=coach/dashboard';
+        if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $absolutePath)) {
 
-        return $this->json(
-            'success',
-            'Perfil actualizado correctamente',
-            $redirect
+            $profileImage = $newFileName;
+
+            if (
+                !empty($oldProfileImage) &&
+                $oldProfileImage !== 'default-profile.png'
+            ) {
+                $oldPath = $uploadDir . $oldProfileImage;
+
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+
+        } else {
+            return $this->json(
+                'error',
+                'No se pudo mover el archivo al directorio de destino.'
+            );
+        }
+    }
+
+    $this->profileModel->updateCoachProfile([
+        'first_name' => $firstName,
+        'last_name' => $lastName,
+        'specialty' => $specialty,
+        'profile_image' => $profileImage,
+        'user_id' => $userId
+    ]);
+
+    if (!empty(trim($newPassword))) {
+
+        if (strlen($newPassword) < 6) {
+            return $this->json(
+                'warning',
+                'La contraseña debe tener al menos 6 caracteres.'
+            );
+        }
+
+        if ($newPassword !== $confirmPass) {
+            return $this->json(
+                'warning',
+                'Las contraseñas no coinciden.'
+            );
+        }
+
+        $this->authModel->updateCoachPassword(
+            $userId,
+            $newPassword
         );
     }
+
+    $_SESSION['first_name'] = $firstName;
+    $_SESSION['last_name'] = $lastName;
+    $_SESSION['specialty'] = $specialty;
+    $_SESSION['profile_image'] = $profileImage;
+
+    $baseUrl = rtrim(Env::get('APP_URL'), '/');
+    $redirect = $baseUrl . '/?url=coach/dashboard';
+
+    return $this->json(
+        'success',
+        'Perfil actualizado correctamente',
+        $redirect
+    );
+}
+
     public function getStudents()
     {
         $this->checkAuth();

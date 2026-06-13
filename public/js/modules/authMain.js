@@ -2,22 +2,21 @@ import { initLogin } from "./auth/formLogin.js";
 import { initRegister } from "./auth/formRegister.js";
 import { initForgotPassword } from "./auth/formForgotPassword.js";
 import { initResetPassword } from "./auth/formResetPassword.js";
-
 import { initEdit } from "./coach/formEdit.js";
-import { initLessonsTable } from "./coach/tableLessons.js";
-
+import { initLessonsTableCoach } from "./coach/tableLessons.js";
 import { initSwimmerProfile } from "./swimmer/formProfile.js";
+import { initSwimmerLessons } from "./swimmer/formLessons.js";
+import { initCoachesTable } from "./admin/tableCoaches.js";
+import { initDeleteCoach } from "./admin/deleteCoach.js";
+import { initLessonsTableAdmin } from "./admin/tableLessons.js";
+import { initDeleteLesson } from "./admin/deleteLesson.js";
+
 
 import { initPasswordToggles } from "./passwordToggle.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
+
 document.addEventListener("DOMContentLoaded", () => {
-
-
-    //initEdit();
-    // Inicializamos cada funcionalidad. 
-    // Cada módulo interno se encargará de verificar si su formulario existe en la vista actual.
-   
 
     initLogin();
     initRegister();
@@ -26,14 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones del coach
     initEdit();
-    initLessonsTable();
+    initLessonsTableCoach();
 
     // Funciones del swimmer
     initSwimmerProfile();
+    initSwimmerLessons();
+
 
     // Funciones password
     initPasswordToggles();
 
 
-    console.log("Auth module initialized successfully."); 
+    // Funciones del admin
+    initCoachesTable();
+    initDeleteCoach();
+    initLessonsTableAdmin();
+    initDeleteLesson();
+
+
+    console.log("Auth module initialized successfully.");
 });
