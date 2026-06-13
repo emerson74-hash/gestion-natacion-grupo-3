@@ -7,7 +7,9 @@
         <div class="col-md-12">
 
             <div class="bg-white p-5 rounded shadow-sm">
-
+                <div class="card-header  coach-header">
+                    <h4>Mis clases</h4>
+                </div>
                 <!-- TABLA DE CLASES -->
                 <table class="table" id="swimmers_table">
                     <thead>
@@ -31,8 +33,7 @@
                                 <td><?= $lesson['booked_count'] ?></td>
 
                                 <td>
-                                    <button class="btn btn-sm btn-book btn-students"
-                                        data-lesson-id="<?= $lesson['id'] ?>">
+                                    <button class="btn btn-sm btn-book btn-students" data-lesson-id="<?= $lesson['id'] ?>">
                                         Ver alumnos
                                     </button>
                                 </td>

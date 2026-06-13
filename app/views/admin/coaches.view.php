@@ -6,90 +6,89 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
-    <h2 class="mb-0">Gestión de Entrenadores</h2>
+        <h2 class="mb-0">Gestión de Entrenadores</h2>
 
-    <a href="?url=admin&section=create-coach"
-       class="btn-admin btn-primary-admin">
-        <i class="bi bi-plus-lg"></i>
-        Agregar entrenador
-    </a>
+        <a href="?url=admin&section=create-coach" class="btn-admin btn-primary-admin">
+            <i class="bi bi-plus-lg"></i>
+            Agregar entrenador
+        </a>
 
-</div>
+    </div>
 
-   <div class="card shadow-sm mx-auto">
-    <div class="card-body">
+    <div class="card shadow-sm mx-auto">
+        <div class="card-body">
 
             <table class="table table-hover align-middle">
-            <div class="table-responsive-custom">
-             <table id="tablaClases" class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        
-                        <th>Nombre</th>
-                        <th>Nacimiento</th>
-                        <th>Telefono</th>
-                        <th>Email</th>
-                        <th>Especialidad</th>
-                        <th>Accion</th>
-                    </tr>
-                </thead>
+                <div class="table-responsive-custom">
+                    <table id="tablaClases" class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
 
-                <tbody>
+                                <th>Nombre</th>
+                                <th>Nacimiento</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>Especialidad</th>
+                                <th>Accion</th>
+                            </tr>
+                        </thead>
 
-                    <?php foreach(($coaches ?? []) as $coach): ?>
+                        <tbody>
 
-                        <tr>
+                            <?php foreach (($coaches ?? []) as $coach): ?>
 
-                            
+                                <tr>
 
-                            <td>
-                                <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
-                            </td>
 
-                            <td>
-                                
-                                <?= date('d/m/Y', strtotime($coach['birth_date'])) ?>
 
-                            </td>
+                                    <td>
+                                        <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
+                                    </td>
 
-                            <td>
-                                <?= $coach['phone'] ?>
-                            </td>
+                                    <td>
 
-                            <td>
-                                <?= $coach['email'] ?>
-                            </td>
+                                        <?= date('d/m/Y', strtotime($coach['birth_date'])) ?>
 
-                            <td>
-                                <?= $coach['specialty'] ?>
-                            </td>
+                                    </td>
 
-                            <td>
+                                    <td>
+                                        <?= $coach['phone'] ?>
+                                    </td>
 
-                                <div class="actions">
+                                    <td>
+                                        <?= $coach['email'] ?>
+                                    </td>
 
-                                 <a href="?url=admin&section=edit-coach&id=<?= $coach['user_id'] ?>"
-                                 class="btn-admin btn-warning-admin">
-                                 Editar
-                                 </a>
+                                    <td>
+                                        <?= $coach['specialty'] ?>
+                                    </td>
 
-                                 <a href="?url=admin&section=delete-coach&id=<?= $coach['user_id'] ?>"
-                                 class="btn-admin btn-danger-admin btn-delete">
-                                 Eliminar
-                                 </a>
+                                    <td>
 
-                                </div>
+                                        <div class="actions">
 
-                            </td>
+                                            <a href="?url=admin&section=edit-coach&id=<?= $coach['user_id'] ?>"
+                                                class="btn-admin btn-warning-admin">
+                                                Editar
+                                            </a>
 
-                        </tr>
+                                            <a href="?url=admin&section=delete-coach&id=<?= $coach['user_id'] ?>"
+                                                class="btn-admin btn-danger-admin btn-delete">
+                                                Eliminar
+                                            </a>
 
-                    <?php endforeach; ?>
+                                        </div>
 
-                </tbody>
+                                    </td>
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        </tbody>
 
                 </div>
-                    </table>
+            </table>
             </table>
 
         </div>
