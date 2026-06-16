@@ -2,13 +2,22 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+<div class="col-md-6">
 
-            <div class="card shadow-sm">
-                <div class="card-header text-center coach-header">
-                    <h4>Mi Perfil</h4>
-                </div>
+    <!-- BOTÓN ARRIBA DE LA CARD -->
+ <div class="d-flex justify-content-end mb-2">
+    <a href="?url=coach/dashboard"
+       class="btn btn-sm btn-coach-back">
+        ← Volver al panel
+    </a>
+</div>
 
+    <div class="card coach-card">
+
+        <div class="card-header text-center coach-header">
+            <h4>Mi Perfil</h4>
+        </div>
+            
                 <div class="card-body">
                     <div class="row align-items-center">
 

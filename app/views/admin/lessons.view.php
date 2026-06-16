@@ -3,18 +3,25 @@
 
 <div class="container mt-4">
 
-<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/admin.css">
+<link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/app.css">
  
 
-    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
     <h2 class="mb-0">Gestión de clases</h2>
 
-    <a href="?url=admin&section=create-lesson"
-       class="btn-admin btn-primary-admin">
-        <i class="bi bi-plus-lg"></i>
-        Agregar clase
-    </a>
+    <div class="d-flex gap-2 ms-auto">
+        <a href="?url=admin&section=dashboard"
+           class="btn-admin btn-secondary-admin">
+            Volver al panel
+        </a>
+
+        <a href="?url=admin&section=create-lesson"
+           class="btn-admin btn-primary-admin">
+            <i class="bi bi-plus-lg"></i>
+            Agregar clase
+        </a>
+    </div>
 
 </div>
 
@@ -49,7 +56,21 @@
                             <tr>
 
                                 <td><?= htmlspecialchars($lesson['level']) ?></td>
-                                <td><?= htmlspecialchars($lesson['day_of_week']) ?></td>
+                                <?php
+                                $days = [
+                                    'Monday' => 'Lunes',
+                                    'Tuesday' => 'Martes',
+                                    'Wednesday' => 'Miércoles',
+                                    'Thursday' => 'Jueves',
+                                    'Friday' => 'Viernes',
+                                    'Saturday' => 'Sábado',
+                                    'Sunday' => 'Domingo'
+                                ];
+                                ?>
+
+<td>
+    <?= $days[$lesson['day_of_week']] ?? $lesson['day_of_week'] ?>
+</td>
                                 <td><?= substr($lesson['start_time'], 0, 5) ?></td>
                                 <td><?= substr($lesson['end_time'], 0, 5) ?></td>
                                 <td><?= htmlspecialchars($lesson['capacity']) ?></td>

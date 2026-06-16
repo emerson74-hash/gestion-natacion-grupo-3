@@ -83,90 +83,88 @@ class AdminController extends BaseController
 
     }
 
-    public function createCoach()
-    {
-        $this->checkAuth();
-        $this->checkRole([1]);
 
-        $this->render('admin/create-coach.view');
-    }
+public function createCoach()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
+    $this->render('admin/create-coach.view');
+}
 
     public function storeCoach()
-    {
-        $this->checkAuth();
-        $this->checkRole([1]);
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-        $email = trim($_POST['email'] ?? '');
+    $email = trim($_POST['email'] ?? '');
 
-        if (empty($email)) {
+    if (empty($email)) {
 
-            $_SESSION['error'] = 'Debe ingresar un correo electrónico';
+        $_SESSION['error'] = 'Debe ingresar un correo electrónico';
 
-            header('Location: ?url=admin&section=create-coach');
-            exit;
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-            $_SESSION['error'] = 'El correo electrónico no es válido';
-
-            header('Location: ?url=admin&section=create-coach');
-            exit;
-        }
-
-        $tempPassword = substr(bin2hex(random_bytes(4)), 0, 8);
-
-        $data = [
-
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'phone' => $_POST['phone'],
-            'birth_date' => $_POST['birth_date'],
-            'email' => $_POST['email'],
-            'specialty' => $_POST['specialty'],
-
-            'profile_image' => null,
-
-
-            'password' => password_hash(
-                $tempPassword,
-                PASSWORD_DEFAULT
-            ),
-
-            'role_id' => 2 // coach
-        ];
-
-
-
-        if ($this->userModel->emailExists($_POST['email'])) {
-            $_SESSION['error'] = "El email ya existe";
-
-            //header("Location: ?url=admin&section=create-coach");
-            exit;
-        }
-
-
-
-        //Una vez creado el coach, envia el mail automatico
-        $this->userModel->createCoach($data);
-
-        $mailService = new MailService();
-
-        $mailService->sendCoachCredentials(
-            $data['email'],
-            $data['first_name'],
-            $tempPassword
-        );
-
-        $_SESSION['success'] = 'Entrenador creado correctamente';
-
-        header("Location: ?url=admin&section=coaches");
+        header('Location: ?url=admin&section=create-coach');
         exit;
-
     }
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
+        $_SESSION['error'] = 'El correo electrónico no es válido';
+
+        header('Location: ?url=admin&section=create-coach');
+        exit;
+    }
+
+    if ($this->userModel->emailExists($email)) {
+
+        $_SESSION['error'] = 'El email ya existe';
+
+        header('Location: ?url=admin&section=create-coach');
+        exit;
+    }
+
+    $tempPassword = substr(bin2hex(random_bytes(4)), 0, 8);
+
+    $data = [
+
+        'first_name' => $_POST['first_name'],
+        'last_name'  => $_POST['last_name'],
+        'phone'      => $_POST['phone'],
+        'birth_date' => $_POST['birth_date'],
+        'email'      => $email,
+        'specialty'  => $_POST['specialty'],
+
+        'profile_image' => null,
+
+        'password' => password_hash(
+            $tempPassword,
+            PASSWORD_DEFAULT
+        ),
+
+        'role_id' => 2
+    ];
+
+// Guarda el entrenador
+$this->userModel->createCoach($data);
+
+// Envía el correo con las credenciales
+$mailService = new MailService();
+
+$resultado = $mailService->sendCoachCredentials(
+    $data['email'],
+    $data['first_name'],
+    $tempPassword
+);
+
+// Mensaje de éxito
+$_SESSION['success'] = 'Entrenador creado correctamente';
+
+// Redirección
+header('Location: ?url=admin&section=coaches');
+exit;
+   }
+
+   
     //Metodo de editar boton 
     public function editCoach()
     {
@@ -386,5 +384,4 @@ class AdminController extends BaseController
         header("Location: ?url=admin&section=lessons");
         exit;
     }
-
 }

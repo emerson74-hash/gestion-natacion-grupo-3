@@ -714,7 +714,7 @@ input[type="date"]{
 
 }
 
-   //CROPPER SWIMMER
+
 
 #crop-preview {
     max-width: 300px;
@@ -780,4 +780,122 @@ input[type="date"]{
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid #4FD1E8;
+}
+
+.coach-dashboard-card{
+    background: linear-gradient(
+        135deg,
+        #4FD1E8,
+        #2BB8D2
+    );
+
+    border: none;
+    border-radius: 30px;
+
+    min-height: 320px;
+
+    box-shadow: 0 8px 20px rgba(79,209,232,.25);
+
+    transition: all .3s ease;
+
+    overflow: hidden;
+}
+
+.coach-dashboard-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(79,209,232,.40);
+}
+
+
+.coach-icon{
+    width: 110px;
+    height: 110px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: rgba(255,255,255,.25);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.coach-icon i{
+    font-size: 48px;
+    color: #2C7DA0;
+}
+
+.coach-dashboard-card h4{
+    color: white !important;
+    font-weight: 700;
+}
+
+.coach-dashboard-card p{
+    color: white !important;
+    opacity: .95;
+}
+main{
+    padding-top: 50px;
+}
+.btn-secondary-admin {
+    background: #4fd1e8;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-secondary-admin:hover {
+    background: #22b8cf;
+    color: #fff;
+}
+
+.btn-secondary-admin {
+    background: #4fd1e8;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.2s;
+}
+
+.btn-secondary-admin:hover {
+    background: #22b8cf;
+    color: #fff;
+}
+.btn-coach-back {
+    background: #4fd1e8;
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-coach-back:hover {
+    background: #22b8cf;
+    color: #fff;
+}
+.btn-coach-back {
+    background: #4fd1e8;
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-coach-back:hover {
+    background: #22b8cf;
+    color: #fff;
+}
+.coach-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+    background: #fff;
 }

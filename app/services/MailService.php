@@ -32,7 +32,7 @@ class MailService
             $baseUrl = rtrim(Env::get('APP_URL'), '/');
             $resetLink = $baseUrl . '/?url=reset-password&token=' . $token;
 
-            // 🔵 TURQUESA
+          
             $color = '#4FD1E8';
 
             $mail->Body = "
@@ -72,25 +72,23 @@ class MailService
 
 
     //Admin: Mail alta de coach
-    public function sendCoachCredentials($email, $nombre, $password)
+   public function sendCoachCredentials($email, $nombre, $password)
 {
     $mail = new PHPMailer(true);
-    $mail->SMTPDebug = 2;
-    $mail->Debugoutput = 'error_log';
 
     try {
 
         $mail->isSMTP();
-        $mail->Host = Env::get('MAIL_HOST');
-        $mail->SMTPAuth = true;
-        $mail->Username = Env::get('MAIL_USERNAME');
-        $mail->Password = Env::get('MAIL_PASSWORD');
+        $mail->Host       = Env::get('MAIL_HOST');
+        $mail->SMTPAuth   = true;
+        $mail->Username   = Env::get('MAIL_USERNAME');
+        $mail->Password   = Env::get('MAIL_PASSWORD');
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = Env::get('MAIL_PORT');
+        $mail->Port       = Env::get('MAIL_PORT');
 
         $mail->setFrom(
             Env::get('MAIL_FROM'),
-            'Sistema Natacion'
+            'Sistema Natación'
         );
 
         $mail->addAddress($email);
@@ -101,20 +99,33 @@ class MailService
         $mail->Subject = 'Credenciales de acceso';
 
         $mail->Body = "
-            <h3>Bienvenido {$nombre}</h3>
+            <div style='font-family:Arial;padding:20px'>
+                <h2>Bienvenido {$nombre}</h2>
 
-            <p>Su cuenta fue creada correctamente.</p>
+                <p>Tu cuenta fue creada correctamente.</p>
 
-            <p><strong>Email:</strong> {$email}</p>
-            <p><strong>Contraseña provisoria:</strong> {$password}</p>
+                <p><strong>Email:</strong> {$email}</p>
+                <p><strong>Contraseña:</strong> {$password}</p>
+
+                <hr>
+
+                <p style='font-size:12px;color:#777'>
+                    Sistema Escuela de Natación
+                </p>
+            </div>
         ";
 
+        $mail->SMTPDebug = 0;
 
         return $mail->send();
 
     } catch (Exception $e) {
-    die("MAIL ERROR: " . $e->getMessage());
+
+        error_log("MAIL ERROR: " . $e->getMessage());
+
+        return false;
+    }
 }
-}
+
 
 }

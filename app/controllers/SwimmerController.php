@@ -15,6 +15,21 @@ require_once __DIR__ . '/../models/Lesson.php';
  */
 class SwimmerController extends BaseController
 {
+    private $dayLabels = [
+    'Monday' => 'Lunes',
+    'Tuesday' => 'Martes',
+    'Wednesday' => 'Miércoles',
+    'Thursday' => 'Jueves',
+    'Friday' => 'Viernes',
+    'Saturday' => 'Sábado',
+    'Sunday' => 'Domingo'
+];
+
+private $levelLabels = [
+    'beginner' => 'Principiante',
+    'intermediate' => 'Intermedio',
+    'advanced' => 'Avanzado'
+];
     private $profileModel;
     private $lessonModel;
 
@@ -204,7 +219,16 @@ public function updateProfile()
         $availableLessons = $profileId
             ? $this->lessonModel->getAvailableForSwimmer($profileId)
             : [];
+            foreach ($availableLessons as &$lesson) {
 
+    $lesson['day_label'] =
+        $this->dayLabels[$lesson['day_of_week']] ?? $lesson['day_of_week'];
+
+    $lesson['level_label'] =
+        $this->levelLabels[$lesson['level']] ?? $lesson['level'];
+
+}
+unset($lesson);
         // Mostramos la vista de clases
         $this->render('swimmer/lessons.view', [
             'title'   => 'Clases Disponibles',

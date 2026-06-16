@@ -1,7 +1,15 @@
 export function initLessonsTableAdmin() {
-const tabla = document.getElementById("tablaClasesAdmin");
 
+    const tabla = document.getElementById("tablaClasesAdmin");
     if (!tabla) return;
 
-    new DataTable('#tablaClasesAdmin');
+    if (!$.fn.DataTable.isDataTable('#tablaClasesAdmin')) {
+
+        $('#tablaClasesAdmin').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+            }
+        });
+
+    }
 }

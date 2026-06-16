@@ -18,7 +18,9 @@
                     border-radius:10px;
                     font-weight:600;
                ">
-                ← Volver
+               <i class="fas fa-arrow-left"></i>
+                Volver al panel
+        
             </a>
 
             <h2 class="mb-0 text-white fw-bold text-center">
@@ -45,6 +47,7 @@
 
             <?php else: ?>
 
+                <!-- FILTRO POR DÍAS (ORDENADO) -->
                 <div class="mb-4 d-flex flex-wrap gap-2" id="day-filter">
 
                     <button class="btn btn-sm btn-primary filter-btn active"
@@ -53,15 +56,31 @@
                     </button>
 
                     <?php
-                        $days = array_unique(array_column($lessons, 'day_of_week'));
+                        $order = [
+                            'Lunes',
+                            'Martes',
+                            'Miércoles',
+                            'Jueves',
+                            'Viernes',
+                            'Sábado',
+                            'Domingo'
+                        ];
 
-                        foreach ($days as $day):
+                        $days = array_unique(array_column($lessons, 'day_label'));
+
+                        usort($days, function ($a, $b) use ($order) {
+                            $posA = array_search($a, $order);
+                            $posB = array_search($b, $order);
+                            return $posA <=> $posB;
+                        });
                     ?>
+
+                    <?php foreach ($days as $day): ?>
 
                         <button class="btn btn-sm btn-outline-primary filter-btn"
                                 data-day="<?= htmlspecialchars($day) ?>">
 
-                            <?= htmlspecialchars($dayLabels[$day] ?? $day) ?>
+                            <?= htmlspecialchars($day) ?>
 
                         </button>
 
@@ -103,23 +122,17 @@
                             <div class="card-body">
 
                                 <h5 class="card-title mb-3">
-                                    <?= htmlspecialchars($lesson['level'] ?? 'Natación') ?>
+                                    <?= htmlspecialchars($lesson['level_label'] ?? $lesson['level']) ?>
                                 </h5>
 
                                 <p class="card-text mb-2">
-
-                                    
-                                    <?= htmlspecialchars($dayLabels[$lesson['day_of_week']] ?? $lesson['day_of_week']) ?>
-
+                                    <?= htmlspecialchars($lesson['day_label'] ?? $lesson['day_of_week']) ?>
                                 </p>
 
                                 <p class="card-text mb-3">
-
-                                    
                                     <?= htmlspecialchars(substr($lesson['start_time'], 0, 5)) ?>
                                     -
                                     <?= htmlspecialchars(substr($lesson['end_time'], 0, 5)) ?>
-
                                 </p>
 
                                 <div class="lesson-coach-box">
@@ -129,21 +142,14 @@
                                     </small>
 
                                     <span class="fw-semibold">
-
-                                         <?= htmlspecialchars($lesson['coach_name']) ?>
-
+                                        <?= htmlspecialchars($lesson['coach_name']) ?>
                                     </span>
 
                                     <?php if (!empty($lesson['coach_specialty'])): ?>
-
                                         <br>
-
                                         <small class="text-muted">
-
                                             <?= htmlspecialchars($lesson['coach_specialty']) ?>
-
                                         </small>
-
                                     <?php endif; ?>
 
                                 </div>
@@ -165,9 +171,7 @@
                                 <?php elseif ($isFull): ?>
 
                                     <button class="btn btn-outline-secondary w-100" disabled>
-
                                         Sin lugares disponibles
-
                                     </button>
 
                                 <?php else: ?>

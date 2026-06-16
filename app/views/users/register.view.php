@@ -32,7 +32,7 @@
                                         placeholder="Mín. 6 caracteres" required>
                                        
                                 
-
+                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">Repita la contraseña</label>
                                     <input type="password" id="passwordconfirm" name="passwordconfirm" class="form-control"

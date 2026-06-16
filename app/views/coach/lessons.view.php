@@ -7,9 +7,17 @@
         <div class="col-md-12">
 
             <div class="bg-white p-5 rounded shadow-sm">
-                <div class="card-header  coach-header">
-                    <h4>Mis clases</h4>
-                </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h4 class="mb-0">Mis clases</h4>
+
+        <a href="?url=coach/dashboard"
+           class="btn btn-sm btn-coach-back">
+            Volver al panel
+        </a>
+
+    </div>
                 <!-- TABLA DE CLASES -->
                 <table class="table" id="swimmers_table">
                     <thead>
@@ -27,7 +35,21 @@
                         <?php foreach ($lessons as $lesson): ?>
 
                             <tr>
-                                <td><?= $lesson['day_of_week'] ?></td>
+                                <?php
+                            $days = [
+                                'Monday' => 'Lunes',
+                                'Tuesday' => 'Martes',
+                                'Wednesday' => 'Miércoles',
+                                'Thursday' => 'Jueves',
+                                'Friday' => 'Viernes',
+                                'Saturday' => 'Sábado',
+                                'Sunday' => 'Domingo'
+                            ];
+                            ?>
+
+                            <td>
+    <?= $days[$lesson['day_of_week']] ?? $lesson['day_of_week'] ?>
+</td>
                                 <td><?= substr($lesson['start_time'], 0, 5) ?></td>
                                 <td><?= $lesson['level'] ?></td>
                                 <td><?= $lesson['booked_count'] ?></td>
@@ -46,7 +68,7 @@
                     </tbody>
                 </table>
                 <div class="modal fade" id="studentsModal" tabindex="-1">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
                             <div class="modal-header">
