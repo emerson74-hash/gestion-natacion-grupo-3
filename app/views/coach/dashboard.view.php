@@ -9,8 +9,40 @@
 
             <div class="bg-white p-5 rounded shadow-sm">
 
-                <h1>Bienvenido Entrenador</h1>
-                <p class="lead">Este es el panel administrativo de la escuela.</p>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+
+    <?php
+
+    $img = $_SESSION['profile_image'] ?? 'default-profile.png';
+
+    $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
+
+    ?>
+
+    <img
+        src="<?= $src ?>"
+        alt="Foto perfil"
+        class="rounded-circle border"
+        style="
+            width:65px;
+            height:65px;
+            object-fit:cover;
+        "
+    >
+
+    <div>
+
+        <h1 class="mb-1">
+            Bienvenido Entrenador
+        </h1>
+
+        <p class="text-muted mb-0">
+            Consultá tus clases asignadas y administrá tu perfil.
+        </p>
+
+    </div>
+
+</div>
 
                 <hr>
 
@@ -45,9 +77,9 @@
 
                             <div class="card-body text-center p-4">
 
-                                <div class="coach-icon mb-3">
-                                    <i class="fas fa-user-edit"></i>
-                                </div>
+                            <div class="coach-icon mb-3">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
 
                                 <h4 class="mb-3">
                                     Editar datos personales

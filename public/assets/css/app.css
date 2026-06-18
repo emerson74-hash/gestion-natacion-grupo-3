@@ -819,9 +819,9 @@ input[type="date"]{
     justify-content:center;
 }
 
-.coach-icon i{
-    font-size: 48px;
-    color: #2C7DA0;
+.dashboard-icon i {
+    font-size: 3rem;
+    color: #fff;
 }
 
 .coach-dashboard-card h4{
@@ -898,4 +898,69 @@ main{
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
     background: #fff;
+}
+.dashboard-card-modern{
+    background: linear-gradient(
+        135deg,
+        #59d0e7,
+        #27b9dd
+    );
+
+    border-radius: 30px;
+
+    min-height: 280px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+
+    transition:.3s;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+.dashboard-card-modern:hover{
+    transform:translateY(-6px);
+}
+.dashboard-card-modern h3,
+.dashboard-card-modern p {
+    color: #fff !important;
+}
+.dashboard-icon{
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:20px;
+}
+
+.dashboard-icon i{
+    font-size:3rem;
+
+}
+
+.dashboard-card-modern h3{
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.dashboard-card-modern p{
+    margin:0;
+    font-size:1rem;
+}
+.coach-icon i{
+    color: white !important;
+    font-size: 3rem;
 }

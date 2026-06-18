@@ -7,107 +7,95 @@
     <!-- =========================
          DATOS USUARIO
     ========================== -->
+<div class="d-flex align-items-center gap-3 mb-5">
 
-    <div class="d-flex align-items-center gap-3 mb-4">
+    <?php
 
-        <?php
+    $img = $_SESSION['profile_image'] ?? 'default-profile.png';
 
-        $img = $_SESSION['profile_image'] ?? 'default-profile.png';
+    $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
 
-        $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
+    ?>
 
-        ?>
+    <img 
+        src="<?= $src ?>"
+        alt="Foto perfil"
+        class="rounded-circle border"
+        style="
+            width:65px;
+            height:65px;
+            object-fit:cover;
+        "
+    >
 
-        <img 
-            src="<?= $src ?>"
-            alt="Foto perfil"
-            class="rounded-circle border"
-            style="
-                width:65px;
-                height:65px;
-                object-fit:cover;
-            "
-        >
+    <div>
 
-        <div>
+        <h1 class="mb-1">
+            Bienvenido Nadador
+        </h1>
 
-            <h2 class="mb-0">
-                Bienvenido Nadador
-            </h2>
-
-            <small class="text-muted">
-                <?= htmlspecialchars($user) ?>
-            </small>
-
-        </div>
+        <p class="text-muted mb-0">
+            Consultá tus inscripciones y administrá tu perfil.
+        </p>
 
     </div>
 
-    <!-- =========================
-         CARDS ACCESO RAPIDO
-    ========================== -->
+</div>
 
-    <div class="row g-4 swimmer-actions mb-4">
 
-        <!-- PERFIL -->
+<div class="row justify-content-center g-4 swimmer-actions mb-5">
 
-        <div class="col-md-6">
+    <!-- PERFIL -->
+    <div class="col-md-5">
 
-            <a href="<?= _URL ?>/?url=swimmer/profile"
-               class="text-decoration-none">
+        <a href="<?= _URL ?>/?url=swimmer/profile"
+           class="text-decoration-none">
 
-                <div class="swimmer-card">
+            <div class="dashboard-card-modern">
 
-                    <div>
-
-                    <h5>
-                     <i class="bi bi-person-circle me-2"></i>
-                     Mi Perfil
-                    </h5>
-
-                        <p>
-                            Actualizá tu teléfono,
-                            fecha de nacimiento y foto.
-                        </p>
-
-                    </div>
-
+                <div class="dashboard-icon">
+                    <i class="bi bi-person-circle"></i>
                 </div>
 
-            </a>
+                <h3>Mi Perfil</h3>
 
-        </div>
+                <p>
+                    Actualizá tu teléfono,
+                    fecha de nacimiento y foto.
+                </p>
 
-        <!-- CLASES -->
+            </div>
 
-        <div class="col-md-6">
-
-            <a href="<?= _URL ?>/?url=swimmer/lessons"
-               class="text-decoration-none">
-
-                <div class="swimmer-card">
-
-                    <div>
-
-                    <h5>
-                    <i class="bi bi-calendar-check me-2"></i>
-                    Clases Disponibles
-                    </h5>
-
-                        <p>
-                            Explorá y anotate
-                            en el cronograma.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </a>
-
-        </div>
+        </a>
 
     </div>
+
+    <!-- CLASES -->
+    <div class="col-md-5">
+
+        <a href="<?= _URL ?>/?url=swimmer/lessons"
+           class="text-decoration-none">
+
+            <div class="dashboard-card-modern">
+
+                <div class="dashboard-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+
+                <h3>Clases</h3>
+
+                <p>
+                    Explorá e inscribite
+                    en las clases disponibles.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
 
     <!-- =========================
          TABLA
@@ -124,7 +112,7 @@
             Todavía no estás inscripto en ninguna clase.
 
             <a href="<?= _URL ?>/?url=swimmer/lessons">
-                Ver clases disponibles →
+                Ver clases disponibles
             </a>
 
         </div>
@@ -228,12 +216,26 @@ $(document).ready(function () {
     if (!$.fn.DataTable.isDataTable(tableId)) {
 
         $(tableId).DataTable({
+
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+                lengthMenu: "Mostrar _MENU_ registros",
+                zeroRecords: "No se encontraron resultados",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                search: "Buscar:",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                }
             },
+
             pageLength: 5,
             lengthMenu: [5, 10, 25, 50],
             responsive: true
+
         });
 
     }

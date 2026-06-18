@@ -122,22 +122,15 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid px-5">
 
-                <a class="navbar-brand" href="<?=
-                    match ($_SESSION['role_id'] ?? 0) {
-                        1 => '?url=admin&section=dashboard',
-                        2 => '?url=coach/dashboard',
-                        3 => '?url=swimmer/dashboard',
-                        default => '?url=landing'
-                    }
-                    ?>">
+                <a class="navbar-brand" href="<?= _URL ?>/?url=landing">
 
-                    <img src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png" alt="SWIM LEARN">
+                <img src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png" alt="SWIM LEARN">
 
-                    <span class="text-swim">
-                        SWIM LEARN
-                    </span>
+                <span class="text-swim">
+                    SWIM LEARN
+                </span>
 
-                </a>
+            </a>
 
                 <div class="collapse navbar-collapse">
 

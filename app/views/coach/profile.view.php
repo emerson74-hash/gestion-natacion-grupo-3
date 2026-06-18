@@ -8,7 +8,7 @@
  <div class="d-flex justify-content-end mb-2">
     <a href="?url=coach/dashboard"
        class="btn btn-sm btn-coach-back">
-        ← Volver al panel
+        Volver al panel
     </a>
 </div>
 

@@ -98,7 +98,7 @@
                 ?>
 
                     <div class="col-md-6 col-xl-4 lesson-card"
-                         data-day="<?= htmlspecialchars($lesson['day_of_week']) ?>">
+                        data-day="<?= htmlspecialchars($lesson['day_label']) ?>">
 
                         <div class="card h-100 lesson-modern-card">
 

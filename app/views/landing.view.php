@@ -19,6 +19,9 @@
 
     <!-- css -->
     <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/landing.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -261,12 +264,21 @@
 
             <div class="contact-data">
                 <h3>Escuela Swim Learn</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt me-2 text-white"></i>
+                    Calle 149 N° 1881 - Berazategui
+                </p>
 
-                <p>📍 Calle 149 N° 1881 - Berazategui</p>
-                <p>📞 11 5317-0256</p>
-                <p>✉️ escueladenatacion@swimlearn.com</p>
+                <p>
+                    <i class="fas fa-phone me-2 text-white"></i>
+                    11 5317-0256
+                </p>
 
-                <p class="contact-text">
+                <p>
+                    <i class="fas fa-envelope me-2 text-white"></i>
+                    escueladenatacion@swimlearn.com
+                </p>
+                                <p class="contact-text">
                     ¿Tenes dudas sobre horarios, niveles o inscripciones?
                     Completa el formulario y nos pondremos en contacto.
                 </p>

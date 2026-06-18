@@ -341,3 +341,6 @@ body {
         grid-template-columns: 1fr;
     }
 }
+footer i{
+    color: white;
+}
