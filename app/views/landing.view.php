@@ -253,6 +253,23 @@
 
 <!-- ================= CONTACTO ================= -->
 <section id="contacto" class="contact-section">
+    <?php if (!empty($_SESSION['success'])): ?>
+    <div class="container mb-4">
+        <div class="alert alert-success text-center">
+            <?= $_SESSION['success']; ?>
+        </div>
+    </div>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['error'])): ?>
+    <div class="container mb-4">
+        <div class="alert alert-danger text-center">
+            <?= $_SESSION['error']; ?>
+        </div>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
 
     <div class="container">
 
@@ -278,7 +295,7 @@
                     <i class="fas fa-envelope me-2 text-white"></i>
                     escueladenatacion@swimlearn.com
                 </p>
-                                <p class="contact-text">
+                    <p class="contact-text">
                     ¿Tenes dudas sobre horarios, niveles o inscripciones?
                     Completa el formulario y nos pondremos en contacto.
                 </p>
@@ -286,11 +303,20 @@
 
             <div class="contact-form">
 
-                <form>
-                    <input type="text" placeholder="Nombre completo" required>
-                    <input type="email" placeholder="Correo electrónico" required>
+                <form method="POST" action="?url=landing/sendContact">
+                <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre completo"
+                    required>
 
-                    <select required>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    required>
+                                
+                    <select name="motivo" required>
                         <option>Motivo de consulta</option>
                         <option>Precios</option>
                         <option>Horarios</option>
@@ -298,7 +324,11 @@
                         <option>Otro</option>
                     </select>
 
-                    <textarea rows="5" placeholder="Escriba su consulta..."></textarea>
+                    <textarea
+                    name="mensaje"
+                    rows="5"
+                    placeholder="Escriba su consulta..."
+                    required></textarea>
 
                     <button type="submit">
                         Enviar consulta

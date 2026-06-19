@@ -3,6 +3,7 @@ require_once __DIR__ . '/../libs/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/../libs/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/../libs/PHPMailer/src/SMTP.php';
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -127,5 +128,53 @@ class MailService
     }
 }
 
+public function sendContactMessage($nombre, $email, $motivo, $mensaje)
+{
+    $mail = new PHPMailer(true);
 
+    try {
+
+        $mail->isSMTP();
+        $mail->Host       = Env::get('MAIL_HOST');
+        $mail->SMTPAuth   = true;
+        $mail->Username   = Env::get('MAIL_USERNAME');
+        $mail->Password   = Env::get('MAIL_PASSWORD');
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = Env::get('MAIL_PORT');
+
+        $mail->setFrom(Env::get('MAIL_FROM'), 'Formulario Web Swim Learn');
+
+        // Mail que recibe las consultas
+        $mail->addAddress('luraising@outlook.com');
+
+        // Para responder directamente al usuario
+        $mail->addReplyTo($email, $nombre);
+
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Subject = 'Nueva consulta desde la landing';
+
+        $mail->Body = "
+            <h2>Nueva consulta recibida</h2>
+
+            <p><strong>Nombre:</strong> {$nombre}</p>
+            <p><strong>Email:</strong> {$email}</p>
+            <p><strong>Motivo:</strong> {$motivo}</p>
+
+            <hr>
+
+            <p><strong>Mensaje:</strong></p>
+            <p>{$mensaje}</p>
+        ";
+
+        return $mail->send();
+
+    } catch (Exception $e) {
+
+        error_log($mail->ErrorInfo);
+
+        return false;
+    }
+}
 }
