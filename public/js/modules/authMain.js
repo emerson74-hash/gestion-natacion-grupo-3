@@ -16,32 +16,28 @@ import { initPasswordToggles } from "./passwordToggle.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
 
-    initLogin();
-    initRegister();
-    initForgotPassword();
-    initResetPassword();
+  initPasswordToggles();
 
-    // Funciones del coach
-    initEdit();
-    initLessonsTableCoach();
+  initLogin();
+  initRegister();
+  initForgotPassword();
+  initResetPassword();
 
-    // Funciones del swimmer
-    initSwimmerProfile();
-    initSwimmerLessons();
-    initPasswordToggles();
+  // coach
+  initEdit();
+  initLessonsTableCoach();
 
-    // Funciones password
-    initPasswordToggles();
+  // swimmer
+  initSwimmerProfile();
+  initSwimmerLessons();
 
+  // admin
+  initCoachesTable();
+  initDeleteCoach();
+  initLessonsTableAdmin();
+  initDeleteLesson();
 
-    // Funciones del admin
-    initCoachesTable();
-    initDeleteCoach();
-    initLessonsTableAdmin();
-    initDeleteLesson();
-
-
-    console.log("Auth module initialized successfully.");
+  console.log("Auth module initialized successfully.");
 });

@@ -182,26 +182,26 @@ exit;
         $this->render('admin/edit-coach.view', $data);
     }
 
-    public function updateCoach()
-    {
-        $this->checkAuth();
-        $this->checkRole([1]);
+  public function updateCoach()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-        $data = [
+    $data = [
+        'id' => $_POST['id'],
+        'first_name' => $_POST['first_name'],
+        'last_name' => $_POST['last_name'],
+        'email' => $_POST['email'],
+        'specialty' => $_POST['specialty'],
+        'phone' => $_POST['phone'],
+        'birth_date' => $_POST['birth_date']
+    ];
 
-            'id' => $_POST['id'],
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'email' => $_POST['email'],
-            'specialty' => $_POST['specialty']
+    $this->userModel->updateCoach($data);
 
-        ];
-
-        $this->userModel->updateCoach($data);
-
-        header("Location: ?url=admin&section=coaches");
-        exit;
-    }
+    header("Location: ?url=admin&section=coaches");
+    exit;
+}
 
     //Metodo para permitir al admin usar el boton eliminar en la tabla
     public function deleteCoach()
@@ -269,21 +269,6 @@ exit;
     {
         $this->checkAuth();
         $this->checkRole([1]);
-
-        /* $data = [
-              'level' => $_POST['level'],
-              'day_of_week' => $_POST['day_of_week'],
-              'start_time' => $_POST['start_time'],
-              'end_time' => $_POST['end_time'],
-              'capacity' => $_POST['capacity'],
-              'profile_id' => $_POST['profile_id']
-          ];**/
-
-
-        //$this->lessonModel->create($data);
-
-        //header("Location: ?url=admin&section=lessons");
-        // exit;
 
         if (
             $this->lessonModel->hasScheduleConflict(

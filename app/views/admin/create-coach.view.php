@@ -11,7 +11,7 @@
 
  <div class="card-header bg-white border-0 py-3">
 
-        <div class="card-header bg-white border-0 py-3 text-center">
+        
 
     <h2 class="mb-0">Agregar Entrenador</h2>
 
@@ -68,10 +68,10 @@
 
                                 <select name="specialty" class="form-select form-control-lg" required>
                                     <option value="">Seleccionar especialidad</option>
-                                    <option value="Natación inicial">Natación inicial</option>
-                                    <option value="Natación infantil">Natación intermedia</option>
-                                    <option value="Natación adultos">Natación expertos</option>
-  
+                                <option value="Natación inicial">Natación inicial</option>
+                                <option value="Natación intermedia">Natación intermedia</option>
+                                <option value="Natación avanzada">Natación avanzada</option>
+                                    
                                 </select>
 
                             </div>

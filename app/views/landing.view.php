@@ -35,7 +35,25 @@
         <div class="container">
 
             <!--  SOLO SE AGREGÓ EL LOGO -->
-            <a class="navbar-brand logo-text" href="?url=landing">
+            <?php
+$home = '?url=landing';
+
+if (isset($_SESSION['role_id'])) {
+    switch ($_SESSION['role_id']) {
+        case 1:
+            $home = '?url=admin&section=dashboard';
+            break;
+        case 2:
+            $home = '?url=coach/dashboard';
+            break;
+        case 3:
+            $home = '?url=swimmer/dashboard';
+            break;
+    }
+}
+?>
+
+<a class="navbar-brand logo-text" href="<?= $home ?>">
 
                 <img
                     src="/Gestion-Natacion-Grupo-3/public/imglogo/logo.png"
@@ -74,12 +92,29 @@
                         <a class="nav-link" href="#contacto">
                             Contacto
                         </a>
-                    </li>
+                        <?php if (!isset($_SESSION['user_id'])): ?>
 
-                    <li class="nav-item">
-                        <a class="btn login-btn" href="?url=login">
-                            Iniciar sesión
-                        </a>
+                        <li class="nav-item">
+                            <a class="btn login-btn" href="?url=login">
+                                Iniciar sesión
+                            </a>
+                        </li>
+
+                    <?php else: ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="?url=profile">
+                                Mi perfil
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn login-btn" href="?url=logout">
+                                Cerrar sesión
+                            </a>
+                        </li>
+
+                    <?php endif; ?>
                     </li>
 
                 </ul>

@@ -25,19 +25,82 @@
                                            value="<?= htmlspecialchars($_SESSION['last_name'] ?? '-') ?>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nueva_especialidad" class="form-label">Especialidad</label>
-                                    <input type="text" class="form-control" id="nueva_especialidad" name="nueva_especialidad"
-                                           value="<?= htmlspecialchars($_SESSION['specialty'] ?? '-') ?>">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="text"
+                                        class="form-control"
+                                        id="telefono"
+                                        name="telefono"
+                                        value="<?= htmlspecialchars($coach['phone'] ?? '') ?>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nueva_contraseña" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="nueva_contraseña" name="nueva_contraseña">
-                                    <small class="text-muted">Dejar en blanco para mantener la contraseña actual.</small>
+                                    <label for="birth_date" class="form-label">Fecha de nacimiento</label>
+                                    <input type="date"
+                                        class="form-control"
+                                        id="birth_date"
+                                        name="birth_date"
+                                        value="<?= htmlspecialchars($coach['birth_date'] ?? '') ?>">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="confirmar_nueva_contraseña" class="form-label">Confirmar contraseña</label>
-                                    <input type="password" class="form-control" id="confirmar_nueva_contraseña" name="confirmar_nueva_contraseña">
-                                </div>
+
+           
+
+                                    <div class="mb-3">
+                                        <label for="nueva_especialidad" class="form-label">Especialidad</label>
+
+                                        <select class="form-select" id="nueva_especialidad" name="nueva_especialidad" required>
+
+                                            <option value="natacion_inicial"
+                                                <?= ($coach['specialty'] ?? '') === 'natacion_inicial' ? 'selected' : '' ?>>
+                                                Natación Inicial
+                                            </option>
+
+                                            <option value="natacion_intermedia"
+                                                <?= ($coach['specialty'] ?? '') === 'natacion_intermedia' ? 'selected' : '' ?>>
+                                                Natación Intermedia
+                                            </option>
+
+                                            <option value="natacion_experto"
+                                                <?= ($coach['specialty'] ?? '') === 'natacion_experto' ? 'selected' : '' ?>>
+                                                Natación Experto
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Contraseña</label>
+
+                                        <div class="input-group">
+                                            <input type="password"
+                                                class="form-control"
+                                                id="password"
+                                                name="nueva_contraseña">
+                                            <button type="button"
+                                            class="btn btn-outline-secondary"
+                                            data-toggle-password
+                                            data-target="password">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                
+                                        <div class="mb-3">
+                                        <label class="form-label">Confirmar contraseña</label>
+
+                                        <div class="input-group">
+                                            <input type="password"
+                                                class="form-control"
+                                                id="confirm_password"
+                                                name="confirmar_nueva_contraseña">
+
+                                        <button type="button"
+                                        class="btn btn-outline-secondary"
+                                        data-toggle-password
+                                        data-target="confirm_password">
+                                        <i class="bi bi-eye"></i>
+                                        
+                                        </button>
+
+                                        </div>
+                                    </div>
 
                                 <button type="submit" class="btn text-light coach-primary">
                                     Guardar cambios

@@ -48,8 +48,8 @@
                             ?>
 
                             <td>
-    <?= $days[$lesson['day_of_week']] ?? $lesson['day_of_week'] ?>
-</td>
+                            <?= $days[$lesson['day_of_week']] ?? $lesson['day_of_week'] ?>
+                            </td>
                                 <td><?= substr($lesson['start_time'], 0, 5) ?></td>
                                 <td><?= $lesson['level'] ?></td>
                                 <td><?= $lesson['booked_count'] ?></td>

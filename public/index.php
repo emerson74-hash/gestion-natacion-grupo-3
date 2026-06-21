@@ -19,6 +19,5 @@ try {
 
 // Ahora sí, cargamos la base de datos
 require_once __DIR__ . '/../app/config/db.php';
-
 // Punto de entrada único ( Single Entry Point )
 require_once __DIR__ . '/router.php';

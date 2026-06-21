@@ -56,15 +56,15 @@
                                 </td>
 
                                 <td>
-                                    <?= $coach['phone'] ?>
+                                    <?= $coach['phone'] ?? '-' ?>
                                 </td>
 
                                 <td>
-                                    <?= $coach['email'] ?>
+                                    <?= $coach['email'] ?? '-' ?>
                                 </td>
 
                                 <td>
-                                    <?= $coach['specialty'] ?>
+                                    <?= $coach['specialty'] ?? '-' ?>
                                 </td>
 
                                 <td>

@@ -60,9 +60,9 @@
                             <div class="col-md-6">
                                 <label class="form-label">Fecha de nacimiento</label>
                                 <input type="date"
-                                       name="birth_date"
-                                       class="form-control form-control-lg"
-                                       value="<?= $coach['birth_date'] ?>">
+                                    name="birth_date"
+                                    class="form-control form-control-lg"
+                                    value="<?= $coach['birth_date'] ?? '' ?>">
                             </div>
 
                             <!-- Teléfono -->
@@ -71,7 +71,7 @@
                                 <input type="text"
                                        name="phone"
                                        class="form-control form-control-lg"
-                                       value="<?= $coach['phone'] ?>">
+                                       value="<?= $coach['phone'] ?? '' ?>">
                             </div>
 
                             <!-- Email -->
@@ -87,19 +87,26 @@
                             <!-- Especialidad -->
                                     <div class="col-md-6">
                                         <label class="form-label">Especialidad</label>
+                                    <select name="specialty" class="form-select form-control-lg" required>
 
-                                        <select name="specialty" class="form-select form-control-lg" required>
+                                    <option value="">Seleccionar especialidad</option>
 
-                                            <option value="">Seleccionar especialidad</option>
+                                    <option value="Natación inicial"
+                                        <?= $coach['specialty'] == 'Natación inicial' ? 'selected' : '' ?>>
+                                        Natación inicial
+                                    </option>
 
-                                            <option value="Natación inicial">Natación inicial</option>
+                                    <option value="Natación intermedia"
+                                        <?= $coach['specialty'] == 'Natación intermedia' ? 'selected' : '' ?>>
+                                        Natación intermedia
+                                    </option>
 
-                                            <option value="Natación intermedia">Natación intermedia</option>
+                                    <option value="Natación avanzada"
+                                        <?= $coach['specialty'] == 'Natación avanzada' ? 'selected' : '' ?>>
+                                        Natación avanzada
+                                    </option>
 
-                                            <option value="Natación avanzada">Natación avanzada</option>
-
-
-                                        </select>
+                                </select>
                                     </div>
 
                             <!-- BOTÓN -->

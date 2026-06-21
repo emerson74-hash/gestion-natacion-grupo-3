@@ -5,10 +5,19 @@ require_once __DIR__ . '/../services/MailService.php';
 
 class LandingController extends BaseController
 {
-    public function index()
-    {
-        require_once __DIR__ . '/../views/landing.view.php';
+public function index()
+{
+    $user = null;
+
+    if (isset($_SESSION['user_id'])) {
+        $user = [
+            'first_name' => $_SESSION['first_name'] ?? '',
+            'role_id' => $_SESSION['role_id'] ?? null
+        ];
     }
+
+    require_once __DIR__ . '/../views/landing.view.php';
+}
 
     public function sendContact()
     {

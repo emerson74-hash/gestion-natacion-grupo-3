@@ -105,17 +105,22 @@ class Lesson
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getStudentsByLesson(int $lessonId): array
+public function getStudentsByLesson(int $lessonId): array
 {
     $sql = "
         SELECT
             p.first_name,
-            p.last_name
+            p.last_name,
+            p.phone,
+            u.email
         FROM bookings b
         INNER JOIN profiles p
             ON b.profile_id = p.id
+        INNER JOIN users u
+            ON p.user_id = u.id
         WHERE b.lesson_id = ?
         AND b.status = 'Confirmed'
+        ORDER BY p.last_name, p.first_name
     ";
 
     $stmt = $this->db->prepare($sql);

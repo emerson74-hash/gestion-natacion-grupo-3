@@ -143,41 +143,55 @@ class Profile
 
         return $ok;
     }
+
+
+    /*coach*/ 
     public function updateCoachProfile(array $data)
-    {
-        // Si viene nueva imagen, la actualizamos también
-        if (!empty($data['profile_image'])) {
+{
+    if (!empty($data['profile_image'])) {
 
-            $sql = "UPDATE profiles 
-                SET first_name = ?, last_name = ?, specialty = ?, profile_image = ?
+        $sql = "UPDATE profiles
+                SET first_name = ?,
+                    last_name = ?,
+                    phone = ?,
+                    birth_date = ?,
+                    specialty = ?,
+                    profile_image = ?
                 WHERE user_id = ?";
 
-            $params = [
-                $data['first_name'],
-                $data['last_name'],
-                $data['specialty'],
-                $data['profile_image'],
-                $data['user_id']
-            ];
+        $params = [
+            $data['first_name'],
+            $data['last_name'],
+            $data['phone'],
+            $data['birth_date'] ?? null,
+            $data['specialty'],
+            $data['profile_image'],
+            $data['user_id']
+        ];
 
-        } else {
+    } else {
 
-            // Si no hay imagen nueva, no se modifica la anterior
-            $sql = "UPDATE profiles 
-                SET first_name = ?, last_name = ?, specialty = ?
+        $sql = "UPDATE profiles
+                SET first_name = ?,
+                    last_name = ?,
+                    phone = ?,
+                    birth_date = ?,
+                    specialty = ?
                 WHERE user_id = ?";
 
-            $params = [
-                $data['first_name'],
-                $data['last_name'],
-                $data['specialty'],
-                $data['user_id']
-            ];
-        }
-
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($params);
+        $params = [
+            $data['first_name'],
+            $data['last_name'],
+            $data['phone'],
+            $data['birth_date'] ?? null,
+            $data['specialty'],
+            $data['user_id']
+        ];
     }
+
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute($params);
+}
     public function coachHasLessons($userId)
     {
         $sql = "

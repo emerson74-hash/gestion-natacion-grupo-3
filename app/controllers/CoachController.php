@@ -106,6 +106,8 @@ public function updateProfile()
     $firstName = $_POST['nuevo_nombre'] ?? '';
     $lastName = $_POST['nuevo_apellido'] ?? '';
     $specialty = $_POST['nueva_especialidad'] ?? '';
+    $phone = $_POST['telefono'] ?? '';
+    $birthDate = $_POST['birth_date'] ?? null;
 
     $newPassword = $_POST['nueva_contraseña'] ?? '';
     $confirmPass = $_POST['confirmar_nueva_contraseña'] ?? '';
@@ -162,14 +164,15 @@ public function updateProfile()
         }
     }
 
-    $this->profileModel->updateCoachProfile([
-        'first_name' => $firstName,
-        'last_name' => $lastName,
-        'specialty' => $specialty,
-        'profile_image' => $profileImage,
-        'user_id' => $userId
-    ]);
-
+            $this->profileModel->updateCoachProfile([
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'phone' => $phone,
+                'birth_date' => $birthDate,
+                'specialty' => $specialty,
+                'profile_image' => $profileImage,
+                'user_id' => $userId
+            ]);
     if (!empty(trim($newPassword))) {
 
         if (strlen($newPassword) < 6) {
@@ -196,6 +199,8 @@ public function updateProfile()
     $_SESSION['last_name'] = $lastName;
     $_SESSION['specialty'] = $specialty;
     $_SESSION['profile_image'] = $profileImage;
+    $_SESSION['phone'] = $phone;
+    $_SESSION['birth_date'] = $birthDate;
 
     $baseUrl = rtrim(Env::get('APP_URL'), '/');
     $redirect = $baseUrl . '/?url=coach/dashboard';

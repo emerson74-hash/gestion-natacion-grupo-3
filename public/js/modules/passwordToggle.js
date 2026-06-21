@@ -1,4 +1,3 @@
-/*CODIGO REUTILIZABLE PARA MOSTRAR / OCULTAR PASSWORD */
 export function initPasswordToggles() {
   const init = () => {
     document.querySelectorAll("[data-toggle-password]").forEach(btn => {
@@ -7,33 +6,22 @@ export function initPasswordToggles() {
 
       if (!input) return;
 
+      let icon = btn.querySelector("i");
+
+      if (!icon) {
+        btn.innerHTML = `<i class="bi bi-eye"></i>`;
+        icon = btn.querySelector("i");
+      }
+
       btn.addEventListener("click", () => {
-       /* input.type = input.type === "password" ? "text" : "password";
+        const isHidden = input.type === "password";
+        input.type = isHidden ? "text" : "password";
 
-        const icon = btn.querySelector("i");
-        if (icon) {
-          icon.classList.toggle("bi-eye");
-          icon.classList.toggle("bi-eye-slash");*/
-
-
-           const all = document.querySelectorAll("#password");
-
-  console.log("PASSWORD INPUTS:", all.length);
-  console.log(all);
-
-  const input = all[0];
-
-  console.log("ANTES:", input.type);
-
-  input.type = input.type === "password" ? "text" : "password";
-
-  console.log("DESPUÉS:", input.type);
-
-        }
-      );
-    
-    }
-)}
+        icon.classList.toggle("bi-eye");
+        icon.classList.toggle("bi-eye-slash");
+      });
+    });
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

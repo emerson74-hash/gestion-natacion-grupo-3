@@ -50,8 +50,10 @@ if (!$.fn.DataTable.isDataTable('#swimmers_table')) {
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +65,8 @@ if (!$.fn.DataTable.isDataTable('#swimmers_table')) {
                     <tr>
                         <td>${student.last_name}</td>
                         <td>${student.first_name}</td>
+                        <td>${student.email ?? '-'}</td>
+                        <td>${student.phone ?? '-'}</td>
                     </tr>
                 `;
             });

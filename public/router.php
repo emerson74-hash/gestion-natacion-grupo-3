@@ -41,6 +41,11 @@ switch ($route) {
         require_once __DIR__ . '/../app/controllers/LandingController.php';
         (new LandingController())->sendContact();
         break;
+        case 'profile':
+        require_once __DIR__ . '/../app/controllers/ProfileController.php';
+        $controller = new ProfileController($pdo);
+        $controller->index();
+        break;
     // --- MÓDULO DE USUARIOS Y AUTENTICACIÓN ---
     // Agrupamos rutas relacionadas para evitar repetir el require_once
     case 'login':
@@ -50,6 +55,7 @@ switch ($route) {
     case 'send-reset':
     case 'reset-password':
     case 'update-password':
+    
         require_once __DIR__ . '/../app/controllers/AuthController.php';
         $controller = new AuthController();
 

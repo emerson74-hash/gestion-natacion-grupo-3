@@ -73,7 +73,6 @@
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
 
-
     <style>
         .navbar {
             border-bottom: 2px solid #4FD1E8;

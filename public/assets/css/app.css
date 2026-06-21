@@ -964,3 +964,17 @@ main{
     color: white !important;
     font-size: 3rem;
 }
+.coach-icon i{
+    color: white !important;
+    font-size: 3rem;
+}
+
+/* OCULTAR OJITO NATIVO DEL NAVEGADOR */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none !important;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}

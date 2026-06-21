@@ -281,37 +281,40 @@ class User
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
     public function updateCoach($data)
-    {
-        // UPDATE USERS (Tabla Users)
-        $sqlUser = "UPDATE users
+{
+    // UPDATE USERS
+    $sqlUser = "UPDATE users
                 SET email = ?
                 WHERE id = ?";
 
-        $stmtUser = $this->db->prepare($sqlUser);
+    $stmtUser = $this->db->prepare($sqlUser);
 
-        $stmtUser->execute([
-            $data['email'],
-            $data['id']
-        ]);
+    $stmtUser->execute([
+        $data['email'],
+        $data['id']
+    ]);
 
-        // UPDATE PROFILE (Tabla Profile)
-        $sqlProfile = "UPDATE profiles
+    // UPDATE PROFILE
+    $sqlProfile = "UPDATE profiles
                    SET first_name = ?,
                        last_name = ?,
-                       specialty = ?
+                       specialty = ?,
+                       phone = ?,
+                       birth_date = ?
                    WHERE user_id = ?";
 
-        $stmtProfile = $this->db->prepare($sqlProfile);
+    $stmtProfile = $this->db->prepare($sqlProfile);
 
-        return $stmtProfile->execute([
-            $data['first_name'],
-            $data['last_name'],
-            $data['specialty'],
-            $data['id']
-        ]);
-    }
+    return $stmtProfile->execute([
+        $data['first_name'],
+        $data['last_name'],
+        $data['specialty'],
+        $data['phone'],
+        $data['birth_date'],
+        $data['id']
+    ]);
+}
 
     //Metodo para borrar el coach
     public function deleteCoach($id)

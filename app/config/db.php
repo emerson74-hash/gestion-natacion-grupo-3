@@ -18,15 +18,6 @@ $options = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
-
-/* try {
-     $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-     // En producción, es mejor loguear el error y mostrar un mensaje genérico
-     error_log($e->getMessage());
-     die("Error de conexión a la base de datos.");
-} */
-
      try {
      $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
