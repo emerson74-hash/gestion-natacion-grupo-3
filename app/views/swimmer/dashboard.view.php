@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../users/layout/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <div class="container mt-4">
 
@@ -243,4 +243,4 @@ $(document).ready(function () {
 });
 </script>
 
-<?php include __DIR__ . '/../users/layout/footer.php'; ?>
+<?php include __DIR__ . '/../layouts/footer.php'; ?>

@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../users/layout/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/auth.css">
 
@@ -102,4 +102,4 @@
 
 </div>
 
-<?php include __DIR__ . '/../users/layout/footer.php'; ?>
+<?php include __DIR__ . '/../layouts/footer.php'; ?>

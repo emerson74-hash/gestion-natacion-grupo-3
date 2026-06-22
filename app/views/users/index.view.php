@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../users/layout/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <div class="container mt-4">
     <h2>Listado de Nadadores</h2>

@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../users/layout/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/assets/css/app.css">
 
@@ -154,4 +154,4 @@
 
 </div>
 
-<?php include __DIR__ . '/../users/layout/footer.php'; ?>
+<?php include __DIR__ . '/../layouts/footer.php'; ?>
