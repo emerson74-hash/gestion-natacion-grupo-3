@@ -1,7 +1,5 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<link rel="stylesheet" href="/Gestion-Natacion-Grupo-3/public/assets/css/style.css">
-
 <div class="container">
     <div class="row justify-content-center">
 
@@ -43,10 +41,7 @@
     </div>
 
 </div>
-
-                <hr>
-
-                <div class="row g-4 mt-2">
+                <div class="row g-4 mt-5">
 
                     <div class="col-md-6">
                         <a href="?url=coach/lessons"
@@ -95,9 +90,6 @@
                     </div>
 
                 </div>
-
-                <hr>
-
             </div>
 
         </div>

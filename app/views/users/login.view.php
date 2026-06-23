@@ -2,30 +2,23 @@
 
 <link rel="stylesheet" href="<?= Env::get('ASSET_URL') ?>/assets/css/auth.css">
 
-<style>
-    .navbar{
-        display: none !important;
-    }
-</style>
+<div class="container py-5 mt-5">
 
-<div class="container mt-5">
-
-    
     <div class="row justify-content-center">
 
-        <div class="col-md-6">
+        <div class="col-lg-5 col-md-7">
 
-            <div class="card shadow">
+            <div class="card shadow border-0">
 
-                <div class="card-header text-white">
-                    <h4 class="mb-0 text-center">
+                <div class="card-header text-white text-center">
+                    <h4 class="mb-0">
                         Iniciar Sesión
                     </h4>
                 </div>
 
                 <div class="card-body p-4">
 
-                  <form id="formLogin" novalidate>
+                    <form id="formLogin" novalidate>
 
                         <div class="mb-3">
                             <label class="form-label">
@@ -40,30 +33,34 @@
                         </div>
 
                         <div class="mb-4">
+
                             <label class="form-label">
                                 Contraseña
                             </label>
 
-                             <div class="input-group">
-                             <input
-                             type="password"
-                             name="password"
-                             id="password"
-                             class="form-control"
-                             required>
+                            <div class="input-group">
 
-                             <button
-                             type="button"
-                             class="btn btn-outline-secondary"
-                             id="togglePassword">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    class="form-control"
+                                    required>
 
-                            <i class="bi bi-eye"></i>
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary"
+                                    id="togglePassword">
 
-                             </button>
-                         </div>
-                     </div>
+                                    <i class="bi bi-eye"></i>
 
-                        <div class="text-center">
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="d-grid">
 
                             <button
                                 type="submit"
@@ -78,7 +75,6 @@
                     </form>
 
                 </div>
-
                 <div class="card-footer text-center">
 
                     <p class="mb-2">
@@ -92,8 +88,13 @@
                         Olvidé mi contraseña
                     </a>
 
-                </div>
+                    <div class="mt-3">
+                        <a href="?url=landing" class="btn btn-sm btn-turquesa">
+                            Volver al inicio
+                        </a>
+                    </div>
 
+                </div>
             </div>
 
         </div>

@@ -112,14 +112,6 @@ body{
     padding-bottom: 40px;
 }
 
-/*
-   OCULTAR NAVBAR (LOGIN / REGISTER)
-*/
-.navbar{
-    display: none !important;
-}
-
-
 
 /* ERROR */
 .form-control.is-invalid{
@@ -135,10 +127,23 @@ body{
     font-size: 0.85rem;
 }
 
-/* SUCCESS */
-.form-control.is-valid{
-    border: 2px solid var(--turquesa) !important;
-    box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25) !important;
-    background-image: none !important;
+
+
+/*login boton volver*/
+.btn-turquesa {
+    background-color: var(--turquesa);
+    border: 1px solid var(--turquesa);
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
 }
 
+.btn-turquesa:hover,
+.btn-turquesa:focus,
+.btn-turquesa:active,
+.btn-turquesa:visited {
+    background-color: var(--turquesa-oscuro);
+    border-color: var(--turquesa-oscuro);
+    color: #fff;
+    text-decoration: none;
+}

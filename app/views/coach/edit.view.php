@@ -102,9 +102,15 @@
                                         </div>
                                     </div>
 
+                                <div class="d-flex gap-2">
                                 <button type="submit" class="btn text-light coach-primary">
                                     Guardar cambios
                                 </button>
+
+                                <a href="javascript:history.back()" class="btn text-light coach-primary">
+                                    Cancelar
+                                </a>
+                            </div>
                             </div>
 
                             <div class="col-md-6 text-center">
