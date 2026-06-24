@@ -1133,3 +1133,119 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 .btn-back-panel i{
     margin-right:5px;
 }
+/*perfil de swimmer*/
+.coach-card {
+    border: 2px solid #20c997;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.coach-header {
+    background: linear-gradient(135deg, #20c997, #17b890);
+    color: white;
+    padding: 14px;
+}
+
+.profile-btn {
+    border-radius: 12px;
+    padding: 8px 18px;
+}
+
+
+/* ==================================================
+   EDITAR ENTRENADOR
+================================================== */
+
+.page-coach-edit{
+    padding: 50px 0;
+}
+
+.coach-card{
+    background: #fff;
+    border: 2px solid #9ee8f5;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+.coach-header{
+    background: linear-gradient(90deg,#56cce8,#22b8d6);
+    text-align: center;
+    padding: 35px 20px;
+    margin: 20px;
+}
+
+.coach-header h2{
+    color: #fff;
+    font-size: 2.3rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.coach-header small{
+    color: rgba(255,255,255,.95);
+}
+
+.coach-card .form-label{
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.coach-input{
+    height: 54px;
+    border-radius: 14px;
+    border: 1px solid #d6dce3;
+    font-size: 1rem;
+}
+
+.coach-input:focus{
+    border-color: #28c2df;
+    box-shadow: 0 0 0 .15rem rgba(40,194,223,.15);
+}
+
+.btn-cancel-coach,
+.btn-save-coach{
+    min-width: 220px;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.btn-cancel-coach{
+    background: #59c8e3;
+}
+
+.btn-cancel-coach:hover{
+    background: #46bdd9;
+    color: #fff;
+}
+
+.btn-save-coach{
+    background: linear-gradient(90deg,#58c8e3,#1eb7d4);
+}
+
+.btn-save-coach:hover{
+    color: #fff;
+    opacity: .95;
+}
+
+@media (max-width:768px){
+
+    .coach-header h2{
+        font-size: 1.8rem;
+    }
+
+    .btn-cancel-coach,
+    .btn-save-coach{
+        width: 100%;
+    }
+}

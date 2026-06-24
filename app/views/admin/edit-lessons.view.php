@@ -11,15 +11,15 @@
             <div class="card shadow-sm border-0 p-2 p-md-4">
 
                 <!-- HEADER -->
-                <div class="card-header bg-white border-0 text-center py-4">
+                <div class="card-header text-center create-lesson-header">
 
-                    <h2 class="mb-0">
+                    <h2 class="mb-1">
                         Editar Clase
                     </h2>
 
-                    <small class="text-muted">
+                    <p class="mb-0">
                         Modificá los datos de la clase
-                    </small>
+                    </p>
 
                 </div>
 
@@ -35,12 +35,30 @@
 
                         <div class="row g-4">
 
+                            <!-- Entrenador -->
+                            <div class="col-md-6">
+                                <label class="form-label">Entrenador</label>
+
+                                <select name="profile_id"
+                                        class="form-select form-control-lg admin-control"
+                                        required>
+
+                                    <?php foreach ($coaches as $coach): ?>
+                                        <option value="<?= $coach['profile_id'] ?>"
+                                            <?= $coach['profile_id'] == $lesson['profile_id'] ? 'selected' : '' ?>>
+                                            <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+
+                                </select>
+                            </div>
+
                             <!-- Nivel -->
                             <div class="col-md-6">
                                 <label class="form-label">Nivel</label>
 
                                 <select name="level"
-                                        class="form-select form-control-lg"
+                                        class="form-select form-control-lg admin-control"
                                         required>
 
                                     <option value="Inicial"
@@ -66,34 +84,45 @@
                                 <label class="form-label">Día</label>
 
                                 <select name="day_of_week"
-                                        class="form-select form-control-lg"
+                                        class="form-select form-control-lg admin-control"
                                         required>
-                                <option value="Monday" <?= $lesson['day_of_week']=='Monday'?'selected':'' ?>>Lunes</option>
-                                <option value="Tuesday" <?= $lesson['day_of_week']=='Tuesday'?'selected':'' ?>>Martes</option>
-                                <option value="Wednesday" <?= $lesson['day_of_week']=='Wednesday'?'selected':'' ?>>Miércoles</option>
-                                <option value="Thursday" <?= $lesson['day_of_week']=='Thursday'?'selected':'' ?>>Jueves</option>
-                                <option value="Friday" <?= $lesson['day_of_week']=='Friday'?'selected':'' ?>>Viernes</option>
-                                <option value="Saturday" <?= $lesson['day_of_week']=='Saturday'?'selected':'' ?>>Sábado</option>
+
+                                    <option value="Monday" <?= $lesson['day_of_week']=='Monday'?'selected':'' ?>>
+                                        Lunes
+                                    </option>
+
+                                    <option value="Tuesday" <?= $lesson['day_of_week']=='Tuesday'?'selected':'' ?>>
+                                        Martes
+                                    </option>
+
+                                    <option value="Wednesday" <?= $lesson['day_of_week']=='Wednesday'?'selected':'' ?>>
+                                        Miércoles
+                                    </option>
+
+                                    <option value="Thursday" <?= $lesson['day_of_week']=='Thursday'?'selected':'' ?>>
+                                        Jueves
+                                    </option>
+
+                                    <option value="Friday" <?= $lesson['day_of_week']=='Friday'?'selected':'' ?>>
+                                        Viernes
+                                    </option>
+
+                                    <option value="Saturday" <?= $lesson['day_of_week']=='Saturday'?'selected':'' ?>>
+                                        Sábado
+                                    </option>
 
                                 </select>
                             </div>
 
-                            <!-- Entrenador -->
+                            <!-- Capacidad -->
                             <div class="col-md-6">
-                                <label class="form-label">Entrenador</label>
+                                <label class="form-label">Capacidad</label>
 
-                                <select name="profile_id"
-                                        class="form-select form-control-lg"
-                                        required>
-
-                                    <?php foreach ($coaches as $coach): ?>
-                                        <option value="<?= $coach['profile_id'] ?>"
-                                            <?= $coach['profile_id'] == $lesson['profile_id'] ? 'selected' : '' ?>>
-                                            <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-
-                                </select>
+                                <input type="number"
+                                       name="capacity"
+                                       class="form-control form-control-lg admin-control"
+                                       value="<?= $lesson['capacity'] ?>"
+                                       required>
                             </div>
 
                             <!-- Hora inicio -->
@@ -102,7 +131,7 @@
 
                                 <input type="time"
                                        name="start_time"
-                                       class="form-control form-control-lg"
+                                       class="form-control form-control-lg admin-control"
                                        value="<?= $lesson['start_time'] ?>"
                                        required>
                             </div>
@@ -113,30 +142,27 @@
 
                                 <input type="time"
                                        name="end_time"
-                                       class="form-control form-control-lg"
+                                       class="form-control form-control-lg admin-control"
                                        value="<?= $lesson['end_time'] ?>"
                                        required>
                             </div>
 
-                            <!-- Capacidad -->
-                            <div class="col-md-6">
-                                <label class="form-label">Capacidad</label>
+                            <!-- BOTONES -->
+                            <div class="col-12 text-center mt-4">
 
-                                <input type="number"
-                                       name="capacity"
-                                       class="form-control form-control-lg"
-                                       value="<?= $lesson['capacity'] ?>"
-                                       required>
-                            </div>
+                                <div class="btn-container">
 
-                            <!-- BOTÓN -->
-                            <div class="col-12 text-center mt-3">
+                                    <a href="?url=admin&section=lessons"
+                                       class="btn-secondary-admin admin-btn">
+                                        Cancelar
+                                    </a>
 
-                                <button type="submit"
-                                        class="btn btn-primary-admin px-5 py-3"
-                                        style="border-radius:12px; min-width:260px;">
-                                    Guardar cambios
-                                </button>
+                                    <button type="submit"
+                                            class="btn-primary-admin admin-btn">
+                                        Guardar cambios
+                                    </button>
+
+                                </div>
 
                             </div>
 
