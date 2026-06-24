@@ -16,22 +16,21 @@
     $src = _URL . '/public/img/uploads/profiles/' . htmlspecialchars($img);
 
     ?>
-
-    <img
-        src="<?= $src ?>"
-        alt="Foto perfil"
-        class="rounded-circle border"
-        style="
-            width:65px;
-            height:65px;
-            object-fit:cover;
-        "
-    >
+<img
+    src="<?= $src ?>"
+    alt="Foto perfil"
+    class="rounded-circle"
+    style="
+        width:100px;
+        height:100px;
+        object-fit:cover;
+        border:3px solid #4FD1E8;
+    ">
 
     <div>
 
         <h1 class="mb-1">
-            Bienvenido Entrenador
+            ¡Bienvenido Entrenador!
         </h1>
 
         <p class="text-muted mb-0">

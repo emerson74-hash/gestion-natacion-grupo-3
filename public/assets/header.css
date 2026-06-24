@@ -1,81 +1,51 @@
-/* =========================
-   NAVBAR GENERAL
-========================= */
-
-.navbar {
+.navbar{
+    background: linear-gradient(
+        90deg,
+        #151c24,
+        #1e2732
+    );
     border-bottom: 2px solid #4FD1E8;
-    padding: 6px 0;
+    min-height: 72px;
 }
 
-/* =========================
-   LOGO
-========================= */
+.navbar-brand img{
+    height: 48px;
+}
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.text-swim{
+    color: #fff;
     font-weight: 700;
-    color: white !important;
-    text-decoration: none;
+    font-size: 1.8rem;
+    letter-spacing: .5px;
 }
 
-.navbar-brand img {
-    height: 50px;
-    width: auto;
-    display: block;
-}
-
-/* =========================
-   TEXTO LOGO
-========================= */
-
-.text-swim {
-    color: white;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-/* =========================
-   PERFIL NAV
-========================= */
-
-.profile-img-nav {
-    width: 38px;
-    height: 38px;
-    object-fit: cover;
+.profile-img-nav{
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    border: 2px solid #4FD1E8;
+    object-fit: cover;
+    border: 3px solid #4FD1E8;
 }
 
-/* =========================
-   NAV ALIGNMENT
-========================= */
-
-.navbar-nav {
-    margin-right: 35px;
+.user-greeting{
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
-/*BOTON SALIR DEL HEADER*/
-.btn-logout {
-    background-color: #4FD1E8;
-    border: 1px solid #4FD1E8;
-    color: #000;
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.btn-logout:hover {
-    background-color: #2fbfd6;
-    border-color: #2fbfd6;
-    color: #000;
-}
-.btn-logout {
-    background: linear-gradient(135deg, #4FD1E8, #2fbfd6);
+.btn-logout{
+    background: #4FD1E8;
+    color: #111;
     border: none;
-    color: #000;
+    border-radius: 25px;
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-logout:hover{
+    background: #34c0d9;
+    color: #111;
+    transform: translateY(-1px);
 }

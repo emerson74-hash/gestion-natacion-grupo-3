@@ -1,13 +1,13 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="container mt-4">
+<div class="container">
 
-<div class="bg-white p-4 rounded shadow-sm">
+<div class="bg-white p-5 rounded shadow-sm">
 
     <!-- =========================
          DATOS USUARIO
     ========================== -->
-<div class="d-flex align-items-center gap-3 mb-5">
+<div class="d-flex align-items-center gap-3 mb-4">
 
     <?php
 
@@ -17,21 +17,22 @@
 
     ?>
 
-    <img 
+    <img
         src="<?= $src ?>"
         alt="Foto perfil"
-        class="rounded-circle border"
+        class="rounded-circle"
         style="
-            width:65px;
-            height:65px;
+            width:100px;
+            height:100px;
             object-fit:cover;
+            border:3px solid #4FD1E8;
         "
     >
 
     <div>
 
         <h1 class="mb-1">
-            Bienvenido Nadador
+            ¡Bienvenido Nadador!
         </h1>
 
         <p class="text-muted mb-0">
@@ -43,10 +44,10 @@
 </div>
 
 
-<div class="row justify-content-center g-4 swimmer-actions mb-5">
+<div class="row g-4 mt-0">
 
     <!-- PERFIL -->
-    <div class="col-md-5">
+    <div class="col-md-6">
 
         <a href="<?= _URL ?>/?url=swimmer/profile"
            class="text-decoration-none">
@@ -71,7 +72,7 @@
     </div>
 
     <!-- CLASES -->
-    <div class="col-md-5">
+    <div class="col-md-6">
 
         <a href="<?= _URL ?>/?url=swimmer/lessons"
            class="text-decoration-none">
@@ -208,6 +209,7 @@
 </div>
 
 </div>
+
 <script>
 $(document).ready(function () {
 

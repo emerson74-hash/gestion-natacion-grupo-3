@@ -9,18 +9,10 @@
 
         <div class="card-header py-3 position-relative">
 
-            <a href="<?= _URL ?>/?url=swimmer/dashboard"
-               class="btn btn-light btn-sm position-absolute"
-               style="
-                    left:20px;
-                    top:50%;
-                    transform:translateY(-50%);
-                    border-radius:10px;
-                    font-weight:600;
-               ">
-               <i class="fas fa-arrow-left"></i>
-                Volver al panel
-        
+                <a href="<?= _URL ?>/?url=swimmer/dashboard"
+                class="btn btn-back-panel btn-sm position-absolute">
+                    Volver al panel
+
             </a>
 
             <h2 class="mb-0 text-white fw-bold text-center">

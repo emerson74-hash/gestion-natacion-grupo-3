@@ -61,9 +61,15 @@
                             $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
                             ?>
 
-                            <img src="<?= $rutaFoto ?>"
-                                 class="rounded"
-                                 style="width:150px; height:150px; object-fit:cover;">
+                                <img src="<?= $rutaFoto ?>"
+                                    class="rounded-circle"
+                                    style="
+                                        width:220px;
+                                        height:220px;
+                                        object-fit:cover;
+                                        border:4px solid #4FD1E8;
+                                        box-shadow:0 4px 12px rgba(79,209,232,.35);
+                                    ">
                         </div>
 
                     </div>

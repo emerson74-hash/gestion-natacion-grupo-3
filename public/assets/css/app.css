@@ -15,9 +15,11 @@
 /*GENERAL */
 
 body{
-    
-    background: #ffffff;
-
+    background: linear-gradient(
+        180deg,
+        #f8fbfd,
+        #eef8fb
+    );
 }
 
 .container{
@@ -565,11 +567,8 @@ input[type="date"]{
     gap:25px;
 
     width:100%;
-
-    margin:0 auto 30px;
-
+    margin:-20px auto 30px;
 }
-
 
 /* COLUMNAS */
 
@@ -894,11 +893,20 @@ main{
     color: #fff;
 }
 .coach-card {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.08),
+        0 0 0 3px rgba(79,209,232,.08);
+
     background: #fff;
 }
+.coach-header{
+    border-radius: 24px 24px 0 0;
+}
+
 .dashboard-card-modern{
     background: linear-gradient(
         135deg,
@@ -977,4 +985,151 @@ input[type="password"]::-ms-clear {
 
 input[type="password"]::-webkit-credentials-auto-fill-button {
     display: none !important;
+}
+.coach-panel{
+    border: 2px solid #9BE4F2;
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(79, 209, 232, 0.25);
+    background: #fff;
+}
+#swimmers_table thead th{
+    background: linear-gradient(135deg, #58c7de, #3bbdd8);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+#swimmers_table thead th:first-child{
+    border-top-left-radius: 15px;
+}
+
+#swimmers_table thead th:last-child{
+    border-top-right-radius: 15px;
+}
+/* Botones formulario Crear Clase */
+.admin-btn {
+    width: 220px;
+    height: 50px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+.btn-primary-admin,
+.btn-secondary-admin{
+    border: none !important;
+}
+
+.btn-primary-admin:focus,
+.btn-primary-admin:active,
+.btn-secondary-admin:focus,
+.btn-secondary-admin:active{
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.btn-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    width:100%;
+}
+/*VISTA DEL EDITAR ENTRENADOR DE ADMIN */ 
+
+.admin-control{
+    height:54px;
+    border-radius:12px;
+}
+
+
+.btn-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    gap:20px;
+}
+
+
+.admin-btn{
+    width:220px;
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+    font-weight:600;
+    text-decoration:none;
+}
+
+
+.card-header{
+    background:linear-gradient(
+        135deg,
+        #4fd1e8,
+        #22b8cf
+    ) !important;
+
+    border-radius:16px 16px 0 0;
+}
+
+
+.card-header h2{
+    color:white !important;
+}
+
+
+.card-header small{
+    color:rgba(255,255,255,.9);
+}
+.swimmer-actions > div{
+    flex:1;
+    width:50%;
+}
+
+.dashboard-card-modern{
+    margin:10px;
+}
+/* BOTÓN VOLVER AL PANEL DE INSCRIPCION A CLASES DE SWIMMER */
+
+.btn-back-panel{
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+
+    background:#2c7da0;
+    color:white;
+
+    border:none;
+    border-radius:10px;
+
+    font-weight:600;
+
+    padding:7px 14px;
+
+    transition:.25s ease;
+
+    box-shadow:0 4px 10px rgba(44,125,160,.25);
+}
+
+.btn-back-panel:hover{
+    background:#22b8cf;
+    color:white;
+
+    transform:translateY(-50%) translateY(-2px);
+
+    box-shadow:0 8px 15px rgba(79,209,232,.35);
+}
+
+.btn-back-panel i{
+    margin-right:5px;
 }

@@ -4,17 +4,38 @@
 
 <div class="container py-4">
 
-    <div class="bg-white p-5 rounded shadow-sm">
+    <div class="bg-white p-5 rounded-4 shadow-sm">
 
-        <h1>Bienvenido Administrador</h1>
+<div class="d-flex align-items-center gap-3 mb-5">
 
-        <p class="lead">
-            Gestioná usuarios, profesores y clases del sistema.
+    <div
+        class="rounded-circle d-flex align-items-center justify-content-center"
+        style="
+            width:100px;
+            height:100px;
+            background:linear-gradient(135deg,#4FD1E8,#2CB8D6);
+            border:3px solid #4FD1E8;
+            box-shadow:0 4px 15px rgba(79,209,232,.3);
+        ">
+        <i class="bi bi-shield-lock-fill text-white"
+           style="font-size:3rem;"></i>
+    </div>
+
+    <div>
+
+        <h1 class="mb-1">
+            ¡Bienvenido Administrador!
+        </h1>
+
+        <p class="text-muted mb-0">
+            Gestioná usuarios, entrenadores y clases del sistema.
         </p>
 
-        <hr>
+    </div>
 
-        <div class="row justify-content-center g-4">
+</div>
+
+        <div class="row justify-content-center g-4 mt-4">
 
             <!-- ENTRENADORES -->
 
@@ -67,8 +88,6 @@
             </div>
 
         </div>
-
-        <hr>
 
     </div>
 

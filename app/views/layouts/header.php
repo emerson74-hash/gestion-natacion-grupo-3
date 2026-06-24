@@ -48,14 +48,13 @@
 </head>
 
 <body>
-
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid px-5">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-4">
 
-            <a class="navbar-brand" href="<?= _URL ?>/?url=landing">
+            <a class="navbar-brand d-flex align-items-center" href="<?= _URL ?>/?url=landing">
                 <img src="<?= Env::get('ASSET_URL') ?>/imglogo/logo.png" alt="SWIM LEARN">
-                <span class="text-swim">SWIM LEARN</span>
+                <span class="text-swim ms-2">SWIM LEARN</span>
             </a>
 
             <div class="collapse navbar-collapse">
@@ -68,23 +67,34 @@
                         $rutaFoto = Env::get('ASSET_URL') . "/img/uploads/profiles/" . $foto;
                         ?>
 
-                        <li class="nav-item d-flex align-items-center">
-                            <img src="<?= $rutaFoto ?>" alt="Perfil" class="profile-img-nav me-2">
-                            <span class="nav-link text-info p-0">
-                                Hola <?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>
+                        <li class="nav-item d-flex align-items-center me-3">
+
+                            <img src="<?= $rutaFoto ?>"
+                                 alt="Perfil"
+                                 class="profile-img-nav">
+
+                            <span class="user-greeting ms-2">
+                                Hola, <?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>
                             </span>
+
                         </li>
 
                         <li class="nav-item">
-                            <a class="btn btn-logout ms-3" href="?url=logout">
+                            <a class="btn btn-logout" href="?url=logout">
+                                <i class="bi bi-box-arrow-right me-1"></i>
                                 Salir
                             </a>
                         </li>
+                            <?php else: ?>
 
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="?url=login">Ingresar</a>
-                        </li>
+                        <?php if (!in_array($url, ['login', 'register'])): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="?url=login">
+                                    Ingresar
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                     <?php endif; ?>
 
                 </ul>
@@ -93,5 +103,7 @@
         </div>
     </nav>
 </header>
+
+
 
 <main>

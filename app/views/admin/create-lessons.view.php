@@ -11,53 +11,53 @@
             <div class="card shadow-sm border-0 p-2 p-md-4">
 
                 <!-- HEADER -->
-                <div class="card-header bg-white border-0 text-center py-4">
+                    <div class="card-header text-center create-lesson-header">
 
-                    <h2 class="mb-0">
+                    <h2 class="mb-1">
                         Crear Clase
                     </h2>
 
-                    <small class="text-muted">
+                    <p class="mb-0">
                         Completa los datos de la nueva clase
-                    </small>
+                    </p>
 
                 </div>
+                
 
                 <!-- BODY -->
                 <div class="card-body p-3 p-md-4">
 
-                    <form method="POST"
-                          action="?url=admin&section=store-lesson">
+                    <form method="POST" action="?url=admin&section=store-lesson">
 
-                        <div class="row g-4">
+                <div class="row g-4">
 
-                            <!-- Entrenador -->
-                            <div class="col-md-6">
-                                <label class="form-label">Entrenador</label>
+                <!-- Entrenador -->
+                <div class="col-md-6">
+                    <label class="form-label">Entrenador</label>
 
-                                <select name="profile_id"
-                                        class="form-select form-control-lg"
-                                        required>
+                    <select name="profile_id"
+                            class="form-select form-control-lg admin-control"
+                            required>
 
-                                    <option value="" disabled selected hidden>
-                                        Selecciona un entrenador...
-                                    </option>
+                        <option value="" disabled selected hidden>
+                            Selecciona un entrenador...
+                        </option>
 
-                                    <?php foreach ($coaches as $coach): ?>
-                                        <option value="<?= $coach['profile_id'] ?>">
-                                            <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
+                        <?php foreach ($coaches as $coach): ?>
+                            <option value="<?= $coach['profile_id'] ?>">
+                                <?= $coach['first_name'] . ' ' . $coach['last_name'] ?>
+                            </option>
+                        <?php endforeach; ?>
 
-                                </select>
-                            </div>
+                    </select>
+                </div>
 
                             <!-- Nivel -->
                             <div class="col-md-6">
                                 <label class="form-label">Nivel</label>
 
                                 <select name="level"
-                                        class="form-select form-control-lg"
+                                        class="form-select form-control-lg admin-control"
                                         required>
 
                                     <option value="" disabled selected hidden>
@@ -76,7 +76,7 @@
                                 <label class="form-label">Día</label>
 
                                 <select name="day_of_week"
-                                        class="form-select form-control-lg"
+                                        class="form-select form-control-lg admin-control"
                                         required>
 
                                     <option value="Monday">Lunes</option>
@@ -89,14 +89,25 @@
                                 </select>
                             </div>
 
+                            <!-- Capacidad -->
+                            <div class="col-md-6">
+                                <label class="form-label">Capacidad</label>
+
+                                <input type="number"
+                                    name="capacity"
+                                    class="form-control form-control-lg admin-control"
+                                    value="20"
+                                    required>
+                            </div>
+
                             <!-- Hora inicio -->
                             <div class="col-md-6">
                                 <label class="form-label">Hora inicio</label>
 
                                 <input type="time"
-                                       name="start_time"
-                                       class="form-control form-control-lg"
-                                       required>
+                                    name="start_time"
+                                    class="form-control form-control-lg admin-control"
+                                    required>
                             </div>
 
                             <!-- Hora fin -->
@@ -104,28 +115,24 @@
                                 <label class="form-label">Hora fin</label>
 
                                 <input type="time"
-                                       name="end_time"
-                                       class="form-control form-control-lg"
-                                       required>
+                                    name="end_time"
+                                    class="form-control form-control-lg admin-control"
+                                    required>
                             </div>
 
-                            <!-- Capacidad -->
-                            <div class="col-md-6">
-                                <label class="form-label">Capacidad</label>
 
-                                <input type="number"
-                                       name="capacity"
-                                       class="form-control form-control-lg"
-                                       value="20"
-                                       required>
-                            </div>
+                        <!-- BOTONES -->
+                        <div class="col-12 text-center mt-4">
 
-                            <!-- BOTÓN -->
-                            <div class="col-12 text-center mt-3">
+                            <div class="btn-container">
+
+                                <a href="?url=admin&section=lessons"
+                                class="btn-secondary-admin admin-btn">
+                                    Cancelar
+                                </a>
 
                                 <button type="submit"
-                                        class="btn btn-primary-admin px-5 py-3"
-                                        style="border-radius:12px; min-width:260px;">
+                                        class="btn-primary-admin admin-btn">
                                     Crear Clase
                                 </button>
 
@@ -133,16 +140,5 @@
 
                         </div>
 
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
+             </div>
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
