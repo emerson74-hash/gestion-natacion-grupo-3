@@ -69,7 +69,7 @@
 
     animation: pulseWater 8s infinite ease-in-out;
     pointer-events: none;
-
+}
 /* =========================
    LOGO + MARCA
 ========================= */
@@ -164,4 +164,4 @@
     border-color: #4FD1E8;
     transform: translateY(-1px);
 }
- }
+ 
