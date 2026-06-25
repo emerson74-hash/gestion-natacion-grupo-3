@@ -1,51 +1,167 @@
+/* =========================
+   NAVBAR
+========================= */
 .navbar{
+    /* 🔷 Degradado premium */
+    background: linear-gradient(
+        120deg,
+        rgba(11, 58, 74, 0.95),
+        rgba(15, 39, 64, 0.85),
+        rgba(16, 116, 150, 0.75)
+    );
+
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+  
+    border-bottom: 1px solid rgba(79, 209, 232, 0.18);
+
+
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+
+    transition: all 0.35s ease;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.navbar::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+
     background: linear-gradient(
         90deg,
-        #151c24,
-        #1e2732
+        transparent,
+        rgba(79, 209, 232, 0.08),
+        transparent
     );
-    border-bottom: 2px solid #4FD1E8;
-    min-height: 72px;
+
+    transform: translateX(-100%);
+    animation: shine 6s infinite;
+}
+
+@keyframes shine{
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+}
+
+/*deco*/
+.navbar::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+        circle at 30% 50%,
+        rgba(79, 209, 232, 0.08),
+        transparent 60%
+    );
+
+    animation: pulseWater 8s infinite ease-in-out;
+    pointer-events: none;
+}
+
+/* =========================
+   LOGO + MARCA
+========================= */
+.navbar-brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .navbar-brand img{
-    height: 48px;
+    height: 60px;
 }
 
 .text-swim{
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: .5px;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+    font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
+/* =========================
+   LADO DERECHO
+========================= */
+.navbar-right{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* =========================
+   BLOQUE USUARIO
+========================= */
+.navbar-user{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 6px 12px;
+    border-radius: 30px;
+
+    background: rgba(255,255,255,0.05);
+}
+
+/* =========================
+   AVATAR
+========================= */
 .profile-img-nav{
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
+    width: 66px;
+    height: 66px;
     object-fit: cover;
-    border: 3px solid #4FD1E8;
+    border-radius: 50%;
+    border: 2px solid #4FD1E8;
+
+    transition: .25s ease;
+    cursor: pointer;
 }
 
+.profile-img-nav:hover{
+    transform: scale(1.08);
+    box-shadow: 0 0 18px rgba(79,209,232,.5);
+}
+
+/* =========================
+   TEXTO USUARIO
+========================= */
 .user-greeting{
     color: #ffffff;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     white-space: nowrap;
 }
 
+/* =========================
+   BOTÓN SALIR
+========================= */
 .btn-logout{
-    background: #4FD1E8;
-    color: #111;
-    border: none;
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.25);
+
     border-radius: 25px;
-    padding: 8px 18px;
+    padding: 8px 16px;
+
     font-weight: 600;
-    transition: .2s;
+    transition: .25s ease;
 }
 
 .btn-logout:hover{
-    background: #34c0d9;
-    color: #111;
+    background: #4FD1E8;
+    color: #0f2740;
+    border-color: #4FD1E8;
     transform: translateY(-1px);
 }

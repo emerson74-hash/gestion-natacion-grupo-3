@@ -12,35 +12,23 @@
     --light-2: #f5fbfc;
 }
 
-/*GENERAL */
-
+/*GENERAL  fondoo de la pagina*/
 body{
-    background: linear-gradient(
-        180deg,
-        #f8fbfd,
-        #eef8fb
-    );
-}
+    min-height:100vh;
 
-.container{
-    animation: fadeIn .3s ease;
-}
+    background:
+        linear-gradient(
+            rgba(255,255,255,.20),
+            rgba(255,255,255,.20)
+        ),
+        url('../../imgfondo/fondo.png');
 
-h1{
-    color: var(--dark-1);
-    font-weight: 600;
-    margin-bottom: 10px;
-}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
-h2,
-h3,
-h4{
-    color: var(--dark-1);
-    font-weight: 600;
-}
-
-.text-muted{
-    color:#6c757d !important;
+    overflow-x:hidden;
 }
 
 /*NAVBAR */

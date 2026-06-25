@@ -10,9 +10,21 @@
    FONDO GENERAL
 ========================================================= */
 body{
-    background: #ffffff;
-    min-height: 100vh;
-    
+    min-height:100vh;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.20),
+            rgba(255,255,255,.20)
+        ),
+        url('../../imgfondo/fondo.png');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    overflow-x:hidden;
 }
 
 /* =========================================================
@@ -147,3 +159,4 @@ body{
     color: #fff;
     text-decoration: none;
 }
+
