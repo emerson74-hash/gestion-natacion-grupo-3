@@ -1,6 +1,4 @@
-/* =========================
-   NAVBAR
-========================= */
+/* EFECTO DEGRADE DE COLOR AZUL PETROLEO PARA EL NAVBAR*/
 .navbar{
     /* 🔷 Degradado premium */
     background: linear-gradient(
@@ -10,29 +8,25 @@
         rgba(16, 116, 150, 0.75)
     );
 
-
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 
-  
     border-bottom: 1px solid rgba(79, 209, 232, 0.18);
-
 
     padding: 16px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-
     position: sticky;
     top: 0;
     z-index: 1000;
-
 
     transition: all 0.35s ease;
 
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
+
 .navbar::before{
     content: "";
     position: absolute;
@@ -55,7 +49,7 @@
     100% { transform: translateX(100%); }
 }
 
-/*deco*/
+/* DECO DEL HEADER*/
 .navbar::after{
     content: "";
     position: absolute;
@@ -70,9 +64,8 @@
     animation: pulseWater 8s infinite ease-in-out;
     pointer-events: none;
 }
-/* =========================
-   LOGO + MARCA
-========================= */
+
+/* NAVBAR - LOGO Y SWIM LEARN*/
 .navbar-brand{
     display: flex;
     align-items: center;
@@ -91,18 +84,14 @@
     font-family: "Poppins", "Segoe UI", sans-serif;
 }
 
-/* =========================
-   LADO DERECHO
-========================= */
+/* PONE EL NAVBAR MAS A LA DERECHA*/
 .navbar-right{
     display: flex;
     align-items: center;
     gap: 30px;
 }
 
-/* =========================
-   BLOQUE USUARIO
-========================= */
+/* NAVBAR USUARIO*/
 .navbar-user{
     display: flex;
     align-items: center;
@@ -114,9 +103,7 @@
     background: rgba(255,255,255,0.05);
 }
 
-/* =========================
-   AVATAR
-========================= */
+/* IMAGEN  DE PERFIL*/ 
 .profile-img-nav{
     width: 66px;
     height: 66px;
@@ -133,9 +120,7 @@
     box-shadow: 0 0 18px rgba(79,209,232,.5);
 }
 
-/* =========================
-   TEXTO USUARIO
-========================= */
+/* NAVBAR - TEXTO USUARIO */
 .user-greeting{
     color: #ffffff;
     font-size: 1rem;
@@ -143,9 +128,7 @@
     white-space: nowrap;
 }
 
-/* =========================
-   BOTÓN SALIR
-========================= */
+/*NAVBAR BOTON SALIR */
 .btn-logout{
     background: transparent;
     color: #ffffff;
@@ -164,4 +147,3 @@
     border-color: #4FD1E8;
     transform: translateY(-1px);
 }
- 

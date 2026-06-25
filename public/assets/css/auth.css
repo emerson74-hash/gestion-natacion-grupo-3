@@ -1,14 +1,10 @@
-/* =========================================================
-   VARIABLES
-========================================================= */
+/*VARIABLES*/
 :root{
     --turquesa: #4FD1E8;
     --turquesa-oscuro: #2fbfd6;
 }
 
-/* =========================================================
-   FONDO GENERAL
-========================================================= */
+/*FONDO GENERAL*/
 body{
     min-height:100vh;
 
@@ -27,21 +23,16 @@ body{
     overflow-x:hidden;
 }
 
-/* =========================================================
-   CARD PRINCIPAL
-========================================================= */
+/*CARD PRINCIPAL*/
 .card{
     border: 2px solid var(--turquesa);
     border-radius: 20px;
     overflow: hidden;
     background: white;
     box-shadow: 0 10px 30px rgba(79,209,232,0.15);
-    
 }
 
-/* =========================================================
-   CABECERA
-========================================================= */
+/*CABECERA*/
 .card-header{
     background: var(--turquesa) !important;
     border-bottom: 2px solid var(--turquesa);
@@ -53,17 +44,13 @@ body{
     font-weight: 700;
 }
 
-/* =========================================================
-   LABELS
-========================================================= */
+/*LABELS*/
 .form-label{
     color: var(--turquesa);
     font-weight: 600;
 }
 
-/* =========================================================
-   INPUTS
-========================================================= */
+/*INPUTS*/
 .form-control{
     border: 2px solid var(--turquesa);
     border-radius: 12px;
@@ -71,15 +58,13 @@ body{
     transition: 0.3s;
 }
 
-/* foco */
+/*FOCO INPUT*/
 .form-control:focus{
     border-color: var(--turquesa-oscuro);
     box-shadow: 0 0 0 .25rem rgba(79,209,232,0.25);
 }
 
-/* =========================================================
-   BOTÓN PRINCIPAL
-========================================================= */
+/*BOTON PRINCIPAL*/
 .register-btn{
     background: var(--turquesa);
     border: 2px solid var(--turquesa);
@@ -90,7 +75,7 @@ body{
     transition: 0.3s;
 }
 
-/* hover */
+/*HOVER BOTON*/
 .register-btn:hover{
     background: white;
     color: var(--turquesa);
@@ -99,9 +84,7 @@ body{
     box-shadow: 0 8px 20px rgba(79,209,232,0.25);
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
+/*FOOTER*/
 .card-footer{
     background: #f8ffff;
     border-top: 2px solid var(--turquesa);
@@ -116,32 +99,27 @@ body{
     text-decoration: underline;
 }
 
-/* =========================================================
-   CONTENEDOR
-========================================================= */
+/*CONTENEDOR*/
 .container{
     padding-top: 40px;
     padding-bottom: 40px;
 }
 
-
-/* ERROR */
+/*ERROR*/
 .form-control.is-invalid{
     border: 2px solid #ff5c5c !important;
     box-shadow: 0 0 0 .25rem rgba(255,92,92,0.25) !important;
     background-image: none !important;
 }
 
-/* MENSAJE ERROR */
+/*MENSAJE ERROR*/
 .invalid-feedback{
     color: #ff5c5c !important;
     font-weight: 500;
     font-size: 0.85rem;
 }
 
-
-
-/*login boton volver*/
+/*BOTON VOLVER LOGIN*/
 .btn-turquesa {
     background-color: var(--turquesa);
     border: 1px solid var(--turquesa);
@@ -159,4 +137,241 @@ body{
     color: #fff;
     text-decoration: none;
 }
+/* ==================================================
+   RESPONSIVE GENERAL - REGISTER / FORMULARIO
+================================================== */
 
+/* TABLET */
+@media (max-width: 992px){
+
+    .container{
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .card{
+        margin: 0 10px;
+    }
+
+    .card-header{
+        padding: 18px;
+    }
+
+    .card-header h4{
+        font-size: 1.3rem;
+    }
+
+    .form-control{
+        padding: 10px;
+    }
+
+    .register-btn{
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 576px){
+
+    body{
+        background-attachment: scroll;
+    }
+
+    .container{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .card{
+        border-radius: 14px;
+    }
+
+    .card-header{
+        padding: 15px;
+        text-align: center;
+    }
+
+    .card-header h4{
+        font-size: 1.1rem;
+    }
+
+    .form-label{
+        font-size: 0.9rem;
+    }
+
+    .form-control{
+        font-size: 0.95rem;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .register-btn{
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+
+    .card-footer{
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .btn-turquesa{
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+}
+/* ==================================================
+   RESPONSIVE MEJORADO - FORMULARIO (EXTRA)
+   Ajuste más fino para tablets y móviles
+================================================== */
+
+/* TABLET GRANDE / NOTEBOOK PEQUEÑA */
+@media (max-width: 1024px){
+
+    .card{
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    .container{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .form-label{
+        font-size: 0.95rem;
+    }
+}
+
+/* TABLET */
+@media (max-width: 992px){
+
+    body{
+        background-attachment: scroll;
+    }
+
+    .card{
+        border-radius: 16px;
+    }
+
+    .card-header{
+        padding: 16px;
+    }
+
+    .card-header h4{
+        font-size: 1.25rem;
+    }
+
+    .form-control{
+        font-size: 0.95rem;
+    }
+
+    .register-btn{
+        width: 100%;
+    }
+
+    .btn-turquesa{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* MOBILE GRANDE */
+@media (max-width: 768px){
+
+    .container{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .card{
+        margin: 0 8px;
+    }
+
+    .card-header h4{
+        font-size: 1.15rem;
+    }
+
+    .form-label{
+        font-size: 0.9rem;
+    }
+
+    .form-control{
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .register-btn{
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+}
+
+/* MOBILE PEQUEÑO */
+@media (max-width: 576px){
+
+    .container{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .card{
+        border-radius: 12px;
+        margin: 0 5px;
+    }
+
+    .card-header{
+        padding: 14px;
+        text-align: center;
+    }
+
+    .card-header h4{
+        font-size: 1.05rem;
+    }
+
+    .form-label{
+        font-size: 0.85rem;
+    }
+
+    .form-control{
+        font-size: 0.9rem;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .register-btn{
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 11px;
+    }
+
+    .card-footer{
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+    .btn-turquesa{
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* MOBILE MUY PEQUEÑO */
+@media (max-width: 400px){
+
+    .card-header h4{
+        font-size: 1rem;
+    }
+
+    .form-control{
+        font-size: 0.85rem;
+    }
+
+    .register-btn{
+        font-size: 0.85rem;
+    }
+}

@@ -1,120 +1,105 @@
-/*ADMIN DASHBOARD - SWIM LEARN MODERNO */
-
+/*ADMIN DASHBOARD - SWIM LEARN MODERNO - Variables globales del sistema */
 :root {
+    /* Colores principales del tema */
     --primary: #4fd1e8;
     --primary-dark: #22b8cf;
     --accent: #4fd1e8;
 
+    /* Colores oscuros usados en navbar y fondos */
     --dark-1: #192338;
     --dark-2: #1E2E4F;
 
+    /* Colores claros de fondo */
     --light-1: #ffffff;
     --light-2: #f5fbfc;
 }
 
-/*GENERAL  fondoo de la pagina*/
+/*GENERAL fondoo de la pagina - estilos base del body */
 body{
     min-height:100vh;
-
-    background:
-        linear-gradient(
-            rgba(255,255,255,.20),
-            rgba(255,255,255,.20)
-        ),
-        url('../../imgfondo/fondo.png');
-
+    /* Fondo con imagen + capa blanca translúcida encima */
+    background: linear-gradient(
+        rgba(255,255,255,.20),
+        rgba(255,255,255,.20)
+    ), url('../../imgfondo/fondo.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 
+    /* Evita scroll horizontal */
     overflow-x:hidden;
 }
 
-/*NAVBAR */
-
+/*NAVBAR - barra superior */
 .navbar{
     background-color: var(--dark-1);
     border-bottom: 2px solid var(--primary);
 }
 
-/*CARDS*/
-
+/*CARDS - contenedor de acciones del nadador */
 .swimmer-actions{
     gap:20px;
 }
+
+/*CARD principal del dashboard */
 .app-card{
     position:relative;
     overflow:hidden;
-
     background:#ffffff;
-
     border:2px solid rgba(79,209,232,.45);
-
     border-radius:18px;
-
     min-height:180px;
 
-    box-shadow:
-        0 4px 12px rgba(0,0,0,.05),
-        0 0 0 3px rgba(79,209,232,.08);
+    /* sombra suave */
+    box-shadow: 0 4px 12px rgba(0,0,0,.05), 0 0 0 3px rgba(79,209,232,.08);
 
+    /* animación hover */
     transition:.25s ease;
 }
 
-
+/* Barra superior decorativa de la card */
 .app-card::before{
     content:"";
     position:absolute;
-
     top:0;
     left:0;
-
     width:100%;
     height:5px;
-
     background:#4fd1e8;
-
     border-radius:18px 18px 0 0;
 }
 
-
+/* Efecto hover en cards */
 .app-card:hover{
     transform:translateY(-4px);
-
     border-color:#4fd1e8;
-
-    box-shadow:
-        0 12px 25px rgba(0,0,0,.08),
-        0 0 0 4px rgba(79,209,232,.15);
+    box-shadow: 0 12px 25px rgba(0,0,0,.08), 0 0 0 4px rgba(79,209,232,.15);
 }
 
-
+/* Espaciado del título de card */
 .app-card h4{
     margin-bottom:15px;
 }
 
-
+/* Texto de card */
 .app-card p{
     color:#6c757d;
 }
 
-
-/* SWIMMER */
-
+/* SWIMMER - card de usuario nadador */
 .swimmer-card{
     background:#17a2b8;
     color:white;
 }
 
-
+/* Texto dentro de swimmer card */
 .swimmer-card h5,
 .swimmer-card p{
     color:white;
 }
 
-/*BOTONES */
-
+/*BOTONES base admin */
 .btn-admin{
     border:none;
     padding:10px 24px;
@@ -125,57 +110,50 @@ body{
     transition:.2s;
 }
 
+/* Botón principal (turquesa degradado) */
 .btn-primary-admin{
-    background:linear-gradient(
-        135deg,
-        #4fd1e8,
-        #22b8cf
-    );
-
+    background:linear-gradient(135deg, #4fd1e8, #22b8cf);
     color:white;
     box-shadow:0 4px 10px rgba(79,209,232,.25);
 }
 
+/* Hover botón principal */
 .btn-primary-admin:hover{
-    background:linear-gradient(
-        135deg,
-        #22b8cf,
-        #18a8be
-    );
-
+    background:linear-gradient(135deg, #22b8cf, #18a8be);
     color:white;
 }
 
+/* Botón advertencia */
 .btn-warning-admin{
     background:#2c7da0;
     color:white;
 }
 
+/* Botón peligro */
 .btn-danger-admin{
     background:#546e7a;
     color:white;
 }
 
-
-/*FORMULARIOS */
-
+/*FORMULARIOS - inputs generales */
 .form-control{
     border-radius:10px;
     padding:12px;
 }
 
+/* Focus de inputs */
 .form-control:focus{
     border-color:var(--primary);
     box-shadow:0 0 0 .2rem rgba(79,209,232,.25);
 }
 
+/* Labels de formulario */
 .form-label{
     font-weight:600;
     color:var(--dark-1);
 }
 
-/*TABLAS */
-
+/*TABLAS - estilo general */
 .table{
     background:#ffffff;
     border-radius:15px;
@@ -184,6 +162,7 @@ body{
     margin-bottom:0;
 }
 
+/* Encabezados de tabla */
 .table-modern thead th,
 .table-dark th,
 .table thead th{
@@ -193,44 +172,45 @@ body{
     font-weight:600;
 }
 
+/* Celdas */
 .table td,
 .table th{
     vertical-align:middle;
     padding:12px;
 }
 
-/* Mantener fondo blanco */
-
+/* Fondo fijo blanco en tabla */
 .table tbody,
 .table tbody tr,
 .table tbody td{
     background:#ffffff !important;
 }
 
-/* Hover suave */
-
+/* Hover en filas */
 .table-hover tbody tr:hover,
 .table tbody tr:hover{
     background:#f2fcfe !important;
 }
 
+/* Hover también en celdas */
 .table-hover tbody tr:hover td,
 .table tbody tr:hover td{
     background:#f2fcfe !important;
 }
 
+/* Scroll horizontal en tablas */
 .table-responsive-custom{
     width:100%;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
 }
 
-/*DATATABLES*/
-
+/*DATATABLES - buscador y filtros */
 .dataTables_wrapper{
     padding:5px;
 }
 
+/* Input búsqueda */
 .dataTables_filter input{
     border:1px solid rgba(79,209,232,.45) !important;
     border-radius:10px;
@@ -238,45 +218,39 @@ body{
     outline:none;
 }
 
+/* Focus buscador */
 .dataTables_filter input:focus{
     border-color:#4fd1e8 !important;
     box-shadow:0 0 0 3px rgba(79,209,232,.15);
 }
 
+/* Select de cantidad de filas */
 .dataTables_length select{
     border:1px solid rgba(79,209,232,.45);
     border-radius:10px;
     padding:4px 8px;
 }
 
+/* Botones paginación */
 .dataTables_paginate .paginate_button{
     border-radius:8px !important;
 }
 
-/* Espacio debajo del buscador y selector */
-
+/* Espaciado filtros DataTables */
 .dataTables_length,
 .dataTables_filter{
     margin-bottom:20px;
 }
-/* 
-   GESTIÓN DE ENTRENADORES */
 
+/* GESTIÓN ENTRENADORES - card */
 .card.shadow-sm{
     border:2px solid rgba(79,209,232,.45) !important;
-
     border-radius:18px !important;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,.05),
-        0 0 0 3px rgba(79,209,232,.08) !important;
-
+    box-shadow: 0 4px 12px rgba(0,0,0,.05), 0 0 0 3px rgba(79,209,232,.08) !important;
     overflow:hidden;
 }
 
-/* 
-   ACCIONES */
-
+/* ACCIONES botones en fila */
 .actions{
     display:flex;
     gap:8px;
@@ -284,28 +258,18 @@ body{
     justify-content:center;
 }
 
-/*
-   ANIMACIONES */
-
+/* ANIMACIÓN fade */
 @keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
 }
-/*CLASES DISPONIBLES */
 
+/* GRID clases disponibles */
 #lessons-grid{
     justify-content:center;
 }
 
+/* CARD moderna de clases */
 .lesson-modern-card{
     background:#ffffff;
     border:2px solid rgba(79,209,232,.30) !important;
@@ -316,22 +280,20 @@ body{
     min-height:auto;
 }
 
+/* Hover card clases */
 .lesson-modern-card:hover{
     transform:translateY(-4px);
     border-color:#4fd1e8 !important;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
+/* Header card clases */
 .card-header{
-    background:linear-gradient(
-        135deg,
-        #17A2B8,
-        #2c7da0
-    ) !important;
-
+    background:linear-gradient(135deg, #17A2B8, #2c7da0) !important;
     border:none !important;
 }
 
+/* Badge dentro de card */
 .lesson-card-header .badge{
     background:#2c7da0 !important;
     color:white !important;
@@ -340,12 +302,14 @@ body{
     padding:6px 12px;
 }
 
+/* Título clase */
 .lesson-modern-card .card-title{
     color:#2c7da0;
     font-size:1.5rem;
     font-weight:700;
 }
 
+/* Box info coach */
 .lesson-coach-box{
     background:#f8fbfc;
     border:1px solid rgba(44,125,160,.15);
@@ -353,11 +317,13 @@ body{
     padding:15px;
 }
 
+/* Plazas disponibles */
 .lesson-places{
     color:#546e7a;
     font-weight:600;
 }
 
+/* Botón reserva */
 .booking-btn{
     border-radius:10px;
     font-weight:600;
@@ -365,87 +331,75 @@ body{
     transition:.2s ease;
 }
 
+/* Hover botón reserva */
 .booking-btn:hover{
     transform:translateY(-2px);
 }
 
-/* INSCRIBIRSE */
-
+/* INSCRIPCIÓN */
 .btn-book{
     background:#2c7da0;
     border:none;
     color:white;
 }
-
 .btn-book:hover{
     background:#245f7c;
     color:white;
 }
 
 /* CANCELAR */
-
 .btn-cancel{
     background:#1f4e64;
     border:none;
     color:white;
 }
-
 .btn-cancel:hover{
     background:#2ba0d6;
     color:white;
 }
 
-/* COMPLETA */
-
+/* COMPLETO */
 .btn-full{
     background:#dfe7ea;
     border:none;
     color:#546e7a;
 }
 
-/* CABECERA GENERAL */
-
+/* HEADER GENERAL */
 .card-header{
     background:#4fd1e8 !important;
 }
-
 .card-header h2{
     color:white !important;
 }
 
 /* FILTROS */
-
 #day-filter .btn{
     border-radius:10px;
 }
 
-.filter-btn{
-    border-color:#2c7da0 !important;
-    color:#2c7da0 !important;
-}
-
-.filter-btn.active{
-    background:#2c7da0 !important;
-    border-color:#2c7da0 !important;
-    color:white !important;
-}
+/* Botón filtro */
 .filter-btn{
     border-color:#2c7da0 !important;
     color:#2c7da0 !important;
     background:white !important;
 }
 
+/* Hover filtro */
 .filter-btn:hover{
     background:#e9ecef !important;
     border-color:#546e7a !important;
     color:#546e7a !important;
 }
 
+/* activo filtro */
 .filter-btn.active{
     background:#2c7da0 !important;
     border-color:#2c7da0 !important;
     color:white !important;
 }
+
+/* BOTÓN CANCELAR FINAL */
 .btn-cancel{
     background:#2c7da0;
     border:1px solid #2c7da0;
@@ -453,33 +407,30 @@ body{
     font-weight:600;
 }
 
+/* Hover cancelar */
 .btn-cancel:hover{
     background:#225f7a;
     border-color:#225f7a;
     color:white;
 }
 
+/* Focus cancelar */
 .btn-cancel:focus{
     box-shadow:0 0 0 .2rem rgba(44,125,160,.25);
 }
 
-/* 
-   RESPONSIVE */
-
+/* RESPONSIVE */
 @media(max-width:768px){
 
+    /* Ajustes generales mobile */
     .card{
         padding:20px !important;
     }
 
-    h1{
-        font-size:1.8rem;
-    }
+    h1{ font-size:1.8rem; }
+    h2{ font-size:1.5rem; }
 
-    h2{
-        font-size:1.5rem;
-    }
-
+    /* botones en columna */
     .actions{
         flex-direction:column;
     }
@@ -489,220 +440,121 @@ body{
         text-align:center;
     }
 
-    .table thead{
-        font-size:.9rem;
+    /* tablas más compactas */
+    .table thead{ font-size:.9rem; }
+    .table td{ font-size:.9rem; }
+
+    /* FORMULARIO */
+    .card form{ margin-top:10px; }
+
+    .form-label{
+        color:var(--dark-1);
+        font-weight:600;
+        margin-bottom:6px;
     }
 
-    .table td{
-        font-size:.9rem;
+    .form-control{
+        border:1px solid rgba(79,209,232,.25);
+        background:#fff;
     }
 
-    /* FORMULARIO AGREGAR ENTRENADOR
-*/
+    .form-control:hover{
+        border-color:rgba(79,209,232,.45);
+    }
 
-.card form{
-    margin-top:10px;
+    .form-control:focus{
+        border-color:#4fd1e8;
+        box-shadow:0 0 0 3px rgba(79,209,232,.15);
+    }
+
+    input[type="date"]{
+        cursor:pointer;
+    }
+
+    .is-invalid{
+        border-color:#dc3545 !important;
+    }
+
+    .is-invalid:focus{
+        border-color:#dc3545 !important;
+        box-shadow:0 0 0 .2rem rgba(220,53,69,.25) !important;
+    }
 }
 
-.form-label{
-    color:var(--dark-1);
-    font-weight:600;
-    margin-bottom:6px;
-}
-
-.form-control{
-    border:1px solid rgba(79,209,232,.25);
-    background:#fff;
-}
-
-.form-control:hover{
-    border-color:rgba(79,209,232,.45);
-}
-
-.form-control:focus{
-    border-color:#4fd1e8;
-    box-shadow:0 0 0 3px rgba(79,209,232,.15);
-}
-
-input[type="date"]{
-    cursor:pointer;
-}
-.is-invalid{
-    border-color:#dc3545 !important;
-}
-
-.is-invalid:focus{
-    border-color:#dc3545 !important;
-    box-shadow:0 0 0 .2rem rgba(220,53,69,.25) !important;
-}
-}
-/* 
-   SWIMMER DASHBOARD FINAL TURQUESA */
-
-
-/* CONTENEDOR DE CARDS */
-
+/* SWIMMER DASHBOARD FINAL */
 .swimmer-actions{
-
     display:flex;
-
     flex-direction:row;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:25px;
-
     width:100%;
     margin:-20px auto 30px;
 }
 
-/* COLUMNAS */
-
+/* columnas swimmer */
 .swimmer-actions > div{
-
     flex:1;
-
     width:50%;
-
 }
 
-
-
-/* CARDS */
-
+/* card swimmer */
 .swimmer-card{
-
     width:100%;
-
     height:115px;
-
     display:flex;
-
     align-items:center;
-
-
-    background:linear-gradient(
-        135deg,
-        #4fd1e8,
-        #17a2b8
-    );
-
-
+    background:linear-gradient(135deg, #4fd1e8, #17a2b8);
     color:white;
-
-
     border:none;
-
     border-radius:18px;
-
-
     padding:25px 35px;
-
-
-    box-shadow:
-
-        0 6px 18px rgba(79,209,232,.25);
-
-
+    box-shadow: 0 6px 18px rgba(79,209,232,.25);
     transition:.25s ease;
-
 }
 
-
-
-/* EFECTO HOVER */
-
+/* hover swimmer */
 .swimmer-card:hover{
-
     transform:translateY(-5px);
-
-
-    box-shadow:
-
-        0 12px 25px rgba(79,209,232,.35);
-
+    box-shadow: 0 12px 25px rgba(79,209,232,.35);
 }
 
-
-
-/* TITULO */
-
+/* texto swimmer */
 .swimmer-card h5{
-
     margin:0 0 8px;
-
-
     color:white;
-
-
     font-size:1.2rem;
-
-
     font-weight:700;
-
 }
-
-
-
-/* TEXTO */
 
 .swimmer-card p{
-
     margin:0;
-
-
     color:rgba(255,255,255,.9);
-
-
     font-size:.95rem;
-
 }
 
-
-
-/* LINK */
-
+/* links swimmer */
 .swimmer-actions a{
-
     text-decoration:none;
-
 }
 
-
-
-/* TABLA MISMO ANCHO */
-
+/* tabla swimmer */
 .swimmer-table{
-
     width:100%;
-
 }
 
-
-
-/* MOBILE */
-
+/* MOBILE swimmer */
 @media(max-width:768px){
-
     .swimmer-actions{
-
         flex-direction:column;
-
     }
-
 
     .swimmer-actions > div{
-
         width:100%;
-
     }
-
 }
 
-
-
+/* cropper imagen perfil */
 #crop-preview {
     max-width: 300px;
     max-height: 300px;
@@ -712,14 +564,8 @@ input[type="date"]{
 .cropper-container {
     background: #f8f9fa !important;
 }
-    
 
-        
-
-/* 
-   COACH
- */
-
+/* COACH cards */
 .coach-primary {
     background: linear-gradient(135deg, #4fd1e8, #17a2b8);
     color: white;
@@ -735,8 +581,7 @@ input[type="date"]{
     color: white;
 }
 
-/*  COACH - card header*/
-
+/* COACH HEADER */
 .coach-header {
     background: linear-gradient(135deg, #192338, #2c7da0);
     color: white;
@@ -748,7 +593,7 @@ input[type="date"]{
     margin: 0;
 }
 
-/* NAVBAR - logo y foto perfil */
+/* NAVBAR */
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -761,6 +606,7 @@ input[type="date"]{
     display: block;
 }
 
+/* imagen perfil navbar */
 .profile-img-nav {
     width: 38px;
     height: 38px;
@@ -769,60 +615,59 @@ input[type="date"]{
     border: 2px solid #4FD1E8;
 }
 
+/* dashboard coach card */
 .coach-dashboard-card{
-    background: linear-gradient(
-        135deg,
-        #4FD1E8,
-        #2BB8D2
-    );
-
+    background: linear-gradient(135deg, #4FD1E8, #2BB8D2);
     border: none;
     border-radius: 30px;
-
     min-height: 320px;
-
     box-shadow: 0 8px 20px rgba(79,209,232,.25);
-
     transition: all .3s ease;
-
     overflow: hidden;
 }
 
+/* hover coach dashboard */
 .coach-dashboard-card:hover{
     transform: translateY(-8px);
     box-shadow: 0 15px 30px rgba(79,209,232,.40);
 }
 
-
+/* icono coach */
 .coach-icon{
     width: 110px;
     height: 110px;
     margin: 0 auto;
     border-radius: 50%;
     background: rgba(255,255,255,.25);
-
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
+/* iconos dentro */
 .dashboard-icon i {
     font-size: 3rem;
     color: #fff;
 }
 
+/* títulos coach dashboard */
 .coach-dashboard-card h4{
     color: white !important;
     font-weight: 700;
 }
 
+/* textos coach dashboard */
 .coach-dashboard-card p{
     color: white !important;
     opacity: .95;
 }
+
+/* padding general main */
 main{
     padding-top: 50px;
 }
+
+/* botones secundarios admin */
 .btn-secondary-admin {
     background: #4fd1e8;
     color: #fff;
@@ -833,25 +678,13 @@ main{
     transition: 0.2s;
 }
 
+/* hover botones secundarios */
 .btn-secondary-admin:hover {
     background: #22b8cf;
     color: #fff;
 }
 
-.btn-secondary-admin {
-    background: #4fd1e8;
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.2s;
-}
-
-.btn-secondary-admin:hover {
-    background: #22b8cf;
-    color: #fff;
-}
+/* botón volver coach */
 .btn-coach-back {
     background: #4fd1e8;
     color: #fff;
@@ -862,110 +695,88 @@ main{
     text-decoration: none;
 }
 
+/* hover volver coach */
 .btn-coach-back:hover {
     background: #22b8cf;
     color: #fff;
-}
-.btn-coach-back {
-    background: #4fd1e8;
-    color: #fff;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-weight: 500;
-    transition: 0.2s ease;
-    text-decoration: none;
 }
 
-.btn-coach-back:hover {
-    background: #22b8cf;
-    color: #fff;
-}
+/* card coach general */
 .coach-card {
     border: none;
     border-radius: 24px;
     overflow: hidden;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.08),
-        0 0 0 3px rgba(79,209,232,.08);
-
+    box-shadow: 0 8px 20px rgba(0,0,0,.08), 0 0 0 3px rgba(79,209,232,.08);
     background: #fff;
 }
+
+/* header coach card */
 .coach-header{
     border-radius: 24px 24px 0 0;
 }
 
+/* dashboard card moderno */
 .dashboard-card-modern{
-    background: linear-gradient(
-        135deg,
-        #59d0e7,
-        #27b9dd
-    );
-
+    background: linear-gradient(135deg, #59d0e7, #27b9dd);
     border-radius: 30px;
-
     min-height: 280px;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     text-align:center;
-
     color:white;
-
     transition:.3s;
-
     box-shadow:0 12px 30px rgba(0,0,0,.12);
 }
 
+/* hover dashboard */
 .dashboard-card-modern:hover{
     transform:translateY(-6px);
 }
+
+/* textos dashboard */
 .dashboard-card-modern h3,
 .dashboard-card-modern p {
     color: #fff !important;
 }
+
+/* icono dashboard */
 .dashboard-icon{
     width:110px;
     height:110px;
-
     border-radius:50%;
-
     background:rgba(255,255,255,.18);
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     margin-bottom:20px;
 }
 
+/* icono interno */
 .dashboard-icon i{
     font-size:3rem;
-
 }
 
+/* título dashboard */
 .dashboard-card-modern h3{
     font-weight:700;
     margin-bottom:12px;
 }
 
+/* texto dashboard */
 .dashboard-card-modern p{
     margin:0;
     font-size:1rem;
 }
-.coach-icon i{
-    color: white !important;
-    font-size: 3rem;
-}
+
+/* icono coach */
 .coach-icon i{
     color: white !important;
     font-size: 3rem;
 }
 
-/* OCULTAR OJITO NATIVO DEL NAVEGADOR */
+/* ocultar icono password navegador */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
     display: none !important;
@@ -974,12 +785,16 @@ input[type="password"]::-ms-clear {
 input[type="password"]::-webkit-credentials-auto-fill-button {
     display: none !important;
 }
+
+/* panel coach */
 .coach-panel{
     border: 2px solid #9BE4F2;
     border-radius: 20px;
     box-shadow: 0 0 12px rgba(79, 209, 232, 0.25);
     background: #fff;
 }
+
+/* tabla swimmers */
 #swimmers_table thead th{
     background: linear-gradient(135deg, #58c7de, #3bbdd8);
     color: #fff;
@@ -994,26 +809,27 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 #swimmers_table thead th:last-child{
     border-top-right-radius: 15px;
 }
-/* Botones formulario Crear Clase */
+
+/* botones admin genéricos */
 .admin-btn {
     width: 220px;
     height: 50px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     text-decoration: none;
     border-radius: 10px;
-
     font-size: 16px;
     font-weight: 600;
 }
+
+/* botones sin borde */
 .btn-primary-admin,
 .btn-secondary-admin{
     border: none !important;
 }
 
+/* focus botones */
 .btn-primary-admin:focus,
 .btn-primary-admin:active,
 .btn-secondary-admin:focus,
@@ -1022,6 +838,8 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     outline: none !important;
     box-shadow: none !important;
 }
+
+/* contenedor botones */
 .btn-container{
     display:flex;
     justify-content:center;
@@ -1029,125 +847,94 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     gap:20px;
     width:100%;
 }
-/*VISTA DEL EDITAR ENTRENADOR DE ADMIN */ 
 
+/* inputs admin */
 .admin-control{
     height:54px;
     border-radius:12px;
 }
 
-
-.btn-container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    gap:20px;
-}
-
-
-.admin-btn{
-    width:220px;
-    height:50px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:10px;
-    font-weight:600;
-    text-decoration:none;
-}
-
-
+/* header card general */
 .card-header{
-    background:linear-gradient(
-        135deg,
-        #4fd1e8,
-        #22b8cf
-    ) !important;
-
+    background:linear-gradient(135deg, #4fd1e8, #22b8cf) !important;
     border-radius:16px 16px 0 0;
 }
-
 
 .card-header h2{
     color:white !important;
 }
 
-
 .card-header small{
     color:rgba(255,255,255,.9);
 }
+
+/* swimmer actions duplicado control layout */
 .swimmer-actions > div{
     flex:1;
     width:50%;
 }
 
+/* margen dashboard cards */
 .dashboard-card-modern{
     margin:10px;
 }
-/* BOTÓN VOLVER AL PANEL DE INSCRIPCION A CLASES DE SWIMMER */
 
+/* botón volver panel */
 .btn-back-panel{
     left:20px;
     top:50%;
     transform:translateY(-50%);
-
     background:#2c7da0;
     color:white;
-
     border:none;
     border-radius:10px;
-
     font-weight:600;
-
     padding:7px 14px;
-
     transition:.25s ease;
-
     box-shadow:0 4px 10px rgba(44,125,160,.25);
 }
 
+/* hover volver panel */
 .btn-back-panel:hover{
     background:#22b8cf;
     color:white;
-
     transform:translateY(-50%) translateY(-2px);
-
     box-shadow:0 8px 15px rgba(79,209,232,.35);
 }
 
+/* icono botón volver */
 .btn-back-panel i{
     margin-right:5px;
 }
-/*perfil de swimmer*/
-.coach-card {
+
+/* perfil swimmer */
+.coach-card{
     border: 2px solid #20c997;
     border-radius: 16px;
     overflow: hidden;
 }
 
-.coach-header {
+/* header perfil swimmer */
+.coach-header{
     background: linear-gradient(135deg, #20c997, #17b890);
     color: white;
     padding: 14px;
 }
 
-.profile-btn {
+/* botón perfil */
+.profile-btn{
     border-radius: 12px;
     padding: 8px 18px;
 }
 
+/* ================================================== EDITAR ENTRENADOR ================================================== */
 
-/* ==================================================
-   EDITAR ENTRENADOR
-================================================== */
-
+/* sección editar coach */
 .page-coach-edit{
     padding: 50px 0;
 }
 
+/* card editar coach */
 .coach-card{
     background: #fff;
     border: 2px solid #9ee8f5;
@@ -1156,6 +943,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
 
+/* header editar coach */
 .coach-header{
     background: linear-gradient(90deg,#56cce8,#22b8d6);
     text-align: center;
@@ -1163,6 +951,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     margin: 20px;
 }
 
+/* título editar */
 .coach-header h2{
     color: #fff;
     font-size: 2.3rem;
@@ -1170,16 +959,19 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     margin-bottom: 8px;
 }
 
+/* subtítulo editar */
 .coach-header small{
     color: rgba(255,255,255,.95);
 }
 
+/* label form coach */
 .coach-card .form-label{
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
+/* input coach */
 .coach-input{
     height: 54px;
     border-radius: 14px;
@@ -1187,11 +979,13 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     font-size: 1rem;
 }
 
+/* focus input coach */
 .coach-input:focus{
     border-color: #28c2df;
     box-shadow: 0 0 0 .15rem rgba(40,194,223,.15);
 }
 
+/* botones editar coach */
 .btn-cancel-coach,
 .btn-save-coach{
     min-width: 220px;
@@ -1208,26 +1002,30 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     transition: .3s;
 }
 
+/* cancelar coach */
 .btn-cancel-coach{
     background: #59c8e3;
 }
 
+/* hover cancelar */
 .btn-cancel-coach:hover{
     background: #46bdd9;
     color: #fff;
 }
 
+/* guardar coach */
 .btn-save-coach{
     background: linear-gradient(90deg,#58c8e3,#1eb7d4);
 }
 
+/* hover guardar */
 .btn-save-coach:hover{
     color: #fff;
     opacity: .95;
 }
 
+/* responsive editar coach */
 @media (max-width:768px){
-
     .coach-header h2{
         font-size: 1.8rem;
     }
@@ -1235,5 +1033,105 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     .btn-cancel-coach,
     .btn-save-coach{
         width: 100%;
+    }
+}
+/* ==================================================
+   RESPONSIVE GLOBAL BASE (TABLET + MOBILE)
+   Ajuste general de toda la página
+================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Evita desbordes horizontales en toda la app */
+img, table, div {
+    max-width: 100%;
+}
+
+/* Contenedores más fluidos */
+.container, .container-fluid {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* TIPOGRAFÍA RESPONSIVE GENERAL */
+h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+h2 { font-size: clamp(1.3rem, 3vw, 2rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.6rem); }
+p  { font-size: clamp(0.95rem, 2vw, 1.1rem); }
+
+/* BOTONES MÁS ADAPTABLES */
+.btn-admin,
+.btn-primary-admin,
+.btn-secondary-admin {
+    width: auto;
+    max-width: 100%;
+}
+
+/* TABLAS RESPONSIVE BASE */
+.table-responsive-custom {
+    overflow-x: auto;
+}
+
+/* ==================================================
+   BREAKPOINT GENERAL TABLET
+================================================== */
+@media (max-width: 992px) {
+
+    .swimmer-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .swimmer-actions > div {
+        width: 100%;
+    }
+
+    .navbar-brand {
+        gap: 6px;
+    }
+
+    .coach-dashboard-card {
+        min-height: auto;
+    }
+}
+
+/* ==================================================
+   BREAKPOINT GENERAL MOBILE
+================================================== */
+@media (max-width: 576px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 15px !important;
+    }
+
+    .btn-admin,
+    .admin-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .navbar-brand img {
+        height: 40px;
+    }
+
+    .profile-img-nav {
+        width: 32px;
+        height: 32px;
     }
 }

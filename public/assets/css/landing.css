@@ -1,6 +1,4 @@
-/* =========================================================
-   RESET
-========================================================= */
+/* RESET QUE ELIMINA DETALLES POR DEFECTO, EMPIEZA TODO DE CERO */
 
 * {
     margin: 0;
@@ -15,9 +13,7 @@ body {
     color: #fff;
 }
 
-/* =========================================================
-   HERO
-========================================================= */
+/*HERO DE LA SECCION PRINCIPAL */
 
 .hero {
     min-height: 100vh;
@@ -48,10 +44,7 @@ body {
     gap: 10px;
 }
 
-/* =========================================================
-   TITULO HERO (MÁS GRANDE Y BALANCEADO)
-========================================================= */
-
+/* TITULO HERO */
 .hero-title-wrapper {
     display: flex;
     align-items: center;
@@ -70,14 +63,14 @@ body {
     margin: 0;
 }
 
-/* LOGO */
+/* LOGO HERO */
 .hero-logo {
     width: 95px !important;
     height: auto !important;
     flex-shrink: 0;
 }
 
-/* SUBTITULO */
+/* SUBTITULO HERO */
 .hero-subtitle {
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     font-weight: 600;
@@ -86,7 +79,8 @@ body {
     margin-top: 10px;
 }
 
-/* LINEAS DECORATIVAS */
+/* DECORACION HERO */
+
 .hero-top-line,
 .hero-bottom-line {
     width: 200px;
@@ -103,7 +97,7 @@ body {
     margin-top: 25px;
 }
 
-/* BOTON HERO */
+/* BOTÓN HERO */
 .hero-button {
     display: inline-block;
     margin-top: 30px;
@@ -127,9 +121,7 @@ body {
     transform: translateY(-3px);
 }
 
-/* =========================================================
-   NAVBAR
-========================================================= */
+/*NAVBAR - LANDING*/
 
 .custom-navbar {
     padding-top: 20px;
@@ -177,9 +169,7 @@ body {
     border-color: #49D9FF;
 }
 
-/* =========================================================
-   SECCIONES
-========================================================= */
+/* SECCIONES GENERALES*/
 
 .info-section,
 .about-section,
@@ -195,9 +185,7 @@ body {
     font-weight: 700;
 }
 
-/* =========================================================
-   CARDS
-========================================================= */
+/*INFORMACIÓN DE LAS CARDS*/
 
 .info-cards {
     display: flex;
@@ -225,9 +213,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* =========================================================
-   ABOUT
-========================================================= */
+/* QUIENES SOMOS*/
 
 .about-section {
     background: linear-gradient(135deg, #0A3A52, #125D79);
@@ -240,9 +226,7 @@ body {
     line-height: 2;
 }
 
-/* =========================================================
-   CONTACTO
-========================================================= */
+/*CONTACTO - FORMULARIO */
 
 .contact-container {
     display: grid;
@@ -265,7 +249,7 @@ body {
     line-height: 1.7;
 }
 
-/* FORM */
+/* FORM CONTACTO */
 .contact-form {
     background: rgba(255, 255, 255, 0.05);
     padding: 30px;
@@ -302,15 +286,15 @@ body {
     cursor: pointer;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+/* RESPONSIVE - TABLET*/
 
 @media (max-width: 992px) {
     .hero-content {
         padding: 0 15px;
     }
 }
+
+/* RESPONSIVE - CELULAR */
 
 @media (max-width: 768px) {
 
@@ -341,6 +325,8 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* FOOTER - ICONOS */
 footer i{
     color: white;
 }
