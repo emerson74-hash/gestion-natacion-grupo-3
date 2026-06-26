@@ -1,10 +1,4 @@
 <?php
-// app/config/db.php
-
-/**
- * Usamos getenv para mayor seguridad y flexibilidad.
- * Si no encuentra la variable de entorno, usamos un valor por defecto (fallback).
- */
 
 $host    = getenv('DB_HOST')    ?: 'localhost';
 $db      = getenv('DB_NAME')    ?: ''; 

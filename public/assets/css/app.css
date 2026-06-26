@@ -927,7 +927,7 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     padding: 8px 18px;
 }
 
-/* ================================================== EDITAR ENTRENADOR ================================================== */
+/*EDITAR ENTRENADOR */
 
 /* sección editar coach */
 .page-coach-edit{
@@ -1035,10 +1035,8 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
         width: 100%;
     }
 }
-/* ==================================================
-   RESPONSIVE GLOBAL BASE (TABLET + MOBILE)
-   Ajuste general de toda la página
-================================================== */
+/* RESPONSIVE GLOBAL BASE (TABLET + MOBILE)
+   Ajuste general de toda la página*/
 
 * {
     box-sizing: border-box;
