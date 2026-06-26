@@ -127,9 +127,10 @@ class MailService
         return false;
     }
 }
-
+//ENVIA MAIL DE CONSULTAS EN LA LANDING
 public function sendContactMessage($nombre, $email, $motivo, $mensaje)
 {
+    
     $mail = new PHPMailer(true);
 
     try {

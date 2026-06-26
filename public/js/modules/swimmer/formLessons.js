@@ -1,6 +1,6 @@
 import { handleAlert } from "../../services/ui.js";
+
 export function initSwimmerLessons() {
-    
 
     const grid = document.getElementById('lessons-grid');
     if (!grid) return;
@@ -50,17 +50,14 @@ export function initSwimmerLessons() {
             const res  = await fetch(urls[action], { method: 'POST', body });
             const data = await res.json();
 
-                        Swal.fire({
-                icon: data.status === 'success' ? 'success' : (data.status === 'warning' ? 'warning' : 'error'),
-                text: data.message,
-                background: '#f0f0f0',
-                color: '#444',
-                confirmButtonColor: '#2c7da0',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                if (data.status === 'success') location.reload();
-            });
+            // 🔥 reemplazo único
+            handleAlert(data.status, data.message);
+
+            if (data.status === 'success') {
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
 
             if (data.status !== 'success') {
                 btn.disabled    = false;
@@ -68,16 +65,10 @@ export function initSwimmerLessons() {
             }
 
         } catch {
-            Swal.fire({
-    icon: 'error',
-    text: 'Error de conexión. Intentá de nuevo.',
-    background: '#f0f0f0',
-    color: '#444',
-    confirmButtonColor: '#2c7da0'
-});
+            handleAlert("error", "Error de conexión. Intentá de nuevo.");
+
             btn.disabled    = false;
             btn.textContent = original;
         }
     });
-  
 }

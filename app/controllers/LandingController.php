@@ -19,6 +19,7 @@ public function index()
     require_once __DIR__ . '/../views/landing.view.php';
 }
 
+
     public function sendContact()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
