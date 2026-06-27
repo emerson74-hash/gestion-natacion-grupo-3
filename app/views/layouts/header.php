@@ -42,6 +42,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script>
+$.extend(true, $.fn.dataTable.defaults, {
+    language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+    }
+});
+</script>
 
 </head>
 

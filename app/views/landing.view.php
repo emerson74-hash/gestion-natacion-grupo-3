@@ -23,6 +23,35 @@
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <!-- Estilos del toast de contacto -->
+    <style>
+    #slToast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #2ecc71;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 8px;
+        font-family: sans-serif;
+        font-size: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        max-width: 320px;
+    }
+    #slToast.sl-show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    #slToast.sl-error {
+        background: #e74c3c;
+    }
+    </style>
+
 </head>
 
 <body>
@@ -379,8 +408,76 @@ if (isset($_SESSION['role_id'])) {
 
 </section>
 
+<!-- Toast para feedback del formulario de contacto -->
+<div id="slToast"></div>
+
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Lógica del formulario de contacto -->
+<script>
+(function () {
+    const toast = document.getElementById('slToast');
+
+    function showToast(text, isError) {
+        toast.textContent = text;
+        toast.className = isError ? 'sl-error' : '';
+        requestAnimationFrame(() => toast.classList.add('sl-show'));
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            toast.classList.remove('sl-show');
+        }, 4000);
+    }
+
+    const form = document.querySelector('#contacto form');
+    if (!form) {
+        console.warn('No se encontró el formulario de contacto');
+        return;
+    }
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn ? btn.textContent : '';
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+        }
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            let ok = response.ok;
+            let message = '¡Mensaje enviado!';
+
+            try {
+                const data = await response.json();
+                if (typeof data.success !== 'undefined') ok = data.success;
+                if (data.message) message = data.message;
+            } catch (_) {
+                message = ok ? '¡Mensaje enviado!' : 'Ocurrió un error al enviar.';
+            }
+
+            showToast(message, !ok);
+            if (ok) form.reset();
+
+        } catch (err) {
+            console.error('Error al enviar el formulario:', err);
+            showToast('No se pudo enviar. Probá de nuevo.', true);
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+    });
+})();
+</script>
 
 </body>
 </html>

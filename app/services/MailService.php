@@ -61,7 +61,7 @@ class MailService
             </div>";
 
             //quitar debug en producción
-            $mail->SMTPDebug = 2;
+            $mail->SMTPDebug = 0;
 
             return $mail->send();
 
@@ -129,11 +129,9 @@ class MailService
 //ENVIA MAIL DE CONSULTAS EN LA LANDING
 public function sendContactMessage($nombre, $email, $motivo, $mensaje)
 {
-    
     $mail = new PHPMailer(true);
 
     try {
-
         $mail->isSMTP();
         $mail->Host       = Env::get('MAIL_HOST');
         $mail->SMTPAuth   = true;
@@ -143,27 +141,19 @@ public function sendContactMessage($nombre, $email, $motivo, $mensaje)
         $mail->Port       = Env::get('MAIL_PORT');
 
         $mail->setFrom(Env::get('MAIL_FROM'), 'Formulario Web Swim Learn');
-
-        // Mail que recibe las consultas (configurado en .env → CONTACT_EMAIL)
         $mail->addAddress(Env::get('CONTACT_EMAIL'));
-
-        // Para responder directamente al usuario
         $mail->addReplyTo($email, $nombre);
 
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-
         $mail->Subject = 'Nueva consulta desde la landing';
 
         $mail->Body = "
             <h2>Nueva consulta recibida</h2>
-
             <p><strong>Nombre:</strong> {$nombre}</p>
             <p><strong>Email:</strong> {$email}</p>
             <p><strong>Motivo:</strong> {$motivo}</p>
-
             <hr>
-
             <p><strong>Mensaje:</strong></p>
             <p>{$mensaje}</p>
         ";
@@ -171,9 +161,7 @@ public function sendContactMessage($nombre, $email, $motivo, $mensaje)
         return $mail->send();
 
     } catch (Exception $e) {
-
-        error_log($mail->ErrorInfo);
-
+        error_log("MAIL CONTACT ERROR: " . $mail->ErrorInfo);
         return false;
     }
 }

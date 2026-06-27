@@ -20,34 +20,34 @@ public function index()
 }
 
 
-    public function sendContact()
-    {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: ?url=landing');
-            exit;
-        }
-
-        $nombre = trim($_POST['nombre'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $motivo = trim($_POST['motivo'] ?? '');
-        $mensaje = trim($_POST['mensaje'] ?? '');
-
-        $mailService = new MailService();
-
-        $ok = $mailService->sendContactMessage(
-            $nombre,
-            $email,
-            $motivo,
-            $mensaje
-        );
-
-        if ($ok) {
-            $_SESSION['success'] = 'Tu consulta fue enviada correctamente.';
-        } else {
-            $_SESSION['error'] = 'No se pudo enviar la consulta.';
-        }
-
-        header('Location: ?url=landing#contacto');
+public function sendContact()
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
         exit;
     }
+
+    $nombre  = trim($_POST['nombre']  ?? '');
+    $email   = trim($_POST['email']   ?? '');
+    $motivo  = trim($_POST['motivo']  ?? '');
+    $mensaje = trim($_POST['mensaje'] ?? '');
+
+    if (empty($nombre) || empty($email) || empty($mensaje)) {
+        echo json_encode(['success' => false, 'message' => 'Completá todos los campos.']);
+        exit;
+    }
+
+    $mailService = new MailService();
+$ok = $mailService->sendContactMessage($nombre, $email, $motivo, $mensaje);
+
+header('Content-Type: application/json');
+
+if ($ok) {
+    echo json_encode(['success' => true, 'message' => '¡Gracias! Nos ponemos en contacto pronto.']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'No se pudo enviar la consulta. Intentá más tarde.']);
+}
+exit;
+}
 }

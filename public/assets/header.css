@@ -1,6 +1,6 @@
 /* EFECTO DEGRADE DE COLOR AZUL PETROLEO PARA EL NAVBAR*/
 .navbar{
-    /* 🔷 Degradado premium */
+    
     background: linear-gradient(
         120deg,
         rgba(11, 58, 74, 0.95),
