@@ -39,19 +39,19 @@ class CoachController extends BaseController
         $this->render('coach/dashboard.view', $data);
     }
 
-    public function profile()
-    {
-        // Verificamos si el usuario está logueado antes de mostrar el panel
-        $this->checkAuth();
-        $this->checkRole([2]);
+   public function profile()
+{
+    $this->checkAuth();
+    $this->checkRole([2]);
 
-        $data = [
-            'title' => "Dashboard - Swimming School",
-            'user' => $_SESSION['email'] ?? 'Guest'
-        ];
+    $profile = $this->profileModel->findByUserId((int)$_SESSION['user_id']);
 
-        $this->render('coach/profile.view', $data);
-    }
+    $this->render('coach/profile.view', [
+        'title'   => 'Mi Perfil',
+        'profile' => $profile,
+    ]);
+}
+
 
     public function lessons()
     {
@@ -62,7 +62,20 @@ class CoachController extends BaseController
 
         $lessonModel = new Lesson($pdo);
 
-        $lessons = $lessonModel->getAll();
+        // Tomamos profile_id de sesión (login nuevo) o lo buscamos en DB como fallback
+        $coachProfileId = $_SESSION['profile_id'] ?? null;
+
+        if (!$coachProfileId) {
+            $profile = $this->profileModel->findByUserId((int)$_SESSION['user_id']);
+            if ($profile) {
+                $coachProfileId = $profile['id'];
+                $_SESSION['profile_id'] = $coachProfileId;
+            }
+        }
+
+        $lessons = $coachProfileId
+            ? $lessonModel->getByCoach((int)$coachProfileId)
+            : [];
 
         $students = [];
         $selectedLessonId = $_GET['id'] ?? null;
@@ -79,18 +92,17 @@ class CoachController extends BaseController
     }
 
     public function edit()
-    {
-        $this->checkAuth();
-        $this->checkRole([2]);
+{
+    $this->checkAuth();
+    $this->checkRole([2]);
 
-        $data = [
-            'title' => "Dashboard - Swimming School",
-            'user' => $_SESSION['email'] ?? 'Guest'
-        ];
+    $coach = $this->profileModel->findByUserId((int)$_SESSION['user_id']);
 
-        $this->render('coach/edit.view', $data);
-    }
-
+    $this->render('coach/edit.view', [
+        'title' => 'Editar Perfil',
+        'coach' => $coach,
+    ]);
+}
     public function updateProfile()
     {
         $this->checkAuth();

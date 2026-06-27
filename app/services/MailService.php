@@ -61,13 +61,12 @@ class MailService
             </div>";
 
             //quitar debug en producción
-            $mail->SMTPDebug = 0;
+            $mail->SMTPDebug = 2;
 
             return $mail->send();
 
         } catch (Exception $e) {
-            error_log("MAIL ERROR: " . $mail->ErrorInfo);
-            return false;
+            die($mail->ErrorInfo);
         }
     }
 
@@ -145,8 +144,8 @@ public function sendContactMessage($nombre, $email, $motivo, $mensaje)
 
         $mail->setFrom(Env::get('MAIL_FROM'), 'Formulario Web Swim Learn');
 
-        // Mail que recibe las consultas
-        $mail->addAddress('luraising@outlook.com');
+        // Mail que recibe las consultas (configurado en .env → CONTACT_EMAIL)
+        $mail->addAddress(Env::get('CONTACT_EMAIL'));
 
         // Para responder directamente al usuario
         $mail->addReplyTo($email, $nombre);

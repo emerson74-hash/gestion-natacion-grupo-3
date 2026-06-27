@@ -86,33 +86,15 @@
                                 <select name="day_of_week"
                                         class="form-select form-control-lg admin-control"
                                         required>
-
-                                    <option value="Monday" <?= $lesson['day_of_week']=='Monday'?'selected':'' ?>>
-                                        Lunes
-                                    </option>
-
-                                    <option value="Tuesday" <?= $lesson['day_of_week']=='Tuesday'?'selected':'' ?>>
-                                        Martes
-                                    </option>
-
-                                    <option value="Wednesday" <?= $lesson['day_of_week']=='Wednesday'?'selected':'' ?>>
-                                        Miércoles
-                                    </option>
-
-                                    <option value="Thursday" <?= $lesson['day_of_week']=='Thursday'?'selected':'' ?>>
-                                        Jueves
-                                    </option>
-
-                                    <option value="Friday" <?= $lesson['day_of_week']=='Friday'?'selected':'' ?>>
-                                        Viernes
-                                    </option>
-
-                                    <option value="Saturday" <?= $lesson['day_of_week']=='Saturday'?'selected':'' ?>>
-                                        Sábado
-                                    </option>
-
+                                        <option value="1" <?= $lesson['day_of_week']==1?'selected':'' ?>>Lunes</option>
+                                        <option value="2" <?= $lesson['day_of_week']==2?'selected':'' ?>>Martes</option>
+                                        <option value="3" <?= $lesson['day_of_week']==3?'selected':'' ?>>Miércoles</option>
+                                        <option value="4" <?= $lesson['day_of_week']==4?'selected':'' ?>>Jueves</option>
+                                        <option value="5" <?= $lesson['day_of_week']==5?'selected':'' ?>>Viernes</option>
+                                        <option value="6" <?= $lesson['day_of_week']==6?'selected':'' ?>>Sábado</option>
+                            
                                 </select>
-                            </div>
+                                </div>
 
                             <!-- Capacidad -->
                             <div class="col-md-6">

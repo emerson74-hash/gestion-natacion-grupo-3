@@ -78,14 +78,12 @@
                                 <select name="day_of_week"
                                         class="form-select form-control-lg admin-control"
                                         required>
-
-                                    <option value="Monday">Lunes</option>
-                                    <option value="Tuesday">Martes</option>
-                                    <option value="Wednesday">Miércoles</option>
-                                    <option value="Thursday">Jueves</option>
-                                    <option value="Friday">Viernes</option>
-                                    <option value="Saturday">Sábado</option>
-
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
                                 </select>
                             </div>
 
@@ -140,5 +138,12 @@
 
                         </div>
 
-             </div>
+             </div><!-- /row g-4 -->
+                    </form><!-- /form -->
+                </div><!-- /card-body -->
+            </div><!-- /card -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+</div><!-- /container -->
+
 <?php include __DIR__ . '/../layouts/footer.php'; ?>

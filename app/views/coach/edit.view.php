@@ -17,12 +17,11 @@
                                 <div class="mb-3">
                                     <label for="nuevo_nombre" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nuevo_nombre" name="nuevo_nombre"
-                                           value="<?= htmlspecialchars($_SESSION['first_name'] ?? '-') ?>">
-                                </div>
+                                        value="<?= htmlspecialchars($_SESSION['first_name'] ?? '-') ?>"                                </div>
                                 <div class="mb-3">
                                     <label for="nuevo_apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="nuevo_apellido" name="nuevo_apellido"
-                                           value="<?= htmlspecialchars($_SESSION['last_name'] ?? '-') ?>">
+                                        value="<?= htmlspecialchars($coach['last_name'] ?? '') ?>"
                                 </div>
                                 <div class="mb-3">
                                     <label for="telefono" class="form-label">Teléfono</label>

@@ -192,12 +192,13 @@ class AuthController extends BaseController
 
         if ($user) {
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role_id'] = $user['role_id'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['specialty'] = $user['specialty'];
-            $_SESSION['first_name'] = $user['first_name'];
-            $_SESSION['last_name'] = $user['last_name'];
+            $_SESSION['user_id']       = $user['id'];
+            $_SESSION['profile_id']    = $user['profile_id'];
+            $_SESSION['role_id']       = $user['role_id'];
+            $_SESSION['email']         = $user['email'];
+            $_SESSION['specialty']     = $user['specialty'];
+            $_SESSION['first_name']    = $user['first_name'];
+            $_SESSION['last_name']     = $user['last_name'];
             $_SESSION['profile_image'] = $user['profile_image'];
 
             switch ($user['role_id']) {
@@ -221,10 +222,105 @@ class AuthController extends BaseController
         return $this->json('error', 'Credenciales incorrectas.');
     }
 
-    public function sendReset() { /* sin cambios */ }
-    public function showResetForm() { /* sin cambios */ }
-    public function updatePassword() { /* sin cambios */ }
+   /**
+ * Envía el correo de recuperación de contraseña.
+ */
+public function sendReset()
+{
+    $email = $_POST['email'] ?? '';
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return $this->json('error', 'Email inválido.');
+    }
+
+    $user = $this->userModel->findByEmail($email);
+
+    if ($user) {
+
+        $token = bin2hex(random_bytes(32));
+        $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+        $this->userModel->savePasswordToken($email, $token, $expires);
+
+        require_once __DIR__ . '/../services/MailService.php';
+        $mailService = new MailService();
+
+        $enviado = $mailService->sendEmailResetPassword($email, $token);
+
+        if (!$enviado) {
+            return $this->json('error', 'No se pudo enviar el correo. Revisá SMTP.');
+        }
+    }
+
+    return $this->json(
+        'success',
+        'Si el correo existe, recibirás un enlace de recuperación.',
+        Env::get('APP_URL') . '/?url=login'
+    );
+}
+
+/**
+ * Muestra el formulario para ingresar la nueva contraseña.
+ */
+public function showResetForm()
+{
+    $token = $_GET['token'] ?? '';
+
+    if (empty($token)) {
+        die('Error: El token de recuperación ha expirado o es inválido.');
+    }
+
+    $this->render('users/reset-password.view', [
+        'title' => 'Restablecer Contraseña',
+        'token' => $token
+    ]);
+}
+
+/**
+ * Procesa el cambio de contraseña con el token de recuperación.
+ */
+public function updatePassword()
+{
+    $token = $_POST['token'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if (empty($token) || strlen($password) < 6) {
+        return $this->json('warning', 'La contraseña debe tener al menos 6 caracteres.');
+    }
+
+    // Verificamos que el token exista y no haya expirado
+    $resetRequest = $this->userModel->validateToken($token);
+
+    if ($resetRequest) {
+        $email = $resetRequest['email'];
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        try {
+            $this->pdo->beginTransaction();
+
+            // Actualizamos la contraseña y eliminamos el token usado
+            $this->userModel->updatePasswordByEmail($email, $hashedPassword);
+            $this->userModel->deleteToken($token);
+
+            $this->pdo->commit();
+
+            return $this->json(
+                'success',
+                '¡Contraseña actualizada con éxito!',
+                Env::get('APP_URL') . '?url=login'
+            );
+
+        } catch (Exception $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollBack();
+            }
+
+            return $this->json('error', 'No se pudo actualizar la contraseña.');
+        }
+    }
+
+    return $this->json('error', 'El enlace es inválido o ha expirado.');
+}
     private function hasEmptyFields($f)
     {
         return empty($f['first_name']) ||

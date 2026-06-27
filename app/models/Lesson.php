@@ -24,33 +24,44 @@ class Lesson
      *  estado de inscripción del alumno actual
      * @return array
      */
-    public function getAvailableForSwimmer(int $swimmerProfileId): array
-    {
-        $sql = "SELECT
-                    l.id,
-                    l.level,
-                    l.day_of_week,
-                    l.start_time,
-                    l.end_time,
-                    l.capacity,
-                    CONCAT(coach.first_name, ' ', coach.last_name) AS coach_name,
-                    coach.specialty                                AS coach_specialty,
-                    COUNT(b.id)                                    AS booked_count,
-                    MAX(CASE WHEN b.profile_id = ? AND b.status = 'Confirmed' THEN 1 ELSE 0 END) AS is_booked
-                FROM lessons l
-                INNER JOIN profiles coach ON l.profile_id = coach.id
-                LEFT  JOIN bookings b ON l.id = b.lesson_id AND b.status = 'Confirmed'
-                GROUP BY l.id
-                ORDER BY
-                    FIELD(l.day_of_week,
-                        'Monday','Tuesday','Wednesday',
-                        'Thursday','Friday','Saturday'),
-                    l.start_time";
+public function getAvailableForSwimmer(int $swimmerProfileId): array
+{
+    $sql = "SELECT
+                l.id,
+                l.level,
+                l.day_of_week,
+                l.start_time,
+                l.end_time,
+                l.capacity,
+                CONCAT(coach.first_name, ' ', coach.last_name) AS coach_name,
+                coach.specialty AS coach_specialty,
+                COUNT(b.id) AS booked_count,
+                MAX(CASE WHEN b.profile_id = ? AND b.status = 'Confirmed' THEN 1 ELSE 0 END) AS is_booked
+            FROM lessons l
+            INNER JOIN profiles coach ON l.profile_id = coach.id
+            LEFT JOIN bookings b ON l.id = b.lesson_id AND b.status = 'Confirmed'
+            GROUP BY
+                l.id,
+                l.level,
+                l.day_of_week,
+                l.start_time,
+                l.end_time,
+                l.capacity,
+                coach.first_name,
+                coach.last_name,
+                coach.specialty
+            ORDER BY
+                FIELD(l.day_of_week,
+                    'Monday','Tuesday','Wednesday','Thursday',
+                    'Friday','Saturday','Sunday'
+                ),
+                l.start_time,
+                l.id";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$swimmerProfileId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$swimmerProfileId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     /**
      * obtiene las clases en las que un alumno
@@ -71,10 +82,16 @@ class Lesson
                 INNER JOIN lessons  l     ON b.lesson_id  = l.id
                 INNER JOIN profiles coach ON l.profile_id = coach.id
                 WHERE b.profile_id = ? AND b.status = 'Confirmed'
-                ORDER BY
-                    FIELD(l.day_of_week,
-                        'Monday','Tuesday','Wednesday',
-                        'Thursday','Friday','Saturday'),
+                ORDER BY 
+                    CASE l.day_of_week
+                        WHEN 'Monday' THEN 1
+                        WHEN 'Tuesday' THEN 2
+                        WHEN 'Wednesday' THEN 3
+                        WHEN 'Thursday' THEN 4
+                        WHEN 'Friday' THEN 5
+                        WHEN 'Saturday' THEN 6
+                        ELSE 7
+                    END,
                     l.start_time";
 
         $stmt = $this->db->prepare($sql);
@@ -94,12 +111,17 @@ class Lesson
                 LEFT JOIN bookings b ON l.id = b.lesson_id AND b.status = 'Confirmed'
                 WHERE l.profile_id = ?
                 GROUP BY l.id
-                ORDER BY
-                    FIELD(l.day_of_week,
-                        'Monday','Tuesday','Wednesday',
-                        'Thursday','Friday','Saturday'),
-                    l.start_time";
-
+                        ORDER BY 
+                        CASE l.day_of_week
+                            WHEN 'Monday' THEN 1
+                            WHEN 'Tuesday' THEN 2
+                            WHEN 'Wednesday' THEN 3
+                            WHEN 'Thursday' THEN 4
+                            WHEN 'Friday' THEN 5
+                            WHEN 'Saturday' THEN 6
+                            WHEN 'Sunday' THEN 7
+                        END,
+                        l.start_time";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$coachProfileId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -135,24 +157,30 @@ public function getStudentsByLesson(int $lessonId): array
      * de alumnos inscriptos.
      * @return array
      */
-    public function getAll(): array
-    {
-        $sql = "SELECT
-                    l.*,
-                    CONCAT(coach.first_name, ' ', coach.last_name) AS coach_name,
-                    COUNT(b.id) AS booked_count
-                FROM lessons l
-                INNER JOIN profiles coach ON l.profile_id = coach.id
-                LEFT  JOIN bookings b ON l.id = b.lesson_id AND b.status = 'Confirmed'
-                GROUP BY l.id
-                ORDER BY
-                    FIELD(l.day_of_week,
-                        'Monday','Tuesday','Wednesday',
-                        'Thursday','Friday','Saturday'),
-                    l.start_time";
+        public function getAll(): array
+{
+    $sql = "SELECT
+                l.*,
+                CONCAT(coach.first_name, ' ', coach.last_name) AS coach_name,
+                COUNT(b.id) AS booked_count
+            FROM lessons l
+            INNER JOIN profiles coach ON l.profile_id = coach.id
+            LEFT JOIN bookings b ON l.id = b.lesson_id AND b.status = 'Confirmed'
+            GROUP BY l.id
+            ORDER BY 
+            CASE l.day_of_week
+                WHEN 'Monday' THEN 1
+                WHEN 'Tuesday' THEN 2
+                WHEN 'Wednesday' THEN 3
+                WHEN 'Thursday' THEN 4
+                WHEN 'Friday' THEN 5
+                WHEN 'Saturday' THEN 6
+                ELSE 7
+            END,
+            l.start_time";
 
-        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    }
+    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 
      /**
      * verifica si un alumno ya se encuentra
@@ -300,7 +328,12 @@ public function getStudentsByLesson(int $lessonId): array
 
 public function delete($id)
 {
-    $sql = "SELECT COUNT(*) FROM bookings WHERE lesson_id = ?";
+    // Verificar si hay alumnos confirmados
+    $sql = "SELECT COUNT(*)
+            FROM bookings
+            WHERE lesson_id = ?
+            AND status = 'Confirmed'";
+
     $stmt = $this->db->prepare($sql);
     $stmt->execute([$id]);
 
@@ -308,8 +341,12 @@ public function delete($id)
         return false;
     }
 
-    $sql = "DELETE FROM lessons WHERE id = ?";
-    $stmt = $this->db->prepare($sql);
+    // Eliminar reservas canceladas o cualquier reserva no confirmada
+    $stmt = $this->db->prepare("DELETE FROM bookings WHERE lesson_id = ?");
+    $stmt->execute([$id]);
+
+    // Eliminar la clase
+    $stmt = $this->db->prepare("DELETE FROM lessons WHERE id = ?");
 
     return $stmt->execute([$id]);
 }

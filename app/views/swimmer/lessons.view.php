@@ -48,18 +48,17 @@
                     </button>
 
                     <?php
-                        $order = [
-                            'Lunes',
-                            'Martes',
-                            'Miércoles',
-                            'Jueves',
-                            'Viernes',
-                            'Sábado',
-                            'Domingo'
-                        ];
+                    $order = [
+                        'Monday',
+                        'Tuesday',
+                        'Wednesday',
+                        'Thursday',
+                        'Friday',
+                        'Saturday',
+                        'Sunday'
+                    ];
 
-                        $days = array_unique(array_column($lessons, 'day_label'));
-
+                        $days = array_unique(array_column($lessons, 'day_of_week'));
                         usort($days, function ($a, $b) use ($order) {
                             $posA = array_search($a, $order);
                             $posB = array_search($b, $order);
@@ -89,8 +88,9 @@
                     $spotsLeft = max(0, $lesson['capacity'] - $lesson['booked_count']);
                 ?>
 
-                    <div class="col-md-6 col-xl-4 lesson-card"
-                        data-day="<?= htmlspecialchars($lesson['day_label']) ?>">
+                     
+                <div class="col-md-6 col-xl-4 lesson-card"
+                     data-day="<?= htmlspecialchars($lesson['day_of_week']) ?>">
 
                         <div class="card h-100 lesson-modern-card">
 

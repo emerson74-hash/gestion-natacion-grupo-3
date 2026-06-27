@@ -83,88 +83,94 @@ class AdminController extends BaseController
 
     }
 
+    public function createCoach()
+    {
+        $this->checkAuth();
+        $this->checkRole([1]);
 
-public function createCoach()
-{
-    $this->checkAuth();
-    $this->checkRole([1]);
+        $this->render('admin/create-coach.view');
+    }
 
-    $this->render('admin/create-coach.view');
-}
 
     public function storeCoach()
-{
-    $this->checkAuth();
-    $this->checkRole([1]);
+    {
+        $this->checkAuth();
+        $this->checkRole([1]);
 
-    $email = trim($_POST['email'] ?? '');
+        $email = trim($_POST['email'] ?? '');
 
-    if (empty($email)) {
+        if (empty($email)) {
 
-        $_SESSION['error'] = 'Debe ingresar un correo electrónico';
+            $_SESSION['error'] = 'Debe ingresar un correo electrónico';
 
-        header('Location: ?url=admin&section=create-coach');
-        exit;
-    }
+            header('Location: ?url=admin&section=create-coach');
+            exit;
+        }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-        $_SESSION['error'] = 'El correo electrónico no es válido';
+            $_SESSION['error'] = 'El correo electrónico no es válido';
 
-        header('Location: ?url=admin&section=create-coach');
-        exit;
-    }
+            header('Location: ?url=admin&section=create-coach');
+            exit;
+        }
 
-    if ($this->userModel->emailExists($email)) {
+        $tempPassword = substr(bin2hex(random_bytes(4)), 0, 8);
 
-        $_SESSION['error'] = 'El email ya existe';
+        $data = [
 
-        header('Location: ?url=admin&section=create-coach');
-        exit;
-    }
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'phone' => $_POST['phone'],
+            'birth_date' => $_POST['birth_date'],
+            'email' => $_POST['email'],
+            'specialty' => $_POST['specialty'],
 
-    $tempPassword = substr(bin2hex(random_bytes(4)), 0, 8);
+            'profile_image' => null,
 
-    $data = [
 
-        'first_name' => $_POST['first_name'],
-        'last_name'  => $_POST['last_name'],
-        'phone'      => $_POST['phone'],
-        'birth_date' => $_POST['birth_date'],
-        'email'      => $email,
-        'specialty'  => $_POST['specialty'],
+            'password' => password_hash(
+                $tempPassword,
+                PASSWORD_DEFAULT
+            ),
 
-        'profile_image' => null,
+            'role_id' => 2 // coach
+        ];
 
-        'password' => password_hash(
-            $tempPassword,
-            PASSWORD_DEFAULT
-        ),
 
-        'role_id' => 2
-    ];
 
-// Guarda el entrenador
-$this->userModel->createCoach($data);
+        if ($this->userModel->emailExists($_POST['email'])) {
+            $_SESSION['error'] = "El email ya existe";
 
-// Envía el correo con las credenciales
-$mailService = new MailService();
+            header("Location: ?url=admin&section=create-coach");
+            exit;
+        }
 
-$resultado = $mailService->sendCoachCredentials(
+
+
+        //Una vez creado el coach, envia el mail automatico
+        $this->userModel->createCoach($data);
+
+        $mailService = new MailService();
+
+        $mailService->sendCoachCredentials(
     $data['email'],
     $data['first_name'],
     $tempPassword
 );
 
-// Mensaje de éxito
-$_SESSION['success'] = 'Entrenador creado correctamente';
 
-// Redirección
-header('Location: ?url=admin&section=coaches');
+var_dump($result);
 exit;
-   }
 
-   
+        $_SESSION['success'] = 'Entrenador creado correctamente';
+
+        header("Location: ?url=admin&section=coaches");
+        exit;
+
+    }
+
+
     //Metodo de editar boton 
     public function editCoach()
     {
@@ -182,26 +188,26 @@ exit;
         $this->render('admin/edit-coach.view', $data);
     }
 
-  public function updateCoach()
-{
-    $this->checkAuth();
-    $this->checkRole([1]);
+    public function updateCoach()
+    {
+        $this->checkAuth();
+        $this->checkRole([1]);
 
-    $data = [
-        'id' => $_POST['id'],
-        'first_name' => $_POST['first_name'],
-        'last_name' => $_POST['last_name'],
-        'email' => $_POST['email'],
-        'specialty' => $_POST['specialty'],
-        'phone' => $_POST['phone'],
-        'birth_date' => $_POST['birth_date']
-    ];
+        $data = [
 
-    $this->userModel->updateCoach($data);
+            'id' => $_POST['id'],
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'email' => $_POST['email'],
+            'specialty' => $_POST['specialty']
 
-    header("Location: ?url=admin&section=coaches");
-    exit;
-}
+        ];
+
+        $this->userModel->updateCoach($data);
+
+        header("Location: ?url=admin&section=coaches");
+        exit;
+    }
 
     //Metodo para permitir al admin usar el boton eliminar en la tabla
     public function deleteCoach()
@@ -235,19 +241,37 @@ exit;
 
     //Admin: Parte Clases 
 
-    public function lessons()
-    {
-        $this->checkAuth();
-        $this->checkRole([1]);
+public function lessons()
+{
+    $this->checkAuth();
+    $this->checkRole([1]);
 
-        $lessons = $this->lessonModel->getAll();
+    $lessons = $this->lessonModel->getAll();
 
-        $data = [
-            'lessons' => $lessons
-        ];
+    // 🔵 Mapeo de días de la semana
+    $daysMap = [
+        1 => 'Lunes',
+        2 => 'Martes',
+        3 => 'Miércoles',
+        4 => 'Jueves',
+        5 => 'Viernes',
+        6 => 'Sábado',
+        7 => 'Domingo'
+    ];
 
-        $this->render('admin/lessons.view', $data);
+    // 🔵 Convertimos el número en texto para la vista
+    foreach ($lessons as &$lesson) {
+        if (isset($lesson['day_of_week'])) {
+            $lesson['day_name'] = $daysMap[$lesson['day_of_week']] ?? $lesson['day_of_week'];
+        }
     }
+
+    $data = [
+        'lessons' => $lessons
+    ];
+
+    $this->render('admin/lessons.view', $data);
+}
 
     //crear clase
     public function createLesson()
@@ -269,6 +293,21 @@ exit;
     {
         $this->checkAuth();
         $this->checkRole([1]);
+
+        /* $data = [
+              'level' => $_POST['level'],
+              'day_of_week' => $_POST['day_of_week'],
+              'start_time' => $_POST['start_time'],
+              'end_time' => $_POST['end_time'],
+              'capacity' => $_POST['capacity'],
+              'profile_id' => $_POST['profile_id']
+          ];**/
+
+
+        //$this->lessonModel->create($data);
+
+        //header("Location: ?url=admin&section=lessons");
+        // exit;
 
         if (
             $this->lessonModel->hasScheduleConflict(
@@ -369,4 +408,5 @@ exit;
         header("Location: ?url=admin&section=lessons");
         exit;
     }
+
 }
