@@ -83,14 +83,26 @@ public function getAvailableForSwimmer(int $swimmerProfileId): array
                 INNER JOIN profiles coach ON l.profile_id = coach.id
                 WHERE b.profile_id = ? AND b.status = 'Confirmed'
                 ORDER BY 
-                    CASE l.day_of_week
-                        WHEN 'Monday' THEN 1
-                        WHEN 'Tuesday' THEN 2
-                        WHEN 'Wednesday' THEN 3
-                        WHEN 'Thursday' THEN 4
-                        WHEN 'Friday' THEN 5
-                        WHEN 'Saturday' THEN 6
-                        ELSE 7
+                   
+    CASE l.day_of_week
+        WHEN 'Lunes' THEN 1
+        WHEN 'Martes' THEN 2
+        WHEN 'Miercoles' THEN 3
+        WHEN 'Miércoles' THEN 3
+        WHEN 'Jueves' THEN 4
+        WHEN 'Viernes' THEN 5
+        WHEN 'Sabado' THEN 6
+        WHEN 'Sábado' THEN 6
+        WHEN 'Domingo' THEN 7
+
+        WHEN 'Monday' THEN 1
+        WHEN 'Tuesday' THEN 2
+        WHEN 'Wednesday' THEN 3
+        WHEN 'Thursday' THEN 4
+        WHEN 'Friday' THEN 5
+        WHEN 'Saturday' THEN 6
+        WHEN 'Sunday' THEN 7
+   
                     END,
                     l.start_time";
 

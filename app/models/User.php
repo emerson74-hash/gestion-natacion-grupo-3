@@ -227,7 +227,12 @@ class User
             $data['profile_image']
         ]);
     }
-
+public function getByEmail($email)
+{
+    $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
     // Metodo que muestra mensaje en caso de tener el mismo mail dos coaches
 
     public function emailExists($email)

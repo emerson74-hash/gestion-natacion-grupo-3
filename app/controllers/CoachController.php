@@ -110,10 +110,10 @@ class CoachController extends BaseController
 
         $userId = $_SESSION['user_id'];
 
-        $firstName = $_POST['nuevo_nombre'] ?? '';
-        $lastName = $_POST['nuevo_apellido'] ?? '';
-        $specialty = $_POST['nueva_especialidad'] ?? '';
-        $phone = $_POST['telefono'] ?? '';
+       $firstName = $_POST['first_name'] ?? '';
+    $lastName  = $_POST['last_name']  ?? '';
+    $specialty = $_POST['specialty']  ?? '';
+    $phone     = $_POST['phone']      ?? '';
         $birthDate = $_POST['birth_date'] ?? null;
 
         $newPassword = $_POST['nueva_contraseña'] ?? '';

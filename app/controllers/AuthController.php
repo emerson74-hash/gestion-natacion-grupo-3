@@ -181,6 +181,7 @@ class AuthController extends BaseController
 
     public function authenticate()
     {
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return $this->json('error', 'Acceso no permitido.');
         }

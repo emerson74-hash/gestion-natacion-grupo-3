@@ -70,9 +70,11 @@ export function initEdit() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();                                                       //frena el envio normal y permite a ajax tomar el controll
 
-    const nombre = form.querySelector("#nuevo_nombre");
-    const apellido = form.querySelector("#nuevo_apellido");
-    const specialty = form.querySelector("#nueva_especialidad");
+
+    const nombre = form.querySelector('[name="first_name"]');
+      const apellido = form.querySelector('[name="last_name"]');
+      const specialty = form.querySelector('[name="specialty"]');
+      const phone = form.querySelector('[name="phone"]');
     const password = form.querySelector("#nueva_contraseña");
     const confirm = form.querySelector("#confirmar_nueva_contraseña");
 
@@ -96,7 +98,17 @@ export function initEdit() {
       if (specialty) specialty.classList.add("is-invalid");
       return handleAlert("warning", "Ingrese su especialidad.");
     }
+if (!phone || !phone.value.trim()) {
+  phone.classList.add("is-invalid");
+  return handleAlert("warning", "Ingrese su teléfono.");
+}
 
+const phoneClean = phone.value.replace(/\D/g, "");
+
+if (phoneClean.length < 8 || phoneClean.length > 15) {
+  phone.classList.add("is-invalid");
+  return handleAlert("warning", "El teléfono debe tener entre 8 y 15 dígitos.");
+}
     
     if (password && password.value.trim() !== "") {
       if (password.value.length < 6) {

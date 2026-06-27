@@ -16,7 +16,7 @@ import { initPasswordToggles } from "./passwordToggle.js";
 
 // Esperamos a que el DOM esté completamente cargado para evitar errores de referencia
 
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
   initPasswordToggles();
 
@@ -26,7 +26,10 @@ import { initPasswordToggles } from "./passwordToggle.js";
   initResetPassword();
 
   // coach
-  initEdit();
+  if (document.getElementById("formEdit")) {
+    initEdit();
+  }
+
   initLessonsTableCoach();
 
   // swimmer

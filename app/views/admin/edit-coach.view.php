@@ -48,23 +48,29 @@
                                        required>
                             </div>
 
-                            <!-- Fecha -->
-                            <div class="col-md-6">
-                                <label class="form-label">Fecha de nacimiento</label>
-                                <input type="date"
-                                       name="birth_date"
-                                       class="form-control coach-input"
-                                       value="<?= $coach['birth_date'] ?? '' ?>">
-                            </div>
+                                                                <!-- Fecha -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Fecha de nacimiento</label>
+                                    <input type="date"
+                                        name="birth_date"
+                                        class="form-control coach-input"
+                                        value="<?= $coach['birth_date'] ?? '' ?>"
+                                        max="<?= date('Y-m-d', strtotime('-18 years')) ?>"
+                                        min="<?= date('Y-m-d', strtotime('-80 years')) ?>"
+                                        required>
+                                </div>
 
-                            <!-- Teléfono -->
-                            <div class="col-md-6">
-                                <label class="form-label">Teléfono</label>
-                                <input type="text"
-                                       name="phone"
-                                       class="form-control coach-input"
-                                       value="<?= $coach['phone'] ?? '' ?>">
-                            </div>
+                                <!-- Teléfono -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="tel"
+                                        name="phone"
+                                        class="form-control coach-input"
+                                        value="<?= $coach['phone'] ?? '' ?>"
+                                        pattern="[0-9\s\+\-]{8,15}"
+                                        title="Solo números, entre 8 y 15 dígitos"
+                                        required>
+                                </div>
 
                             <!-- Email -->
                             <div class="col-md-6">
